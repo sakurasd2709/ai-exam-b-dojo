@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>AI実装検定® B級 過去問・演習道場🥋｜公式テキスト完全準拠</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-icon">🥋</div>
+      <div class="header-title">
+        <span class="exam-badge">AI実装検定® B級</span>
+        <h1>過去問・演習道場</h1>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="btnWeaknessAnalysis" class="header-btn" title="7大分野の弱点分析 & レーダーチャート">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <span>📊 弱点分析</span>
+      </button>
+
+      <button id="btnVideoCatalog" class="header-btn" title="YouTube公式講義動画 (全41講) を開く">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+        <span>🎬 公式動画カタログ (41講)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="app-layout">
+    <!-- Sidebar Navigation & Filters -->
+    <aside class="app-sidebar">
+      <!-- Streak Tracker -->
+      <div class="streak-tracker-card" id="streakTrackerCard">
+        <div class="streak-info-left">
+          <span class="streak-flame-icon">🔥</span>
+          <div class="streak-details">
+            <span class="streak-title">連続学習記録</span>
+            <span class="streak-count-display"><span id="streakCount">0</span> 日連続！</span>
+          </div>
+        </div>
+        <div class="streak-today-badge">
+          本日 <span id="todayAnsweredCount">0</span> 問
+        </div>
+      </div>
+
+      <!-- Learning Mode -->
+      <div class="sidebar-section">
+        <div class="section-title">学習モード</div>
+        <div class="mode-selector">
+          <button class="mode-btn active" data-mode="practice">
+            <span class="mode-icon">📝</span>
+            <span class="mode-label">練習 (即時解説)</span>
+          </button>
+          <button class="mode-btn" data-mode="exam">
+            <span class="mode-icon">⏱️</span>
+            <span class="mode-label">本番模試 (一括採点)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Sidebar Collapsible Toggle (BUG-07) -->
+      <button id="btnToggleSidebar" class="sidebar-toggle-btn" type="button" aria-expanded="false">
+        <span>📋 出題設定・問題リスト (90問) を表示</span>
+        <span id="sidebarToggleIcon">▼</span>
+      </button>
+
+      <!-- Collapsible Container for Sets, Filters & Question Grid (BUG-07) -->
+      <div class="sidebar-collapsible-group" id="sidebarCollapsibleGroup">
+        <!-- Question Range & Sets -->
+        <div class="sidebar-section">
+          <div class="section-title">出題範囲 (トピック・セット)</div>
+          <div class="set-selector-group">
+            <div class="set-quick-grid">
+              <button class="set-pill-btn active" data-set="all" style="grid-column: span 2;">📁 全問 (90問)</button>
+              <button class="set-pill-btn exam-flagship-btn" data-set="exam30" style="grid-column: span 2;">🎯 本番再現模試 (30問/40分)</button>
+              
+              <button class="set-pill-btn" data-set="topic1" style="grid-column: span 2;">1. モデル設計と活用 (12問)</button>
+              <button class="set-pill-btn" data-set="topic2" style="grid-column: span 2;">2. データとタスク (12問)</button>
+              <button class="set-pill-btn" data-set="topic3" style="grid-column: span 2;">3. モデルの評価指標 (14問)</button>
+              <button class="set-pill-btn" data-set="topic4" style="grid-column: span 2;">4. 画像データの扱い (14問)</button>
+              <button class="set-pill-btn" data-set="topic5" style="grid-column: span 2;">5. 数学的な表現 (14問)</button>
+              <button class="set-pill-btn" data-set="topic6" style="grid-column: span 2;">6. 計算量の基礎 (12問)</button>
+              <button class="set-pill-btn" data-set="topic7" style="grid-column: span 2;">7. 開発と活用 (12問)</button>
+
+              <button class="set-pill-btn random-btn" data-set="random10" style="grid-column: span 2;">🎲 ランダム10問ミニテスト</button>
+              
+              <button class="set-pill-btn" data-set="set1">第1セット (1〜10)</button>
+              <button class="set-pill-btn" data-set="set2">第2セット (11〜20)</button>
+              <button class="set-pill-btn" data-set="set3">第3セット (21〜30)</button>
+              <button class="set-pill-btn" data-set="set4">第4セット (31〜40)</button>
+              <button class="set-pill-btn" data-set="set5">第5セット (41〜50)</button>
+              <button class="set-pill-btn" data-set="set6">第6セット (51〜60)</button>
+              <button class="set-pill-btn" data-set="set7">第7セット (61〜70)</button>
+              <button class="set-pill-btn" data-set="set8">第8セット (71〜80)</button>
+              <button class="set-pill-btn" data-set="set9" style="grid-column: span 2;">第9セット (81〜90)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="sidebar-section">
+          <div class="section-title">問題フィルター</div>
+          <div class="filter-group">
+            <button class="filter-pill active" data-filter="all">全問 (<span id="countAll">90</span>)</button>
+            <button class="filter-pill" data-filter="incorrect">間違えた問題 (<span id="countIncorrect">0</span>)</button>
+            <button class="filter-pill" data-filter="bookmarked">ブックマーク (<span id="countBookmarked">0</span>)</button>
+            <button class="filter-pill" data-filter="unanswered">未回答 (<span id="countUnanswered">90</span>)</button>
+          </div>
+        </div>
+
+        <!-- Stats Box -->
+        <div class="sidebar-section stats-box">
+          <div class="section-title">進捗状況</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="overallProgressBar" style="width: 0%;"></div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="statAnswered">0/90</div>
+              <div class="stat-name">回答済み</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value text-success" id="statAccuracy">0%</div>
+              <div class="stat-name">正答率</div>
+            </div>
+          </div>
+          <button id="btnResumeLast" class="resume-btn" title="最後に開いていた問題から再開">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span id="resumeBtnText">前回の続きから解く</span>
+          </button>
+        </div>
+
+        <!-- Question Grid Navigation -->
+        <div class="sidebar-section">
+          <div class="section-title">問題リスト</div>
+          <div class="question-nav-grid" id="questionNavGrid">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer-area">
+          <button id="btnResetHistory" class="sidebar-reset-btn" title="学習履歴をリセット">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            <span>学習履歴のリセット</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      <!-- Toolbar -->
+      <div class="question-toolbar">
+        <div class="toolbar-left">
+          <span class="question-badge" id="currentTopicBadge">第1講: モデルの設計と活用</span>
+          <span class="question-num-display" id="currentQuestionNumberDisplay">質問 #1 / 90</span>
+          <span class="question-type-badge" id="currentTypeBadge">○×問題</span>
+        </div>
+        <div class="toolbar-right">
+          <button id="btnWatchVideoDirect" class="tool-btn" title="この問題の公式テキスト解説動画を開く">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" color="#dc2626"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>公式動画で確認</span>
+          </button>
+          <button id="btnBookmark" class="tool-btn" title="この問題をブックマーク">
+            <svg class="star-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>ブックマーク</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Exam Timer Banner -->
+      <div id="examBanner" class="exam-banner hidden">
+        <div class="timer-display">
+          <span>⏱️ 残り時間: <strong id="examTimer">40:00</strong></span>
+        </div>
+        <button id="btnFinishExam" class="primary-btn sm-btn">模試を終了して採点</button>
+      </div>
+
+      <!-- Question Card -->
+      <div class="question-card" id="questionCard">
+        <!-- Question Prompt Area -->
+        <div class="question-prompt-box">
+          <div class="question-text" id="questionText">
+            <!-- Question text rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Dynamic Answer Area -->
+        <div id="answerArea" class="answer-area">
+          <!-- Rendered by JS based on question type -->
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+          <button id="btnSubmitAnswer" class="primary-btn">回答を確認する</button>
+          <div class="nav-controls">
+            <button id="btnPrevQuestion" class="secondary-btn">← 前へ</button>
+            <button id="btnNextQuestion" class="secondary-btn">次へ →</button>
+          </div>
+        </div>
+
+        <!-- 3-Layer Structured Explanation Container -->
+        <div id="explanationArea" class="explanation-container hidden">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal: Weakness Analysis & Radar Chart -->
+  <div id="weaknessModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📊 7大分野別 弱点分析 & レーダーチャート</span>
+        </div>
+        <button class="modal-close-btn" data-close="weaknessModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="radar-chart-container">
+          <canvas id="radarCanvas" class="radar-canvas" width="460" height="460"></canvas>
+          <div class="topic-stat-list" id="topicStatList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Video Catalog -->
+  <div id="videoModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎬 公式テキスト YouTube動画カタログ (全41講)</span>
+        </div>
+        <button class="modal-close-btn" data-close="videoModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="catalogSearchInput" class="catalog-search-bar" placeholder="講義タイトルやキーワードを検索 (例: 内積, ILSVRC, オーダー記法, 損失関数)...">
+        <div class="catalog-grid" id="catalogGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Exam Summary -->
+  <div id="examSummaryModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎯 本番再現模試 結果サマリー</span>
+        </div>
+        <button class="modal-close-btn" data-close="examSummaryModal">&times;</button>
+      </div>
+      <div class="modal-body" id="examSummaryBody" style="text-align: center; padding: 28px;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 10-Question Summary -->
+  <div id="setSummaryModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎉 セット演習 完了サマリー</span>
+        </div>
+        <button class="modal-close-btn" data-close="setSummaryModal">&times;</button>
+      </div>
+      <div class="modal-body" id="setSummaryBody" style="text-align: center; padding: 24px;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/video_catalog.js"></script>
+  <script src="data/questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

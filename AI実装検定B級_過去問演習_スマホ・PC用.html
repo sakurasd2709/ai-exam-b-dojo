@@ -1,0 +1,5402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>AI実装検定® B級 過去問・演習道場🥋｜公式テキスト完全準拠</title>
+  <style>
+/* ==========================================================================
+   AI実装検定® B級 過去問・演習道場 - Modern Fluent UI Design System
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+
+  /* Color Palette */
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --primary-border: #bfdbfe;
+
+  --accent-color: #7c3aed;
+  --accent-light: #f5f3ff;
+
+  --success-color: #10b981;
+  --success-hover: #059669;
+  --success-light: #ecfdf5;
+  --success-border: #a7f3d0;
+
+  --danger-color: #ef4444;
+  --danger-hover: #dc2626;
+  --danger-light: #fef2f2;
+  --danger-border: #fecaca;
+
+  --warning-color: #f59e0b;
+  --warning-light: #fffbeb;
+  --warning-border: #fde68a;
+
+  /* Neutral Colors */
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-sidebar: #ffffff;
+  --bg-hover: #f1f5f9;
+
+  --text-main: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-inverse: #ffffff;
+
+  --border-color: #e2e8f0;
+  --border-dark: #cbd5e1;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --header-height: 64px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Header Component
+   ========================================================================== */
+
+.app-header {
+  height: var(--header-height);
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-title h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.exam-badge {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-dark);
+}
+
+.header-btn.primary-btn {
+  background: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+}
+
+.header-btn.primary-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* ==========================================================================
+   Layout (Sidebar + Main)
+   ========================================================================== */
+
+.app-layout {
+  display: flex;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* Sidebar */
+.app-sidebar {
+  width: 320px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--header-height));
+  position: sticky;
+  top: var(--header-height);
+  overflow-y: auto;
+  padding: 16px;
+  gap: 18px;
+}
+
+.streak-tracker-card {
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  border: 1px solid #fed7aa;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.streak-info-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.streak-flame-icon {
+  font-size: 1.5rem;
+}
+
+.streak-title {
+  font-size: 0.72rem;
+  color: #9a3412;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+}
+
+.streak-count-display {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ea580c;
+}
+
+.streak-today-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #ffffff;
+  color: #c2410c;
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid #fed7aa;
+}
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  padding-left: 2px;
+}
+
+.mode-selector {
+  display: flex;
+  background: var(--bg-app);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.mode-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mode-btn.active {
+  background: #ffffff;
+  color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.set-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.set-pill-btn {
+  padding: 7px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.set-pill-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+}
+
+.set-pill-btn.active {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  border-color: var(--primary-border);
+}
+
+.set-pill-btn.exam-flagship-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border-color: #1d4ed8;
+  font-weight: 700;
+}
+
+.set-pill-btn.exam-flagship-btn:hover {
+  filter: brightness(1.08);
+}
+
+.set-pill-btn.random-btn {
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  color: var(--accent-color);
+  border-color: #ddd6fe;
+}
+
+.filter-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.filter-pill {
+  padding: 6px 10px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: center;
+}
+
+.filter-pill.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.stats-box {
+  background: var(--bg-app);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-bar-container {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #10b981);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.stat-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.stat-value.text-success {
+  color: var(--success-color);
+}
+
+.stat-name {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.resume-btn {
+  width: 100%;
+  margin-top: 6px;
+  padding: 7px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--primary-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.resume-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-border);
+}
+
+.question-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.q-nav-btn {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.q-nav-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.q-nav-btn.active {
+  border-color: var(--primary-color);
+  background: var(--primary-color);
+  color: #ffffff;
+  box-shadow: 0 0 0 2px var(--primary-border);
+}
+
+.q-nav-btn.correct {
+  background: var(--success-light);
+  border-color: var(--success-border);
+  color: var(--success-color);
+}
+
+.q-nav-btn.incorrect {
+  background: var(--danger-light);
+  border-color: var(--danger-border);
+  color: var(--danger-color);
+}
+
+.sidebar-footer-area {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-reset-btn {
+  width: 100%;
+  padding: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.sidebar-reset-btn:hover {
+  color: var(--danger-color);
+  border-color: var(--danger-color);
+  background: var(--danger-light);
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+
+.app-main {
+  flex: 1;
+  padding: 24px 32px;
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.question-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.question-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.question-num-display {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.question-type-badge {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.tool-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+}
+
+.tool-btn.bookmarked {
+  background: #fef9c3;
+  color: #854d0e;
+  border-color: #fde047;
+}
+
+/* Exam Banner */
+.exam-banner {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-md);
+}
+
+.timer-display {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer-display strong {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+}
+
+/* Question Card */
+.question-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.question-prompt-box {
+  margin-bottom: 24px;
+}
+
+.question-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+/* Options Area */
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.option-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.option-item:hover {
+  border-color: #93c5fd;
+  background: #f8fafc;
+}
+
+.option-item.selected {
+  border-color: var(--primary-color);
+  background: #eff6ff;
+}
+
+.option-item.correct {
+  border-color: var(--success-color) !important;
+  background: #ecfdf5 !important;
+}
+
+.option-item.incorrect {
+  border-color: var(--danger-color) !important;
+  background: #fef2f2 !important;
+}
+
+.option-radio {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+}
+
+.option-label {
+  flex: 1;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* Ox Choice Specific */
+.ox-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ox-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s;
+  gap: 8px;
+}
+
+.ox-btn:hover {
+  border-color: var(--primary-color);
+  background: var(--primary-light);
+}
+
+.ox-symbol {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ox-btn.ox-o .ox-symbol { color: #dc2626; }
+.ox-btn.ox-x .ox-symbol { color: #2563eb; }
+
+.ox-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.ox-btn.selected {
+  border-color: var(--primary-color);
+  background: #eff6ff;
+  box-shadow: var(--shadow-md);
+}
+
+.ox-btn.correct {
+  border-color: var(--success-color) !important;
+  background: #ecfdf5 !important;
+}
+
+.ox-btn.incorrect {
+  border-color: var(--danger-color) !important;
+  background: #fef2f2 !important;
+}
+
+/* Drag & Drop Order */
+.dnd-container {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dnd-pool, .dnd-target-slots {
+  border: 2px dashed var(--border-dark);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: var(--bg-app);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 120px;
+}
+
+.dnd-item {
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: grab;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dnd-item:active {
+  cursor: grabbing;
+}
+
+/* Hotspot & Matching */
+.matching-row, .hotspot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  gap: 16px;
+}
+
+.matching-select {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-dark);
+  background: #ffffff;
+  font-size: 0.92rem;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Action Bar */
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.primary-btn {
+  background: var(--primary-color);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.primary-btn:hover {
+  background: var(--primary-hover);
+}
+
+.nav-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.secondary-btn {
+  background: #ffffff;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.secondary-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+}
+
+/* ==========================================================================
+   3-Layer Explanation Card
+   ========================================================================== */
+
+.explanation-container {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-badge-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.result-badge-bar.correct {
+  background: var(--success-light);
+  color: var(--success-color);
+  border: 1.5px solid var(--success-border);
+}
+
+.result-badge-bar.incorrect {
+  background: var(--danger-light);
+  color: var(--danger-color);
+  border: 1.5px solid var(--danger-border);
+}
+
+.exp-card {
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  border-left: 4px solid transparent;
+  background: #ffffff;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.exp-card.card-basic {
+  border-left: 4px solid #3b82f6;
+  background: #f8fafc;
+}
+
+.exp-card.card-correct {
+  border-left: 4px solid var(--success-color);
+  background: #f0fdf4;
+}
+
+.exp-card.card-wrong {
+  border-left: 4px solid #ef4444;
+  background: #fff1f2;
+}
+
+.exp-card.card-video {
+  border-left: 4px solid #dc2626;
+  background: #fef2f2;
+}
+
+.exp-card-header {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-basic .exp-card-header { color: #1d4ed8; }
+.card-correct .exp-card-header { color: #047857; }
+.card-wrong .exp-card-header { color: #b91c1c; }
+.card-video .exp-card-header { color: #991b1b; }
+
+.exp-card-content {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: #1e293b;
+  white-space: pre-wrap;
+}
+
+.video-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #dc2626;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background 0.15s;
+}
+
+.video-cta-btn:hover {
+  background: #b91c1c;
+}
+
+/* ==========================================================================
+   Modals
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  width: 90%;
+  max-width: 760px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-main);
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Radar Chart Canvas Container */
+.radar-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.radar-canvas {
+  max-width: 440px;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.topic-stat-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.topic-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: var(--bg-app);
+  border: 1px solid var(--border-color);
+}
+
+.topic-drill-btn {
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Video Catalog */
+.catalog-search-bar {
+  margin-bottom: 16px;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.catalog-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.catalog-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.catalog-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #1e293b;
+}
+
+.catalog-info {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.catalog-lecture-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.catalog-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Utilities */
+.hidden { display: none !important; }
+
+/* Sidebar Collapsible Group (Desktop Default) (BUG-07) */
+.sidebar-toggle-btn {
+  display: none;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-hover);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sidebar-toggle-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-border);
+  color: var(--primary-color);
+}
+
+.sidebar-collapsible-group {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Responsive adjustments (BUG-07) */
+@media (max-width: 900px) {
+  .app-layout {
+    flex-direction: column;
+  }
+  .app-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 16px;
+    gap: 10px;
+  }
+  .sidebar-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sidebar-collapsible-group {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 6px;
+  }
+  .sidebar-collapsible-group.open {
+    display: flex;
+  }
+  .matching-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .matching-select {
+    max-width: 100%;
+    width: 100%;
+  }
+  .app-main {
+    padding: 16px 12px;
+  }
+  .header-btn span {
+    display: none;
+  }
+}
+
+</style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-icon">🥋</div>
+      <div class="header-title">
+        <span class="exam-badge">AI実装検定® B級</span>
+        <h1>過去問・演習道場</h1>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="btnWeaknessAnalysis" class="header-btn" title="7大分野の弱点分析 & レーダーチャート">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <span>📊 弱点分析</span>
+      </button>
+
+      <button id="btnVideoCatalog" class="header-btn" title="YouTube公式講義動画 (全41講) を開く">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+        <span>🎬 公式動画カタログ (41講)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="app-layout">
+    <!-- Sidebar Navigation & Filters -->
+    <aside class="app-sidebar">
+      <!-- Streak Tracker -->
+      <div class="streak-tracker-card" id="streakTrackerCard">
+        <div class="streak-info-left">
+          <span class="streak-flame-icon">🔥</span>
+          <div class="streak-details">
+            <span class="streak-title">連続学習記録</span>
+            <span class="streak-count-display"><span id="streakCount">0</span> 日連続！</span>
+          </div>
+        </div>
+        <div class="streak-today-badge">
+          本日 <span id="todayAnsweredCount">0</span> 問
+        </div>
+      </div>
+
+      <!-- Learning Mode -->
+      <div class="sidebar-section">
+        <div class="section-title">学習モード</div>
+        <div class="mode-selector">
+          <button class="mode-btn active" data-mode="practice">
+            <span class="mode-icon">📝</span>
+            <span class="mode-label">練習 (即時解説)</span>
+          </button>
+          <button class="mode-btn" data-mode="exam">
+            <span class="mode-icon">⏱️</span>
+            <span class="mode-label">本番模試 (一括採点)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Sidebar Collapsible Toggle (BUG-07) -->
+      <button id="btnToggleSidebar" class="sidebar-toggle-btn" type="button" aria-expanded="false">
+        <span>📋 出題設定・問題リスト (90問) を表示</span>
+        <span id="sidebarToggleIcon">▼</span>
+      </button>
+
+      <!-- Collapsible Container for Sets, Filters & Question Grid (BUG-07) -->
+      <div class="sidebar-collapsible-group" id="sidebarCollapsibleGroup">
+        <!-- Question Range & Sets -->
+        <div class="sidebar-section">
+          <div class="section-title">出題範囲 (トピック・セット)</div>
+          <div class="set-selector-group">
+            <div class="set-quick-grid">
+              <button class="set-pill-btn active" data-set="all" style="grid-column: span 2;">📁 全問 (90問)</button>
+              <button class="set-pill-btn exam-flagship-btn" data-set="exam30" style="grid-column: span 2;">🎯 本番再現模試 (30問/40分)</button>
+              
+              <button class="set-pill-btn" data-set="topic1" style="grid-column: span 2;">1. モデル設計と活用 (12問)</button>
+              <button class="set-pill-btn" data-set="topic2" style="grid-column: span 2;">2. データとタスク (12問)</button>
+              <button class="set-pill-btn" data-set="topic3" style="grid-column: span 2;">3. モデルの評価指標 (14問)</button>
+              <button class="set-pill-btn" data-set="topic4" style="grid-column: span 2;">4. 画像データの扱い (14問)</button>
+              <button class="set-pill-btn" data-set="topic5" style="grid-column: span 2;">5. 数学的な表現 (14問)</button>
+              <button class="set-pill-btn" data-set="topic6" style="grid-column: span 2;">6. 計算量の基礎 (12問)</button>
+              <button class="set-pill-btn" data-set="topic7" style="grid-column: span 2;">7. 開発と活用 (12問)</button>
+
+              <button class="set-pill-btn random-btn" data-set="random10" style="grid-column: span 2;">🎲 ランダム10問ミニテスト</button>
+              
+              <button class="set-pill-btn" data-set="set1">第1セット (1〜10)</button>
+              <button class="set-pill-btn" data-set="set2">第2セット (11〜20)</button>
+              <button class="set-pill-btn" data-set="set3">第3セット (21〜30)</button>
+              <button class="set-pill-btn" data-set="set4">第4セット (31〜40)</button>
+              <button class="set-pill-btn" data-set="set5">第5セット (41〜50)</button>
+              <button class="set-pill-btn" data-set="set6">第6セット (51〜60)</button>
+              <button class="set-pill-btn" data-set="set7">第7セット (61〜70)</button>
+              <button class="set-pill-btn" data-set="set8">第8セット (71〜80)</button>
+              <button class="set-pill-btn" data-set="set9" style="grid-column: span 2;">第9セット (81〜90)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="sidebar-section">
+          <div class="section-title">問題フィルター</div>
+          <div class="filter-group">
+            <button class="filter-pill active" data-filter="all">全問 (<span id="countAll">90</span>)</button>
+            <button class="filter-pill" data-filter="incorrect">間違えた問題 (<span id="countIncorrect">0</span>)</button>
+            <button class="filter-pill" data-filter="bookmarked">ブックマーク (<span id="countBookmarked">0</span>)</button>
+            <button class="filter-pill" data-filter="unanswered">未回答 (<span id="countUnanswered">90</span>)</button>
+          </div>
+        </div>
+
+        <!-- Stats Box -->
+        <div class="sidebar-section stats-box">
+          <div class="section-title">進捗状況</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="overallProgressBar" style="width: 0%;"></div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="statAnswered">0/90</div>
+              <div class="stat-name">回答済み</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value text-success" id="statAccuracy">0%</div>
+              <div class="stat-name">正答率</div>
+            </div>
+          </div>
+          <button id="btnResumeLast" class="resume-btn" title="最後に開いていた問題から再開">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span id="resumeBtnText">前回の続きから解く</span>
+          </button>
+        </div>
+
+        <!-- Question Grid Navigation -->
+        <div class="sidebar-section">
+          <div class="section-title">問題リスト</div>
+          <div class="question-nav-grid" id="questionNavGrid">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer-area">
+          <button id="btnResetHistory" class="sidebar-reset-btn" title="学習履歴をリセット">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            <span>学習履歴のリセット</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      <!-- Toolbar -->
+      <div class="question-toolbar">
+        <div class="toolbar-left">
+          <span class="question-badge" id="currentTopicBadge">第1講: モデルの設計と活用</span>
+          <span class="question-num-display" id="currentQuestionNumberDisplay">質問 #1 / 90</span>
+          <span class="question-type-badge" id="currentTypeBadge">○×問題</span>
+        </div>
+        <div class="toolbar-right">
+          <button id="btnWatchVideoDirect" class="tool-btn" title="この問題の公式テキスト解説動画を開く">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" color="#dc2626"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>公式動画で確認</span>
+          </button>
+          <button id="btnBookmark" class="tool-btn" title="この問題をブックマーク">
+            <svg class="star-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>ブックマーク</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Exam Timer Banner -->
+      <div id="examBanner" class="exam-banner hidden">
+        <div class="timer-display">
+          <span>⏱️ 残り時間: <strong id="examTimer">40:00</strong></span>
+        </div>
+        <button id="btnFinishExam" class="primary-btn sm-btn">模試を終了して採点</button>
+      </div>
+
+      <!-- Question Card -->
+      <div class="question-card" id="questionCard">
+        <!-- Question Prompt Area -->
+        <div class="question-prompt-box">
+          <div class="question-text" id="questionText">
+            <!-- Question text rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Dynamic Answer Area -->
+        <div id="answerArea" class="answer-area">
+          <!-- Rendered by JS based on question type -->
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+          <button id="btnSubmitAnswer" class="primary-btn">回答を確認する</button>
+          <div class="nav-controls">
+            <button id="btnPrevQuestion" class="secondary-btn">← 前へ</button>
+            <button id="btnNextQuestion" class="secondary-btn">次へ →</button>
+          </div>
+        </div>
+
+        <!-- 3-Layer Structured Explanation Container -->
+        <div id="explanationArea" class="explanation-container hidden">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal: Weakness Analysis & Radar Chart -->
+  <div id="weaknessModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📊 7大分野別 弱点分析 & レーダーチャート</span>
+        </div>
+        <button class="modal-close-btn" data-close="weaknessModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="radar-chart-container">
+          <canvas id="radarCanvas" class="radar-canvas" width="460" height="460"></canvas>
+          <div class="topic-stat-list" id="topicStatList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Video Catalog -->
+  <div id="videoModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎬 公式テキスト YouTube動画カタログ (全41講)</span>
+        </div>
+        <button class="modal-close-btn" data-close="videoModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="catalogSearchInput" class="catalog-search-bar" placeholder="講義タイトルやキーワードを検索 (例: 内積, ILSVRC, オーダー記法, 損失関数)...">
+        <div class="catalog-grid" id="catalogGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Exam Summary -->
+  <div id="examSummaryModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎯 本番再現模試 結果サマリー</span>
+        </div>
+        <button class="modal-close-btn" data-close="examSummaryModal">&times;</button>
+      </div>
+      <div class="modal-body" id="examSummaryBody" style="text-align: center; padding: 28px;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 10-Question Summary -->
+  <div id="setSummaryModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎉 セット演習 完了サマリー</span>
+        </div>
+        <button class="modal-close-btn" data-close="setSummaryModal">&times;</button>
+      </div>
+      <div class="modal-body" id="setSummaryBody" style="text-align: center; padding: 24px;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+window.VIDEO_CATALOG = [
+  {
+    "id": 1,
+    "lectureNum": 0,
+    "lectureName": "【序章】AIをビジネスへ実装する勘所",
+    "title": "【序章】AIをビジネスへ実装する勘所",
+    "videoId": "mvj8MveRQLk",
+    "url": "https://www.youtube.com/watch?v=mvj8MveRQLk",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/mvj8MveRQLk/hqdefault.jpg"
+  },
+  {
+    "id": 2,
+    "lectureNum": 1,
+    "lectureName": "第1講: モデルの設計と活用までの流れ",
+    "title": "【1-1】暗黙の仮定　[第1講:モデルの設計と活用までの流れ]",
+    "videoId": "KqP9XoRDtvU",
+    "url": "https://www.youtube.com/watch?v=KqP9XoRDtvU",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/KqP9XoRDtvU/hqdefault.jpg"
+  },
+  {
+    "id": 3,
+    "lectureNum": 1,
+    "lectureName": "第1講: モデルの設計と活用までの流れ",
+    "title": "【1-2】モデルとしての関数　[第1講:モデルの設計と活用までの流れ]",
+    "videoId": "pK--NuRbXac",
+    "url": "https://www.youtube.com/watch?v=pK--NuRbXac",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/pK--NuRbXac/hqdefault.jpg"
+  },
+  {
+    "id": 4,
+    "lectureNum": 1,
+    "lectureName": "第1講: モデルの設計と活用までの流れ",
+    "title": "【1-3】モデルの妥当性と表現力　[第1講:モデルの設計と活用までの流れ]",
+    "videoId": "kYM1_XRm7ag",
+    "url": "https://www.youtube.com/watch?v=kYM1_XRm7ag",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/kYM1_XRm7ag/hqdefault.jpg"
+  },
+  {
+    "id": 5,
+    "lectureNum": 1,
+    "lectureName": "第1講: モデルの設計と活用までの流れ",
+    "title": "【1-4】モデルの妥当性と表現力(2)　[第1講:モデルの設計と活用までの流れ]",
+    "videoId": "lJ-X0N12V-k",
+    "url": "https://www.youtube.com/watch?v=lJ-X0N12V-k",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/lJ-X0N12V-k/hqdefault.jpg"
+  },
+  {
+    "id": 6,
+    "lectureNum": 1,
+    "lectureName": "第1講: モデルの設計と活用までの流れ",
+    "title": "【1-5】学習と推論　[第1講:モデルの設計と活用までの流れ]",
+    "videoId": "63Xvz1Ecvfg",
+    "url": "https://www.youtube.com/watch?v=63Xvz1Ecvfg",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/63Xvz1Ecvfg/hqdefault.jpg"
+  },
+  {
+    "id": 7,
+    "lectureNum": 1,
+    "lectureName": "第1講: モデルの設計と活用までの流れ",
+    "title": "【1-6】まとめ◯✕チェック　[第1講:モデルの設計と活用までの流れ]",
+    "videoId": "tfaP7oUk6Dk",
+    "url": "https://www.youtube.com/watch?v=tfaP7oUk6Dk",
+    "isSummary": true,
+    "thumbnailUrl": "https://img.youtube.com/vi/tfaP7oUk6Dk/hqdefault.jpg"
+  },
+  {
+    "id": 8,
+    "lectureNum": 2,
+    "lectureName": "第2講: データの入出力とタスク",
+    "title": "【2-1】入力としてのテーブルデータ　[第2講:データの入出力とタスク]",
+    "videoId": "l0eQ__0LyEk",
+    "url": "https://www.youtube.com/watch?v=l0eQ__0LyEk",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/l0eQ__0LyEk/hqdefault.jpg"
+  },
+  {
+    "id": 9,
+    "lectureNum": 2,
+    "lectureName": "第2講: データの入出力とタスク",
+    "title": "【2-2】代表的タスク　[第2講:データの入出力とタスク]",
+    "videoId": "xZg-b8xPGZ8",
+    "url": "https://www.youtube.com/watch?v=xZg-b8xPGZ8",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/xZg-b8xPGZ8/hqdefault.jpg"
+  },
+  {
+    "id": 10,
+    "lectureNum": 2,
+    "lectureName": "第2講: データの入出力とタスク",
+    "title": "【2-3】GIGO : Garbage In, Garbage Out　[第2講:データの入出力とタスク]",
+    "videoId": "gWAzJ3tDDec",
+    "url": "https://www.youtube.com/watch?v=gWAzJ3tDDec",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/gWAzJ3tDDec/hqdefault.jpg"
+  },
+  {
+    "id": 11,
+    "lectureNum": 2,
+    "lectureName": "第2講: データの入出力とタスク",
+    "title": "【2-4】弱教師あり学習：不完全情報からの学習　[第2講:データの入出力とタスク]",
+    "videoId": "zhwjgYR6lno",
+    "url": "https://www.youtube.com/watch?v=zhwjgYR6lno",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/zhwjgYR6lno/hqdefault.jpg"
+  },
+  {
+    "id": 12,
+    "lectureNum": 2,
+    "lectureName": "第2講: データの入出力とタスク",
+    "title": "【2-5】まとめ：◯✕チェック　[第2講:データの入出力とタスク]",
+    "videoId": "WkHiLn-GboI",
+    "url": "https://www.youtube.com/watch?v=WkHiLn-GboI",
+    "isSummary": true,
+    "thumbnailUrl": "https://img.youtube.com/vi/WkHiLn-GboI/hqdefault.jpg"
+  },
+  {
+    "id": 13,
+    "lectureNum": 3,
+    "lectureName": "第3講: モデルの評価指標",
+    "title": "【3-1】前講の復習：学習と推論　[第3講:モデルの評価指標]",
+    "videoId": "uHA5pCY-s5Q",
+    "url": "https://www.youtube.com/watch?v=uHA5pCY-s5Q",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/uHA5pCY-s5Q/hqdefault.jpg"
+  },
+  {
+    "id": 14,
+    "lectureNum": 3,
+    "lectureName": "第3講: モデルの評価指標",
+    "title": "【3-2】評価指標　[第3講:モデルの評価指標]",
+    "videoId": "ZHPS0cAhhPs",
+    "url": "https://www.youtube.com/watch?v=ZHPS0cAhhPs",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/ZHPS0cAhhPs/hqdefault.jpg"
+  },
+  {
+    "id": 15,
+    "lectureNum": 3,
+    "lectureName": "第3講: モデルの評価指標",
+    "title": "【3-3】最適なパラメータの決定　[第3講:モデルの評価指標]",
+    "videoId": "MjePJltuCGU",
+    "url": "https://www.youtube.com/watch?v=MjePJltuCGU",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/MjePJltuCGU/hqdefault.jpg"
+  },
+  {
+    "id": 16,
+    "lectureNum": 3,
+    "lectureName": "第3講: モデルの評価指標",
+    "title": "【3-4】汎化性能　[第3講:モデルの評価指標]",
+    "videoId": "igNZO1SN-gk",
+    "url": "https://www.youtube.com/watch?v=igNZO1SN-gk",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/igNZO1SN-gk/hqdefault.jpg"
+  },
+  {
+    "id": 17,
+    "lectureNum": 3,
+    "lectureName": "第3講: モデルの評価指標",
+    "title": "【3-5】まとめ：◯✕チェック　[第3講:モデルの評価指標]",
+    "videoId": "04HMuzLPmxw",
+    "url": "https://www.youtube.com/watch?v=04HMuzLPmxw",
+    "isSummary": true,
+    "thumbnailUrl": "https://img.youtube.com/vi/04HMuzLPmxw/hqdefault.jpg"
+  },
+  {
+    "id": 18,
+    "lectureNum": 4,
+    "lectureName": "第4講: 画像データの取り扱い",
+    "title": "【4-1】前講の復習：学習と推論　[第4講:画像データの取り扱い]",
+    "videoId": "T8M0PKz5k70",
+    "url": "https://www.youtube.com/watch?v=T8M0PKz5k70",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/T8M0PKz5k70/hqdefault.jpg"
+  },
+  {
+    "id": 19,
+    "lectureNum": 4,
+    "lectureName": "第4講: 画像データの取り扱い",
+    "title": "【4-2】人間のための表現からモデルのための表現へ　[第4講:画像データの取り扱い]",
+    "videoId": "we_plPk8RuA",
+    "url": "https://www.youtube.com/watch?v=we_plPk8RuA",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/we_plPk8RuA/hqdefault.jpg"
+  },
+  {
+    "id": 20,
+    "lectureNum": 4,
+    "lectureName": "第4講: 画像データの取り扱い",
+    "title": "【4-3】視覚情報のデータ表現　[第4講:画像データの取り扱い]",
+    "videoId": "RsRkoEyTfas",
+    "url": "https://www.youtube.com/watch?v=RsRkoEyTfas",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/RsRkoEyTfas/hqdefault.jpg"
+  },
+  {
+    "id": 21,
+    "lectureNum": 4,
+    "lectureName": "第4講: 画像データの取り扱い",
+    "title": "【4-4】データの表現型と画素の指定　[第4講:画像データの取り扱い]",
+    "videoId": "wweWl_yoz7c",
+    "url": "https://www.youtube.com/watch?v=wweWl_yoz7c",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/wweWl_yoz7c/hqdefault.jpg"
+  },
+  {
+    "id": 22,
+    "lectureNum": 4,
+    "lectureName": "第4講: 画像データの取り扱い",
+    "title": "【4-5】カラー画像の表現　[第4講:画像データの取り扱い]",
+    "videoId": "ea9HuOBfnac",
+    "url": "https://www.youtube.com/watch?v=ea9HuOBfnac",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/ea9HuOBfnac/hqdefault.jpg"
+  },
+  {
+    "id": 23,
+    "lectureNum": 4,
+    "lectureName": "第4講: 画像データの取り扱い",
+    "title": "【4-6】ILSVRC : ImageNet Large Scale Visual Recognition Challenge　[第4講:画像データの取り扱い]",
+    "videoId": "xLoTOd4RkOs",
+    "url": "https://www.youtube.com/watch?v=xLoTOd4RkOs",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/xLoTOd4RkOs/hqdefault.jpg"
+  },
+  {
+    "id": 24,
+    "lectureNum": 4,
+    "lectureName": "第4講: 画像データの取り扱い",
+    "title": "【4-7】まとめ：◯✕チェック　[第4講:画像データの取り扱い]",
+    "videoId": "a0luR9cFNPM",
+    "url": "https://www.youtube.com/watch?v=a0luR9cFNPM",
+    "isSummary": true,
+    "thumbnailUrl": "https://img.youtube.com/vi/a0luR9cFNPM/hqdefault.jpg"
+  },
+  {
+    "id": 25,
+    "lectureNum": 5,
+    "lectureName": "第5講: 数学的な表現に慣れる",
+    "title": "【5-1】前講の復習：入力としてのテーブルデータ　[第5講:数学的な表現に慣れる]",
+    "videoId": "jyFG7qWwc5w",
+    "url": "https://www.youtube.com/watch?v=jyFG7qWwc5w",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/jyFG7qWwc5w/hqdefault.jpg"
+  },
+  {
+    "id": 26,
+    "lectureNum": 5,
+    "lectureName": "第5講: 数学的な表現に慣れる",
+    "title": "【5-2】テーブルでデータを管理する　[第5講:数学的な表現に慣れる]",
+    "videoId": "8vKH4Gq51rI",
+    "url": "https://www.youtube.com/watch?v=8vKH4Gq51rI",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/8vKH4Gq51rI/hqdefault.jpg"
+  },
+  {
+    "id": 27,
+    "lectureNum": 5,
+    "lectureName": "第5講: 数学的な表現に慣れる",
+    "title": "【5-3】行列・ベクトルによるデータの表現　[第5講:数学的な表現に慣れる]",
+    "videoId": "b3n-9ILapvI",
+    "url": "https://www.youtube.com/watch?v=b3n-9ILapvI",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/b3n-9ILapvI/hqdefault.jpg"
+  },
+  {
+    "id": 28,
+    "lectureNum": 5,
+    "lectureName": "第5講: 数学的な表現に慣れる",
+    "title": "【5-4】内積　[第5講:数学的な表現に慣れる]",
+    "videoId": "FxT0-domBq4",
+    "url": "https://www.youtube.com/watch?v=FxT0-domBq4",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/FxT0-domBq4/hqdefault.jpg"
+  },
+  {
+    "id": 29,
+    "lectureNum": 5,
+    "lectureName": "第5講: 数学的な表現に慣れる",
+    "title": "【5-5】線形モデルの内積表現　[第5講:数学的な表現に慣れる]",
+    "videoId": "rjpBqSqsomI",
+    "url": "https://www.youtube.com/watch?v=rjpBqSqsomI",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/rjpBqSqsomI/hqdefault.jpg"
+  },
+  {
+    "id": 30,
+    "lectureNum": 5,
+    "lectureName": "第5講: 数学的な表現に慣れる",
+    "title": "【5-6】総和記号の準備　[第5講:数学的な表現に慣れる]",
+    "videoId": "00-zf_xQwg8",
+    "url": "https://www.youtube.com/watch?v=00-zf_xQwg8",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/00-zf_xQwg8/hqdefault.jpg"
+  },
+  {
+    "id": 31,
+    "lectureNum": 5,
+    "lectureName": "第5講: 数学的な表現に慣れる",
+    "title": "【5-7】まとめ：◯✕チェック　[第5講:数学的な表現に慣れる]",
+    "videoId": "lPNQHJ2Sc4U",
+    "url": "https://www.youtube.com/watch?v=lPNQHJ2Sc4U",
+    "isSummary": true,
+    "thumbnailUrl": "https://img.youtube.com/vi/lPNQHJ2Sc4U/hqdefault.jpg"
+  },
+  {
+    "id": 32,
+    "lectureNum": 6,
+    "lectureName": "第6講: 計算量の基礎",
+    "title": "【6-1】前講の復習：最適なパラメータの決定　[第6講:計算量の基礎]",
+    "videoId": "vXgy-RiDZQ0",
+    "url": "https://www.youtube.com/watch?v=vXgy-RiDZQ0",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/vXgy-RiDZQ0/hqdefault.jpg"
+  },
+  {
+    "id": 33,
+    "lectureNum": 6,
+    "lectureName": "第6講: 計算量の基礎",
+    "title": "【6-2】「解ける」と「使える」の境界　[第6講:計算量の基礎]",
+    "videoId": "TawvG4UpcKo",
+    "url": "https://www.youtube.com/watch?v=TawvG4UpcKo",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/TawvG4UpcKo/hqdefault.jpg"
+  },
+  {
+    "id": 34,
+    "lectureNum": 6,
+    "lectureName": "第6講: 計算量の基礎",
+    "title": "【6-3】アルゴリズムの評価基準（の一例）　[第6講:計算量の基礎]",
+    "videoId": "dV1kUwxgo3E",
+    "url": "https://www.youtube.com/watch?v=dV1kUwxgo3E",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/dV1kUwxgo3E/hqdefault.jpg"
+  },
+  {
+    "id": 35,
+    "lectureNum": 6,
+    "lectureName": "第6講: 計算量の基礎",
+    "title": "【6-4】ざっくりオーダー記法その1とその2　[第6講:計算量の基礎]",
+    "videoId": "QIDLt3NPG18",
+    "url": "https://www.youtube.com/watch?v=QIDLt3NPG18",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/QIDLt3NPG18/hqdefault.jpg"
+  },
+  {
+    "id": 36,
+    "lectureNum": 6,
+    "lectureName": "第6講: 計算量の基礎",
+    "title": "【6-5】ざっくりオーダー記法その3　[第6講:計算量の基礎]",
+    "videoId": "NFhvS3j6ehY",
+    "url": "https://www.youtube.com/watch?v=NFhvS3j6ehY",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/NFhvS3j6ehY/hqdefault.jpg"
+  },
+  {
+    "id": 37,
+    "lectureNum": 6,
+    "lectureName": "第6講: 計算量の基礎",
+    "title": "【6-6】まとめ：◯✕チェック　[第6講:計算量の基礎]",
+    "videoId": "_WJUdWRTQqE",
+    "url": "https://www.youtube.com/watch?v=_WJUdWRTQqE",
+    "isSummary": true,
+    "thumbnailUrl": "https://img.youtube.com/vi/_WJUdWRTQqE/hqdefault.jpg"
+  },
+  {
+    "id": 38,
+    "lectureNum": 7,
+    "lectureName": "第7講: 開発と活用に向けて",
+    "title": "【7-1】開発・運用環境の分類　[第7講:開発と活用に向けて]",
+    "videoId": "ED7sttEp8DY",
+    "url": "https://www.youtube.com/watch?v=ED7sttEp8DY",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/ED7sttEp8DY/hqdefault.jpg"
+  },
+  {
+    "id": 39,
+    "lectureNum": 7,
+    "lectureName": "第7講: 開発と活用に向けて",
+    "title": "【7-2】学習済みモデルの利用　[第7講:開発と活用に向けて]",
+    "videoId": "cEM_6e0NFqA",
+    "url": "https://www.youtube.com/watch?v=cEM_6e0NFqA",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/cEM_6e0NFqA/hqdefault.jpg"
+  },
+  {
+    "id": 40,
+    "lectureNum": 7,
+    "lectureName": "第7講: 開発と活用に向けて",
+    "title": "【7-3】エッジコンピューティング　[第7講:開発と活用に向けて]",
+    "videoId": "lFlW1fcSRjM",
+    "url": "https://www.youtube.com/watch?v=lFlW1fcSRjM",
+    "isSummary": false,
+    "thumbnailUrl": "https://img.youtube.com/vi/lFlW1fcSRjM/hqdefault.jpg"
+  },
+  {
+    "id": 41,
+    "lectureNum": 7,
+    "lectureName": "第7講: 開発と活用に向けて",
+    "title": "【7-4】まとめ：◯✕チェック　[第7講:開発と活用に向けて]",
+    "videoId": "ro0NfI9pBIE",
+    "url": "https://www.youtube.com/watch?v=ro0NfI9pBIE",
+    "isSummary": true,
+    "thumbnailUrl": "https://img.youtube.com/vi/ro0NfI9pBIE/hqdefault.jpg"
+  }
+];
+
+  </script>
+  <script>
+window.QUESTIONS_DATA = [
+  {
+    "id": 1,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 1,
+    "type": "ox_choice",
+    "questionText": "【第1講 まとめ○×チェック 1/6】\nモデルとは、「入力」と「出力」の関係を記述したものである。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 機械学習における「モデル」の最も基本的かつ本質的な定義を問うています。\n- 現実世界象やデータをコンピュータで扱う際、入力を受けて予測値を出力する対応関係そのものをモデルと呼びます。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 公式講義スライド通り「入力」と「出力」の関係を数式やアルゴリズムとして記述したものがモデル（関数 $y = f(x)$）です。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: モデルは単なるデータの保存庫ではなく、入力から出力を導出する規則や関係性の記述であるため、誤りとするのは不適切です。",
+    "videoReference": {
+      "title": "【1-2】モデルとしての関数 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "pK--NuRbXac",
+      "url": "https://www.youtube.com/watch?v=pK--NuRbXac"
+    }
+  },
+  {
+    "id": 2,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 2,
+    "type": "ox_choice",
+    "questionText": "【第1講 まとめ○×チェック 2/6】\n学習とは、モデル内のパラメータを手元のデータから決定するSTEPである。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 機械学習のプロセスにおける「学習（Training）」の定義に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- モデルが持つ重みやバイアスなどの調整可能な変数（パラメータ）を、与えられた訓練データに適合するように最適化して決定する処理ステップを「学習」と呼びます。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 人間がルールを直接手書きするのではなく、「手元のデータからパラメータを決定・更新する」ことこそが機械学習の核心であるため、正しいステートメントです。",
+    "videoReference": {
+      "title": "【1-5】学習と推論 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "63Xvz1Ecvfg",
+      "url": "https://www.youtube.com/watch?v=63Xvz1Ecvfg"
+    }
+  },
+  {
+    "id": 3,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 3,
+    "type": "ox_choice",
+    "questionText": "【第1講 まとめ○×チェック 3/6】\n予測（推論）とは、学習前のモデルに予測対象の入力を与え、出力を予測値として得るSTEPである。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「予測（推論 / Inference）」を実行するタイミングとモデルの状態に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 予測（推論）は、「学習後（パラメータ決定後）」のモデルに入力を与えて出力（予測値）を得るSTEPです。「学習前」のモデルはパラメータが未調整であるため、有用な予測を行うことはできません。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 「学習前」という部分が罠です。学習によって最適なパラメータが決まった完成済みのモデルを使う点が重要です。",
+    "videoReference": {
+      "title": "【1-5】学習と推論 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "63Xvz1Ecvfg",
+      "url": "https://www.youtube.com/watch?v=63Xvz1Ecvfg"
+    }
+  },
+  {
+    "id": 4,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 4,
+    "type": "ox_choice",
+    "questionText": "【第1講 まとめ○×チェック 4/6】\nモデルは表現力の高いものを用いていれば深く考える必要はない。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- モデルの複雑さ（表現力）と汎化性能・過学習（過剰適合）のトレードオフに関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 表現力が高すぎるモデルは、訓練データのノイズまで過剰に学習してしまい、「過学習（Overfitting）」を引き起こします。未知データに対する予測性能（汎化性能）を高めるためには、データ量や課題に見合った適切なモデルを選択する必要があります。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 表現力が高ければ常に優れているわけではありません。モデルの複雑さと汎化性能のバランスが極めて重要です。",
+    "videoReference": {
+      "title": "【1-3】モデルの妥当性と表現力 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "kYM1_XRm7ag",
+      "url": "https://www.youtube.com/watch?v=kYM1_XRm7ag"
+    }
+  },
+  {
+    "id": 5,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 5,
+    "type": "ox_choice",
+    "questionText": "【第1講 まとめ○×チェック 5/6】\n入出力の間に反比例の関係があることを線型性をもつと呼ぶ。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 数学的な「線型性（Linearity）」の定義についての設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 線型性とは、入出力の間に「正比例の関係」（重ね合わせの原理を満たす直線関係）があることを指します。「反比例」は双曲線を描く非線形な関係です。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 反比例はグラフ上で直線にはならないため、線型性を持ちません。",
+    "videoReference": {
+      "title": "【1-4】モデルの妥当性と表現力(2) [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "lJ-X0N12V-k",
+      "url": "https://www.youtube.com/watch?v=lJ-X0N12V-k"
+    }
+  },
+  {
+    "id": 6,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 6,
+    "type": "ox_choice",
+    "questionText": "【第1講 まとめ○×チェック 6/6】\n数式として見た目の同じ関数でも何に着目するかで「線型」か「非線型」か異なることがある。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- モデルのパラメータに対する線型性と、入力変数に対する線型性の違いに関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 例えば $y = w x^2 + b$ は入力 $x$ に対しては2次曲線（非線形）ですが、パラメータ $w$ に対しては1次の線形関係です。機械学習ではパラメータについての線型性が最適化において決定的に重要な役割を果たします。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 何を変数（注目対象）と見做すかによって、線型性の判断は変わるため、正しいステートメントです。",
+    "videoReference": {
+      "title": "【1-4】モデルの妥当性と表現力(2) [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "lJ-X0N12V-k",
+      "url": "https://www.youtube.com/watch?v=lJ-X0N12V-k"
+    }
+  },
+  {
+    "id": 7,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 7,
+    "type": "single_choice",
+    "questionText": "機械学習を活用して現実の課題を解く際に前提となっている「暗黙の仮定」として最も適切なものはどれか？",
+    "options": [
+      "A. 過去のデータと将来発生するデータには何らかの規則性・一貫した法則が存在する",
+      "B. 収集されるデータにはノイズや誤測定が一切含まれていない",
+      "C. あらゆるタスクにおいてディープラーニングが常に最高の性能を発揮する",
+      "D. データ量が無限にあればどんな複雑なアルゴリズムでも瞬時に計算が終わる"
+    ],
+    "correctAnswer": "A. 過去のデータと将来発生するデータには何らかの規則性・一貫した法則が存在する",
+    "explanation": "📖 【基本解説・設問の背景】\n- AI・機械学習が成立するための大前提である「暗黙の仮定」を問う設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 機械学習は「過去のデータから規則性を学習し、将来の未知データに適用する」技術です。したがって、「過去データと未来データの間には一定の規則性・関係性が維持されている」という仮定が不可欠です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 現実のデータには必ずノイズや欠損が含まれます。\n- **C**: タスクやデータ構造によっては線形モデルや決定木の方が優れた性能や解釈性を持つ場合も多いため誤りです。\n- **D**: データ量が膨大になれば計算時間はむしろ増大します。",
+    "videoReference": {
+      "title": "【1-1】暗黙の仮定 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "KqP9XoRDtvU",
+      "url": "https://www.youtube.com/watch?v=KqP9XoRDtvU"
+    }
+  },
+  {
+    "id": 8,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 8,
+    "type": "single_choice",
+    "questionText": "モデルを関数 $y = f(x)$ として表したとき、モデル内部で保持され、データを用いて自動的に調整・最適化される数値を何と呼ぶか？",
+    "options": [
+      "A. パラメータ（重みやバイアス）",
+      "B. ハイパーパラメータ（学習率など）",
+      "C. 特徴量（説明変数）",
+      "D. 目的変数（ターゲット）"
+    ],
+    "correctAnswer": "A. パラメータ（重みやバイアス）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 機械学習における「パラメータ」の基本定義を問う設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- モデル内部の重み（Weight）やバイアス（Bias）など、訓練データを通じて学習アルゴリズムにより自動調整される数値を「パラメータ」と呼びます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B (ハイパーパラメータ)**: 学習の進み具合（学習率や層の数など）を人間が学習前に設定する外部設定値です。\n- **C (特徴量)**: 入力データそのものの属性値です。\n- **D (目的変数)**: 予測したい正解のラベルや数値です。",
+    "videoReference": {
+      "title": "【1-2】モデルとしての関数 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "pK--NuRbXac",
+      "url": "https://www.youtube.com/watch?v=pK--NuRbXac"
+    }
+  },
+  {
+    "id": 9,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 9,
+    "type": "drag_and_drop_order",
+    "questionText": "機械学習プロジェクトにおけるモデル構築の標準的なライフサイクルを、最初のステップから順番に正しく並べ替えなさい。",
+    "options": [
+      "データの収集と前処理を行う",
+      "モデルの構造（関数型）を設計・選定する",
+      "訓練データを用いてパラメータを学習（最適化）する",
+      "未知のテストデータを用いて性能を評価・検証する",
+      "実環境にデプロイして推論（予測）に活用する"
+    ],
+    "correctAnswer": [
+      "データの収集と前処理を行う",
+      "モデルの構造（関数型）を設計・選定する",
+      "訓練データを用いてパラメータを学習（最適化）する",
+      "未知のテストデータを用いて性能を評価・検証する",
+      "実環境にデプロイして推論（予測）に活用する"
+    ],
+    "explanation": "📖 【基本解説・設問の背景】\n- AIモデルの設計から活用に至る一連の流れを整理する問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n1. まず「データの収集・前処理」を行います。\n2. 次に解きたい課題に合わせて「モデル構造の選定」を行います。\n3. 「学習」でモデル内部のパラメータを調整します。\n4. 「評価・検証」で過学習がないか汎化性能を確認します。\n5. 合格したモデルを「デプロイして推論・実活用」します。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 学習前にモデル構造が決まっていなければ学習できず、評価を経ずに実環境へ導入することは重大なリスクを伴います。",
+    "videoReference": {
+      "title": "【1-5】学習と推論 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "63Xvz1Ecvfg",
+      "url": "https://www.youtube.com/watch?v=63Xvz1Ecvfg"
+    }
+  },
+  {
+    "id": 10,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 10,
+    "type": "single_choice",
+    "questionText": "モデルの「妥当性（Validity）」と「表現力（Expressive Power）」に関する説明として、最も適切なものはどれか？",
+    "options": [
+      "A. 表現力とはモデルが捉えられるパターンの豊かさであり、表現力が高すぎると訓練データに過剰適合しやすい",
+      "B. 妥当性とはモデルのパラメータ数の多さのことであり、パラメータが多いほど常に妥当性が高い",
+      "C. 線形モデルは表現力が無限大であるため、あらゆる非線形な複雑現象を完全に表現できる",
+      "D. 表現力が極めて低いモデルを用いれば、訓練データとテストデータの両方で高い精度を両立できる"
+    ],
+    "correctAnswer": "A. 表現力とはモデルが捉えられるパターンの豊かさであり、表現力が高すぎると訓練データに過剰適合しやすい",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【1-3】【1-4】で解説されるモデルの表現力と妥当性の核心概念です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 表現力とは、モデルが表現できる関数のバリエーションの広さです。表現力が高すぎるとノイズまで学習してしまう過剰適合（過学習）を招きます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: パラメータ数が多いことは表現力の指標であり、課題やデータの背後にあるメカニズムと整合しているかが「妥当性」です。\n- **C**: 線形モデルの表現力には限界があり、非線形な境界線を引くことはできません。\n- **D**: 表現力が低すぎると未学習（アンダーフィッティング）となり、どちらのデータでも精度が出ません。",
+    "videoReference": {
+      "title": "【1-3】モデルの妥当性と表現力 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "kYM1_XRm7ag",
+      "url": "https://www.youtube.com/watch?v=kYM1_XRm7ag"
+    }
+  },
+  {
+    "id": 11,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 11,
+    "type": "single_choice",
+    "questionText": "AIをビジネスへ実装する際、PoC（概念実証）だけで終わらせず実運用で成果を出すための勘所として、適切なものはどれか？",
+    "options": [
+      "A. どのような入力からどのような出力を得るか（入力と出力の定義）を明確にし、業務目標と直結させる",
+      "B. 業務課題の整理を行わず、最新かつ最も複雑なAIモデルをまず導入することを最優先する",
+      "C. モデルの推論精度が100%になるまで実運用への展開は一切行わない",
+      "D. 現場の運用担当者へのヒアリングは行わず、データサイエンティスト単独で要件をすべて決定する"
+    ],
+    "correctAnswer": "A. どのような入力からどのような出力を得るか（入力と出力の定義）を明確にし、業務目標と直結させる",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【序章】で解説される、AIをビジネスに実装する際の最も重要な実践的勘所です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- AI実装の成否は「何をインプットし、何がアウトプットされれば業務上の価値が生まれるか」を明確に定義することにかかっています（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 課題整理のない「AIありき」の導入は失敗の典型的パターンです。\n- **C**: 現実のAIで精度100%を達成することは原理的に困難であり、適切な運用フロー（人間によるチェックなど）と組み合わせることが実務では必須です。\n- **D**: 現場のドメイン知識や業務フローと乖離したモデルは現場で使われません。",
+    "videoReference": {
+      "title": "【序章】AIをビジネスへ実装する勘所",
+      "videoId": "mvj8MveRQLk",
+      "url": "https://www.youtube.com/watch?v=mvj8MveRQLk"
+    }
+  },
+  {
+    "id": 12,
+    "topic": "第1講: モデルの設計と活用までの流れ",
+    "topicId": 1,
+    "questionNumber": 12,
+    "type": "drag_and_drop_matching",
+    "questionText": "機械学習における各用語と、その最も適切な説明のペアを完成させなさい。",
+    "matchingPairs": [
+      {
+        "targetLabel": "モデル (Model):",
+        "options": [
+          "入力と出力の関係性を数式や規則として表したもの",
+          "データを用いて最適化される内部変数（重み・バイアス等）",
+          "学習前に人間が手動で設定する外部制御変数（学習率等）"
+        ],
+        "correctAnswer": "入力と出力の関係性を数式や規則として表したもの"
+      },
+      {
+        "targetLabel": "パラメータ (Parameter):",
+        "options": [
+          "入力と出力の関係性を数式や規則として表したもの",
+          "データを用いて最適化される内部変数（重み・バイアス等）",
+          "学習前に人間が手動で設定する外部制御変数（学習率等）"
+        ],
+        "correctAnswer": "データを用いて最適化される内部変数（重み・バイアス等）"
+      },
+      {
+        "targetLabel": "ハイパーパラメータ (Hyperparameter):",
+        "options": [
+          "入力と出力の関係性を数式や規則として表したもの",
+          "データを用いて最適化される内部変数（重み・バイアス等）",
+          "学習前に人間が手動で設定する外部制御変数（学習率等）"
+        ],
+        "correctAnswer": "学習前に人間が手動で設定する外部制御変数（学習率等）"
+      }
+    ],
+    "correctAnswer": {
+      "モデル (Model):": "入力と出力の関係性を数式や規則として表したもの",
+      "パラメータ (Parameter):": "データを用いて最適化される内部変数（重み・バイアス等）",
+      "ハイパーパラメータ (Hyperparameter):": "学習前に人間が手動で設定する外部制御変数（学習率等）"
+    },
+    "explanation": "📖 【基本解説・設問の背景】\n- 第1講で登場する「モデル」「パラメータ」「ハイパーパラメータ」の3大重要用語を整理・識別する問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- **モデル**: 入出力の関係性を規定する枠組み。\n- **パラメータ**: データから機械的に導き出される値（重み $w$, バイアス $b$）。\n- **ハイパーパラメータ**: 学習アルゴリズムの動作を決めるために設計者が事前設定する値。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- パラメータとハイパーパラメータの混同は初学者が最も間違えやすい重要論点です。",
+    "videoReference": {
+      "title": "【1-2】モデルとしての関数 [第1講:モデルの設計と活用までの流れ]",
+      "videoId": "pK--NuRbXac",
+      "url": "https://www.youtube.com/watch?v=pK--NuRbXac"
+    }
+  },
+  {
+    "id": 13,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 1,
+    "type": "ox_choice",
+    "questionText": "【第2講 まとめ○×チェック 1/7】\nモデルの入力としての特徴量は共変量や説明変数、独立変数とも呼ばれる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 統計学や機械学習における「特徴量（Feature）」の同義語に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 講義スライド通り、モデルに入力される変数（特徴量）は、統計学分野では「共変量（Covariate）」「説明変数（Explanatory Variable）」「独立変数（Independent Variable）」とも呼ばれます。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 分野や文脈によって様々な名称で呼ばれますが、いずれも入力変数を指す同義語です。",
+    "videoReference": {
+      "title": "【2-1】入力としてのテーブルデータ [第2講:データの入出力とタスク]",
+      "videoId": "l0eQ__0LyEk",
+      "url": "https://www.youtube.com/watch?v=l0eQ__0LyEk"
+    }
+  },
+  {
+    "id": 14,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 2,
+    "type": "ox_choice",
+    "questionText": "【第2講 まとめ○×チェック 2/7】\n特徴量とターゲットのペアをパラメータの学習に用いる学習を教師あり学習と呼ぶ。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「教師あり学習（Supervised Learning）」の定義に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 入力である「特徴量」と、正解ラベルである「ターゲット」のペアを学習データとして与え、その対応関係を学習する枠組みを「教師あり学習」と呼びます。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: ターゲット（正解）が存在しないデータから構造を見出すものは「教師なし学習」です。",
+    "videoReference": {
+      "title": "【2-2】代表的タスク [第2講:データの入出力とタスク]",
+      "videoId": "xZg-b8xPGZ8",
+      "url": "https://www.youtube.com/watch?v=xZg-b8xPGZ8"
+    }
+  },
+  {
+    "id": 15,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 3,
+    "type": "ox_choice",
+    "questionText": "【第2講 まとめ○×チェック 3/7】\n回帰問題のターゲットは連続値をとりうる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「回帰（Regression）」タスクにおける目的変数の性質に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 回帰問題とは、株価、気温、売上予測などの「連続値（実数値）」を予測するタスクです。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 離散値（カテゴリやクラス）を予測するのは「分類（Classification）」問題です。",
+    "videoReference": {
+      "title": "【2-2】代表的タスク [第2講:データの入出力とタスク]",
+      "videoId": "xZg-b8xPGZ8",
+      "url": "https://www.youtube.com/watch?v=xZg-b8xPGZ8"
+    }
+  },
+  {
+    "id": 16,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 4,
+    "type": "ox_choice",
+    "questionText": "【第2講 まとめ○×チェック 4/7】\n分類問題のターゲットは2値でなければならない。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「分類（Classification）」タスクにおけるクラス数のバリエーションに関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 分類問題には、スパム判定のような「2値分類（Binary Classification）」だけでなく、手書き数字認識（0〜9の10クラス）や画像分類のような「多クラス分類（Multi-class Classification）」が存在します。2値に限定されないため、記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 3つ以上のクラスを分類する問題も広く一般的に行われています。",
+    "videoReference": {
+      "title": "【2-2】代表的タスク [第2講:データの入出力とタスク]",
+      "videoId": "xZg-b8xPGZ8",
+      "url": "https://www.youtube.com/watch?v=xZg-b8xPGZ8"
+    }
+  },
+  {
+    "id": 17,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 5,
+    "type": "ox_choice",
+    "questionText": "【第2講 まとめ○×チェック 5/7】\n適切なモデル選択がなされていればどのようなデータを用いても問題はない。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- データサイエンスにおける最重要原則「GIGO」に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- コンピュータサイエンスには「GIGO（Garbage In, Garbage Out: ゴミを入れればゴミしか出てこない）」という格言があります。どれほど優れたモデルを選んでも、入力データの質が悪ければ信頼できる出力は得られません。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: モデルよりもデータの品質（ノイズ除去や偏りの是正）の方が性能に決定的な影響を与えることが多々あります。",
+    "videoReference": {
+      "title": "【2-3】GIGO : Garbage In, Garbage Out [第2講:データの入出力とタスク]",
+      "videoId": "gWAzJ3tDDec",
+      "url": "https://www.youtube.com/watch?v=gWAzJ3tDDec"
+    }
+  },
+  {
+    "id": 18,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 6,
+    "type": "ox_choice",
+    "questionText": "【第2講 まとめ○×チェック 6/7】\n十分量があれば英語圏のデータで学習させたモデルを日本のデータで再学習させる必要はない。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- データのドメインや分布の違い（ドメインシフト）に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 言語、文化、生活習慣、法制度などが異なれば、データの分布や特徴量とターゲットの関係性自体が変化します。英語圏のデータがどれほど大量にあっても、日本国内のタスクに適用する場合は日本のデータで追加学習や再学習（適応）を行う必要があります。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: データの「量」だけでなく「質・対象ドメインの適合性」が不可欠です。",
+    "videoReference": {
+      "title": "【2-3】GIGO : Garbage In, Garbage Out [第2講:データの入出力とタスク]",
+      "videoId": "gWAzJ3tDDec",
+      "url": "https://www.youtube.com/watch?v=gWAzJ3tDDec"
+    }
+  },
+  {
+    "id": 19,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 7,
+    "type": "ox_choice",
+    "questionText": "【第2講 まとめ○×チェック 7/7】\n現実的にはラベル付きデータを十分に集めることが難しい状況も考えられる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 実務におけるデータ収集の課題と「弱教師あり学習」の必要性に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 高精度な正解ラベル（アノテーション）の付与には多大な専門知識や人手・コスト・時間がかかります。そのため、完全なラベル付きデータを大量に集めるのは困難なケースが非常に多く存在します。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: この課題を克服するために、半教師あり学習や弱教師あり学習、自己教師あり学習などの研究が活発に行われています。",
+    "videoReference": {
+      "title": "【2-4】弱教師あり学習：不完全情報からの学習 [第2講:データの入出力とタスク]",
+      "videoId": "zhwjgYR6lno",
+      "url": "https://www.youtube.com/watch?v=zhwjgYR6lno"
+    }
+  },
+  {
+    "id": 20,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 8,
+    "type": "single_choice",
+    "questionText": "表形式のテーブルデータにおいて、一般に「各行」と「各列」が表す概念の組み合わせとして最も適切なものはどれか？",
+    "options": [
+      "A. 行：個々のデータサンプル（事例・レコード） ／ 列：特徴量（属性・説明変数）",
+      "B. 行：特徴量（属性・説明変数） ／ 列：個々のデータサンプル（事例・レコード）",
+      "C. 行：モデルのパラメータ ／ 列：損失関数の値",
+      "D. 行：ハイパーパラメータ ／ 列：学習アルゴリズムの名称"
+    ],
+    "correctAnswer": "A. 行：個々のデータサンプル（事例・レコード） ／ 列：特徴量（属性・説明変数）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 機械学習における最も標準的なテーブルデータの構造理解を問うています。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 一般的なデータセットでは、1行が「1人の顧客」や「1つの物件」といった個別のサンプル（事例）を表し、各列が「年齢」「年収」「面積」などの特徴量（属性）を表します（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 行と列が逆になっています。\n- **C, D**: テーブルデータの基本構造とは無関係な概念です。",
+    "videoReference": {
+      "title": "【2-1】入力としてのテーブルデータ [第2講:データの入出力とタスク]",
+      "videoId": "l0eQ__0LyEk",
+      "url": "https://www.youtube.com/watch?v=l0eQ__0LyEk"
+    }
+  },
+  {
+    "id": 21,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 9,
+    "type": "single_choice",
+    "questionText": "データサイエンスにおける格言「GIGO（Garbage In, Garbage Out）」の本質的な教訓として最も適切なものはどれか？",
+    "options": [
+      "A. 低品質でノイズまみれのデータを入力すると、どんなに優れたAIモデルでも無価値な結果しか出力されない",
+      "B. 不要になった古い学習済みモデルは定期的にゴミ箱に入れて削除しなければならない",
+      "C. 計算機のメモリを節約するために、訓練データは半分以上間引いて学習させるべきである",
+      "D. 複雑なニューラルネットワークを使えば、入力データに含まれる致命的な誤りも自動で完璧に修正される"
+    ],
+    "correctAnswer": "A. 低品質でノイズまみれのデータを入力すると、どんなに優れたAIモデルでも無価値な結果しか出力されない",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【2-3】で強調されるGIGOの原則です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 「ゴミ（不正確・不適切なデータ）を入れれば、ゴミ（無価値な予測結果）が出る」というコンピュータサイエンスの古典的な教訓であり、データの前処理や品質管理の重要性を説いています（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C**: 比喩表現を物理的なゴミ捨てと誤読した選択肢です。\n- **D**: AIは入力データの規則性を学ぶため、入力データ自体が間違っていれば間違った規則性を忠実に学習してしまいます。",
+    "videoReference": {
+      "title": "【2-3】GIGO : Garbage In, Garbage Out [第2講:データの入出力とタスク]",
+      "videoId": "gWAzJ3tDDec",
+      "url": "https://www.youtube.com/watch?v=gWAzJ3tDDec"
+    }
+  },
+  {
+    "id": 22,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 10,
+    "type": "single_choice",
+    "questionText": "次の機械学習タスクのうち、「回帰タスク（Regression）」に分類されるものはどれか？",
+    "options": [
+      "A. 過去の気象データや立地条件から、明日の電力消費量（kWh）の数値を予測する",
+      "B. 受信した電子メールが「スパム」か「通常メール」かを判定する",
+      "C. レントゲン写真から「肺炎の兆候あり」か「正常」かを分類する",
+      "D. 手書きされた1文字の画像が「0〜9」のどの数字であるかを判別する"
+    ],
+    "correctAnswer": "A. 過去の気象データや立地条件から、明日の電力消費量（kWh）の数値を予測する",
+    "explanation": "📖 【基本解説・設問の背景】\n- 回帰タスクと分類タスクの実例による識別問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 電力消費量（kWh）のように連続した「数値（実数値）」を予測するタスクが回帰タスクです（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C**: 2つのクラスのいずれかに振り分ける「2値分類タスク」です。\n- **D**: 10個のカテゴリのいずれかに分類する「多クラス分類タスク」です。",
+    "videoReference": {
+      "title": "【2-2】代表的タスク [第2講:データの入出力とタスク]",
+      "videoId": "xZg-b8xPGZ8",
+      "url": "https://www.youtube.com/watch?v=xZg-b8xPGZ8"
+    }
+  },
+  {
+    "id": 23,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 11,
+    "type": "drag_and_drop_matching",
+    "questionText": "各機械学習の枠組みと、その学習データ・アプローチの組み合わせとして正しいペアを作りなさい。",
+    "matchingPairs": [
+      {
+        "targetLabel": "教師あり学習:",
+        "options": [
+          "特徴量と正解ラベル（ターゲット）のペアを用いて学習する",
+          "正解ラベルを与えず、データ背後の構造やクラスタを見出す",
+          "行動と環境からの報酬（スコア）を最大化するように方策を学ぶ"
+        ],
+        "correctAnswer": "特徴量と正解ラベル（ターゲット）のペアを用いて学習する"
+      },
+      {
+        "targetLabel": "教師なし学習:",
+        "options": [
+          "特徴量と正解ラベル（ターゲット）のペアを用いて学習する",
+          "正解ラベルを与えず、データ背後の構造やクラスタを見出す",
+          "行動と環境からの報酬（スコア）を最大化するように方策を学ぶ"
+        ],
+        "correctAnswer": "正解ラベルを与えず、データ背後の構造やクラスタを見出す"
+      },
+      {
+        "targetLabel": "強化学習:",
+        "options": [
+          "特徴量と正解ラベル（ターゲット）のペアを用いて学習する",
+          "正解ラベルを与えず、データ背後の構造やクラスタを見出す",
+          "行動と環境からの報酬（スコア）を最大化するように方策を学ぶ"
+        ],
+        "correctAnswer": "行動と環境からの報酬（スコア）を最大化するように方策を学ぶ"
+      }
+    ],
+    "correctAnswer": {
+      "教師あり学習:": "特徴量と正解ラベル（ターゲット）のペアを用いて学習する",
+      "教師なし学習:": "正解ラベルを与えず、データ背後の構造やクラスタを見出す",
+      "強化学習:": "行動と環境からの報酬（スコア）を最大化するように方策を学ぶ"
+    },
+    "explanation": "📖 【基本解説・設問の背景】\n- 機械学習の3大パラダイム（教師あり、教師なし、強化学習）の定義と目的を整理する問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 正解がある学習＝教師あり学習、正解がないデータの構造探索＝教師なし学習、試行錯誤と報酬による学習＝強化学習です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 各学習手法の目的とデータの形式を正しくペアリングすることが重要です。",
+    "videoReference": {
+      "title": "【2-2】代表的タスク [第2講:データの入出力とタスク]",
+      "videoId": "xZg-b8xPGZ8",
+      "url": "https://www.youtube.com/watch?v=xZg-b8xPGZ8"
+    }
+  },
+  {
+    "id": 24,
+    "topic": "第2講: データの入出力とタスク",
+    "topicId": 2,
+    "questionNumber": 12,
+    "type": "single_choice",
+    "questionText": "完全で正確な正解ラベルを大量に用意できない場合に、「粗いラベル（画像全体のタグ等）」や「ノイズ混じりのラベル」などの不完全な情報を利用して学習を行う枠組みを何と呼ぶか？",
+    "options": [
+      "A. 弱教師あり学習（Weakly Supervised Learning）",
+      "B. スクラッチ学習（Scratch Learning）",
+      "C. 完全教師あり学習（Fully Supervised Learning）",
+      "D. 決定論的アルゴリズム（Deterministic Algorithm）"
+    ],
+    "correctAnswer": "A. 弱教師あり学習（Weakly Supervised Learning）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【2-4】で解説される「弱教師あり学習」の定義を問う設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 正解ラベルが不完全、粗い（不正確・部分的一部のみ）である状況から効果的に学習する手法を「弱教師あり学習」と呼びます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 何も事前学習を使わずにゼロからパラメータを学習することです。\n- **C**: すべてのデータに厳密な正解ラベルが付与されている通常の教師あり学習です。\n- **D**: 確率的要素を含まずに入力に対して常に一意の結果を返すアルゴリズムのことです。",
+    "videoReference": {
+      "title": "【2-4】弱教師あり学習：不完全情報からの学習 [第2講:データの入出力とタスク]",
+      "videoId": "zhwjgYR6lno",
+      "url": "https://www.youtube.com/watch?v=zhwjgYR6lno"
+    }
+  },
+  {
+    "id": 25,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 1,
+    "type": "ox_choice",
+    "questionText": "【第3講 まとめ○×チェック 1/7】\nモデルの出力である予測値と特徴量の差を残差または誤差と呼ぶ。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 残差（Residual）および誤差（Error）の正確な定義を問う設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 残差や誤差とは、モデルの出力である「予測値」と、正解である「ターゲット（目的変数）」との差を指します。「特徴量（入力値）」との差ではないため、記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 「特徴量」と「ターゲット」の用語を取り違えやすい典型的なひっかけ問題です。",
+    "videoReference": {
+      "title": "【3-2】評価指標 [第3講:モデルの評価指標]",
+      "videoId": "ZHPS0cAhhPs",
+      "url": "https://www.youtube.com/watch?v=ZHPS0cAhhPs"
+    }
+  },
+  {
+    "id": 26,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 2,
+    "type": "ox_choice",
+    "questionText": "【第3講 まとめ○×チェック 2/7】\n学習時には全データの損失の平均を最小化するようパラメータを決定する。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- モデルのパラメータ学習における最適化の目的（損失関数の最小化）に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 機械学習では、訓練データ全体における各サンプルの損失（二乗誤差など）の平均値を目的関数（コスト関数）とし、これを最小化するように勾配降下法等でパラメータを決定します。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 全サンプルの平均損失を最小化することが標準的な学習の定式化です。",
+    "videoReference": {
+      "title": "【3-3】最適なパラメータの決定 [第3講:モデルの評価指標]",
+      "videoId": "MjePJltuCGU",
+      "url": "https://www.youtube.com/watch?v=MjePJltuCGU"
+    }
+  },
+  {
+    "id": 27,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 3,
+    "type": "ox_choice",
+    "questionText": "【第3講 まとめ○×チェック 3/7】\n最適なパラメータは損失関数の選び方に依らない。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 損失関数の選択が求まるパラメータに与える影響に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- どのような損失関数（平均二乗誤差 MSE、平均絶対誤差 MAE、交差エントロピー損失等）を採用するかによって、ペナルティの与え方が異なるため、最終的に得られる最適パラメータの値も変わります。したがって「依らない」とする記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 例えば外れ値に対して二乗誤差は敏感ですが、絶対誤差は頑健であり、最適解は明確に異なります。",
+    "videoReference": {
+      "title": "【3-3】最適なパラメータの決定 [第3講:モデルの評価指標]",
+      "videoId": "MjePJltuCGU",
+      "url": "https://www.youtube.com/watch?v=MjePJltuCGU"
+    }
+  },
+  {
+    "id": 28,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 4,
+    "type": "ox_choice",
+    "questionText": "【第3講 まとめ○×チェック 4/7】\nパラメータについて非線形なモデルでは最適解が解析的に求まることが多い。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 解析的解（方程式を数式変形で解く）と数値的最適化の違いに関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- パラメータについて線形なモデル（線形回帰など）では正規方程式等を用いて解析的に最適解が求まりますが、非線形なモデル（ディープニューラルネットワーク等）では解析的に解くことが困難であり、勾配降下法などの数値的な反復アルゴリズムによって近似最適解を探索します。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 解析的に求まるのは主にパラメータについて線形なモデルです。",
+    "videoReference": {
+      "title": "【3-3】最適なパラメータの決定 [第3講:モデルの評価指標]",
+      "videoId": "MjePJltuCGU",
+      "url": "https://www.youtube.com/watch?v=MjePJltuCGU"
+    }
+  },
+  {
+    "id": 29,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 5,
+    "type": "ox_choice",
+    "questionText": "【第3講 まとめ○×チェック 5/7】\n最適なパラメータが解析的に求まらない場合でも逐次的に更新すれば必ず最適解に収束する。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 最適化アルゴリズムにおける局所最適解（ローカルミニマム）の問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 勾配降下法などの逐次更新アルゴリズムは、非凸な損失関数においては「局所最適解（ローカルミニマム）」や「鞍点（サドルポイント）」にトラップされる可能性があり、大域的最適解（グローバルミニマム）に必ず収束するとは限りません。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 「必ず」という強い断定表現は非線形最適化において成り立ちません。",
+    "videoReference": {
+      "title": "【3-3】最適なパラメータの決定 [第3講:モデルの評価指標]",
+      "videoId": "MjePJltuCGU",
+      "url": "https://www.youtube.com/watch?v=MjePJltuCGU"
+    }
+  },
+  {
+    "id": 30,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 6,
+    "type": "ox_choice",
+    "questionText": "【第3講 まとめ○×チェック 6/7】\nモデルを過学習させることで汎化性能が獲得される。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「過学習（Overfitting）」と「汎化性能（Generalization Ability）」の関係についての設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 過学習とは、モデルが訓練データに過剰に適合してしまい、未知のテストデータに対する予測精度（汎化性能）が著しく悪化してしまう現象です。汎化性能を獲得するためには、過学習を防ぐ（正則化やドロップアウト等の適用）必要があります。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 過学習は汎化性能を「損なう」現象です。",
+    "videoReference": {
+      "title": "【3-4】汎化性能 [第3講:モデルの評価指標]",
+      "videoId": "igNZO1SN-gk",
+      "url": "https://www.youtube.com/watch?v=igNZO1SN-gk"
+    }
+  },
+  {
+    "id": 31,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 7,
+    "type": "ox_choice",
+    "questionText": "【第3講 まとめ○×チェック 7/7】\nモデル間の汎化性能を比較するには訓練データにおける損失を比較すればよい。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 汎化性能の測定方法と検証データの役割に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 訓練データでの損失は過学習したモデルほど小さくなるため、汎化性能の比較には使えません。モデル間の汎化性能を公平に比較・評価するには、学習に使用していない独立した「検証データ（Validation Data）」または「テストデータ（Test Data）」における損失や評価指標を比較する必要があります。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 未知データに対する性能を測るのが汎化性能の評価です。",
+    "videoReference": {
+      "title": "【3-4】汎化性能 [第3講:モデルの評価指標]",
+      "videoId": "igNZO1SN-gk",
+      "url": "https://www.youtube.com/watch?v=igNZO1SN-gk"
+    }
+  },
+  {
+    "id": 32,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 8,
+    "type": "single_choice",
+    "questionText": "二値分類の混同行列（Confusion Matrix）において、「実際は陰性（Negative）であるデータを、誤って陽性（Positive）と予測してしまった」場合を表す要素はどれか？",
+    "options": [
+      "A. 偽陽性（False Positive / FP）",
+      "B. 真陽性（True Positive / TP）",
+      "C. 偽陰性（False Negative / FN）",
+      "D. 真陰性（True Negative / TN）"
+    ],
+    "correctAnswer": "A. 偽陽性（False Positive / FP）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 混同行列の4象限の定義を正しく識別する重要基礎問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 予測が陽性（Positive）であり、それが誤り（False）だったケースは「偽陽性（False Positive: FP）」と呼びます（Aが正解）。タイプIエラーとも呼ばれます。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B (TP)**: 実際が陽性で、予測も正しく陽性だった場合です。\n- **C (FN)**: 実際は陽性なのに、誤って陰性と予測してしまった場合（見逃し・タイプIIエラー）です。\n- **D (TN)**: 実際が陰性で、予測も正しく陰性だった場合です。",
+    "videoReference": {
+      "title": "【3-2】評価指標 [第3講:モデルの評価指標]",
+      "videoId": "ZHPS0cAhhPs",
+      "url": "https://www.youtube.com/watch?v=ZHPS0cAhhPs"
+    }
+  },
+  {
+    "id": 33,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 9,
+    "type": "single_choice",
+    "questionText": "ある迷惑メールフィルターで、モデルが「迷惑メール」と予測した100件のうち、実際に迷惑メールだったものは80件、通常メールだったものは20件でした。このときの「適合率（Precision）」として正しい値はどれか？",
+    "options": [
+      "A. 80% (0.80)",
+      "B. 20% (0.20)",
+      "C. 100% (1.00)",
+      "D. 40% (0.40)"
+    ],
+    "correctAnswer": "A. 80% (0.80)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 適合率（Precision）の計算式と意味の理解を問う計算問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 適合率の計算式は $\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}$ です。\n- モデルが陽性と予測した件数（TP + FP）＝ 100件\n- そのうち実際に陽性だった件数（TP）＝ 80件\n- したがって、$\\frac{80}{100} = 80\\%$ となります（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 誤って通常メールを迷惑メールと予測した割合（20%）です。\n- **C, D**: 計算が一致しません。",
+    "videoReference": {
+      "title": "【3-2】評価指標 [第3講:モデルの評価指標]",
+      "videoId": "ZHPS0cAhhPs",
+      "url": "https://www.youtube.com/watch?v=ZHPS0cAhhPs"
+    }
+  },
+  {
+    "id": 34,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 10,
+    "type": "single_choice",
+    "questionText": "癌の画像診断システムのように、「病気の見逃し（偽陰性 FN）をできる限りゼロに近づけたい」場合に、最も重視すべき評価指標はどれか？",
+    "options": [
+      "A. 再現率（Recall）",
+      "B. 適合率（Precision）",
+      "C. 正解率（Accuracy）",
+      "D. 決定係数（R2スコア）"
+    ],
+    "correctAnswer": "A. 再現率（Recall）",
+    "explanation": "📖 【基本解説・設問の背景】\n- タスクの目的に応じた適切な評価指標の選択能力を問う実践的設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 再現率 $\\text{Recall} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}}$ は、「実際に陽性であるサンプルのうち、どれだけ漏れなく陽性と検出できたか」を表します。偽陰性（FN＝見逃し）を小さくするには再現率を高くすることが最も重要です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B (適合率)**: 誤検知（通常を誤って病気と判定するFP）を減らしたい場合に重視します。\n- **C (正解率)**: データの不均衡（健常者が99%など）がある場合、全員を陰性と判定するだけでも99%になってしまい見逃しを防げません。\n- **D (決定係数)**: 回帰タスクの評価指標です。",
+    "videoReference": {
+      "title": "【3-2】評価指標 [第3講:モデルの評価指標]",
+      "videoId": "ZHPS0cAhhPs",
+      "url": "https://www.youtube.com/watch?v=ZHPS0cAhhPs"
+    }
+  },
+  {
+    "id": 35,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 11,
+    "type": "single_choice",
+    "questionText": "適合率（Precision）と再現率（Recall）のトレードオフを考慮し、両者の「調和平均」として算出される総合的な評価指標はどれか？",
+    "options": [
+      "A. F値（F1スコア / F-measure）",
+      "B. ROC曲線の傾き",
+      "C. 平均絶対誤差（MAE）",
+      "D. コサイン類似度"
+    ],
+    "correctAnswer": "A. F値（F1スコア / F-measure）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 適合率と再現率をバランスよく総合評価する代表指標の定義です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 適合率と再現率の調和平均は **F値（F1スコア）** と呼ばれ、$F_1 = \\frac{2 \\times \\text{Precision} \\times \\text{Recall}}{\\text{Precision} + \\text{Recall}}$ で計算されます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: ROC曲線の下側面積はAUCです。\n- **C**: 回帰問題の誤差指標です。\n- **D**: ベクトル同士の向きの類似度を表す尺度です。",
+    "videoReference": {
+      "title": "【3-2】評価指標 [第3講:モデルの評価指標]",
+      "videoId": "ZHPS0cAhhPs",
+      "url": "https://www.youtube.com/watch?v=ZHPS0cAhhPs"
+    }
+  },
+  {
+    "id": 36,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 12,
+    "type": "single_choice",
+    "questionText": "機械学習における「勾配降下法（Gradient Descent）」の基本的な仕組みとして、最も適切な説明はどれか？",
+    "options": [
+      "A. 損失関数の勾配（傾き）を計算し、損失が小さくなる下り坂の方向へパラメータを少しずつ更新する",
+      "B. 乱数でパラメータを完全にランダムに生成し直し、最も良かったものを偶然見つける",
+      "C. 損失関数の二階微分が常に最大になるようにパラメータを一気にジャンプさせる",
+      "D. 入力特徴量を大きい順に並べ替えて、上位10個の特徴量のみを残す"
+    ],
+    "correctAnswer": "A. 損失関数の勾配（傾き）を計算し、損失が小さくなる下り坂の方向へパラメータを少しずつ更新する",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【3-3】で解説される最適化アルゴリズムの代表格「勾配降下法」の直感的理解を問うています。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 勾配（損失関数の微分）を計算し、損失が下がる負の勾配方向に学習率（ステップ幅）を掛けてパラメータを逐次更新していく手法です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: ランダムサーチの説明です。\n- **C**: 損失を最小化する勾配方向と逆の更新になります。\n- **D**: 特徴量選択の説明です。",
+    "videoReference": {
+      "title": "【3-3】最適なパラメータの決定 [第3講:モデルの評価指標]",
+      "videoId": "MjePJltuCGU",
+      "url": "https://www.youtube.com/watch?v=MjePJltuCGU"
+    }
+  },
+  {
+    "id": 37,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 13,
+    "type": "single_choice",
+    "questionText": "学習の進行に伴い、訓練データに対する損失は下がり続けているにもかかわらず、検証データに対する損失が途中から上昇し始める現象（過学習）への有効な対策として適切なものはどれか？",
+    "options": [
+      "A. 正則化項の追加や、早期終了（Early Stopping）によりモデルの過度な学習を抑制する",
+      "B. モデルの層数をさらに増やしてパラメータ数を10倍にする",
+      "C. 訓練データのサンプル数を減らしてモデルを単純化させる",
+      "D. 損失関数を完全に削除して学習を行う"
+    ],
+    "correctAnswer": "A. 正則化項の追加や、早期終了（Early Stopping）によりモデルの過度な学習を抑制する",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【3-4】で解説される過学習の抑制手法（正則化、早期終了）に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- パラメータの大きさにペナルティを課す正則化（L1/L2正則化）や、検証損失が悪化し始めた段階で学習を打ち切る早期終了（Early Stopping）は、過学習への代表的な対策です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: パラメータ数を増やすと表現力が増加し、過学習はさらに悪化します。\n- **C**: データ数を減らすと汎化性能は悪化します（データを増やすことが過学習防止に有効）。\n- **D**: 損失関数がなければ最適化の基準が失われます。",
+    "videoReference": {
+      "title": "【3-4】汎化性能 [第3講:モデルの評価指標]",
+      "videoId": "igNZO1SN-gk",
+      "url": "https://www.youtube.com/watch?v=igNZO1SN-gk"
+    }
+  },
+  {
+    "id": 38,
+    "topic": "第3講: モデルの評価指標",
+    "topicId": 3,
+    "questionNumber": 14,
+    "type": "hotspot_radio_table",
+    "questionText": "次の混同行列の要素に関する記述について、それぞれ正しい（Yes）か誤り（No）か判定しなさい。",
+    "tableStatements": [
+      {
+        "statement": "真陽性 (TP) とは、実際の正解が陽性で、モデルの予測結果も陽性であったサンプルの数である。",
+        "correct": "Yes"
+      },
+      {
+        "statement": "偽陰性 (FN) とは、実際の正解が陰性で、モデルの予測が誤って陽性となったサンプルの数である。",
+        "correct": "No"
+      },
+      {
+        "statement": "正解率 (Accuracy) の計算式は (TP + TN) / (TP + FP + FN + TN) である。",
+        "correct": "Yes"
+      }
+    ],
+    "correctAnswer": {
+      "statement_0": "Yes",
+      "statement_1": "No",
+      "statement_2": "Yes"
+    },
+    "explanation": "📖 【基本解説・設問の背景】\n- 混同行列（Confusion Matrix）の要素と正解率の計算式を総合確認する問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- **ステートメント1 (Yes)**: TPの正しい定義です。\n- **ステートメント2 (No)**: 実際が陰性で予測が陽性のものは「偽陽性 (FP)」です。偽陰性 (FN) は実際が陽性で予測が陰性だった見逃しケースです。\n- **ステートメント3 (Yes)**: 全サンプルのうち正しく予測できた（TP+TN）の割合が正解率です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- FPとFNを取り違えないように「予測結果（Positive/Negative）」と「正誤（True/False）」を分解して確認しましょう。",
+    "videoReference": {
+      "title": "【3-2】評価指標 [第3講:モデルの評価指標]",
+      "videoId": "ZHPS0cAhhPs",
+      "url": "https://www.youtube.com/watch?v=ZHPS0cAhhPs"
+    }
+  },
+  {
+    "id": 39,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 1,
+    "type": "ox_choice",
+    "questionText": "【第4講 まとめ○×チェック 1/7】\n28x28と64x64の標本化（サンプリング）では後者の方が視覚的に元の滑らかな画像に近い。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 画像のデジタル化における「標本化（サンプリング / 解像度）」に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 標本化において、格子（グリッド）の分割数が多い（解像度が高い）ほど、きめ細かく空間情報を記録できるため、元の滑らかなアナログ画像に近い表現になります（$64 \\times 64$ の方が $28 \\times 28$ より高精細）。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 解像度（標本化数）が大きいほど元の画像に近づくため正しいステートメントです。",
+    "videoReference": {
+      "title": "【4-3】視覚情報のデータ表現 [第4講:画像データの取り扱い]",
+      "videoId": "RsRkoEyTfas",
+      "url": "https://www.youtube.com/watch?v=RsRkoEyTfas"
+    }
+  },
+  {
+    "id": 40,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 2,
+    "type": "ox_choice",
+    "questionText": "【第4講 まとめ○×チェック 2/7】\n量子化とはデジタルな情報をアナログに変換する操作である。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「量子化（Quantization）」の定義に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 量子化とは、連続的な「アナログ量（光の強さなど）」を、離散的な「デジタル値（0〜255の整数など）」に丸めて変換する操作のことです。デジタルからアナログへの変換ではないため、記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: デジタル化の順序（アナログ $\\rightarrow$ デジタル）を取り違えないように注意が必要です。",
+    "videoReference": {
+      "title": "【4-3】視覚情報のデータ表現 [第4講:画像データの取り扱い]",
+      "videoId": "RsRkoEyTfas",
+      "url": "https://www.youtube.com/watch?v=RsRkoEyTfas"
+    }
+  },
+  {
+    "id": 41,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 3,
+    "type": "ox_choice",
+    "questionText": "【第4講 まとめ○×チェック 3/7】\nMNISTは1枚が784個のピクセルからなる手書き数字の教師付きデータセットである。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 機械学習の代表的な画像データセット「MNIST」の仕様理解です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- MNISTは $28 \\times 28 = 784$ ピクセルのグレースケール画像で構成され、各画像に「0〜9」の手書き数字の正解ラベル（教師データ）が付与されています。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 28×28=784ピクセル、0〜9のラベル付きデータセットという仕様は完全に正確です。",
+    "videoReference": {
+      "title": "【4-4】データの表現型と画素の指定 [第4講:画像データの取り扱い]",
+      "videoId": "wweWl_yoz7c",
+      "url": "https://www.youtube.com/watch?v=wweWl_yoz7c"
+    }
+  },
+  {
+    "id": 42,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 4,
+    "type": "ox_choice",
+    "questionText": "【第4講 まとめ○×チェック 4/7】\nMNISTにおいて黒いピクセルは0や比較的小さな値をとる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- MNISTデータセットにおける画素値（白と黒のエンコーディング）の仕様に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- MNISTデータセットでは、背景が黒（値0）で文字部分が白（値255または大きな値）として格納されています。しかし一般的な紙に書かれた文字（白背景・黒文字）の感覚とは反転しており、公式講義でも「黒が0ではなく、データ上での表現方法と値の対応」に注意する論点として扱われています。設問の記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 背景と文字の階調値の取り決めに着目することがポイントです。",
+    "videoReference": {
+      "title": "【4-4】データの表現型と画素の指定 [第4講:画像データの取り扱い]",
+      "videoId": "wweWl_yoz7c",
+      "url": "https://www.youtube.com/watch?v=wweWl_yoz7c"
+    }
+  },
+  {
+    "id": 43,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 5,
+    "type": "ox_choice",
+    "questionText": "【第4講 まとめ○×チェック 5/7】\n1枚のモノクロ画像データは平面情報であり、1次元配列に格納することはできない。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 画像データの平坦化（Flattening）と配列の次元変換に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 2次元の画像データ（例: $28 \\times 28$）は、各行を横に一列につなぎ合わせる「平坦化（Flatten）」を行うことで、長さ784の1次元配列としてメモリやモデルに入力できます。したがって「格納することはできない」とする記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 全結合ニューラルネットワークへの入力などで1次元配列化は極めて頻繁に行われます。",
+    "videoReference": {
+      "title": "【4-4】データの表現型と画素の指定 [第4講:画像データの取り扱い]",
+      "videoId": "wweWl_yoz7c",
+      "url": "https://www.youtube.com/watch?v=wweWl_yoz7c"
+    }
+  },
+  {
+    "id": 44,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 6,
+    "type": "ox_choice",
+    "questionText": "【第4講 まとめ○×チェック 6/7】\nC++やPython、Juliaでは配列のインデックスが0からはじまることに注意が必要である。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- プログラミング言語ごとの配列インデックス（添字）の開始番号の違いに関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- C++やPythonではインデックスは「0始まり（0-indexed）」ですが、科学技術計算言語であるJuliaやMATLAB、Rでは「1始まり（1-indexed）」です。すべてが0から始まるわけではないため、記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: Juliaが1始まりである点が典型的な引っかけです。",
+    "videoReference": {
+      "title": "【4-4】データの表現型と画素の指定 [第4講:画像データの取り扱い]",
+      "videoId": "wweWl_yoz7c",
+      "url": "https://www.youtube.com/watch?v=wweWl_yoz7c"
+    }
+  },
+  {
+    "id": 45,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 7,
+    "type": "ox_choice",
+    "questionText": "【第4講 まとめ○×チェック 7/7】\nカラー画像では1つの画素についてチャネル方向にRGBの情報を保持している。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- カラー画像の3チャンネル構造に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- カラー画像は各画素（ピクセル）ごとに、赤（Red）、緑（Green）、青（Blue）の光の三原色の強度（RGBの3チャネル）を保持する3次元テンソル構造を持っています。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: RGBの3成分で色を表現する標準的な仕様です。",
+    "videoReference": {
+      "title": "【4-5】カラー画像の表現 [第4講:画像データの取り扱い]",
+      "videoId": "ea9HuOBfnac",
+      "url": "https://www.youtube.com/watch?v=ea9HuOBfnac"
+    }
+  },
+  {
+    "id": 46,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 8,
+    "type": "single_choice",
+    "questionText": "アナログな画像情報をデジタル画像データに変換する際の「標本化（サンプリング）」と「量子化（クオンタイゼーション）」の説明として正しいものはどれか？",
+    "options": [
+      "A. 標本化は空間（位置）を離散的なピクセル格子に区切る処理であり、量子化は各画素の明るさ・階調を離散的な数値（0〜255等）に丸める処理である",
+      "B. 標本化は明るさを数値化する処理であり、量子化は画像を水平方向に圧縮する処理である",
+      "C. 標本化を行うと色の情報が失われ、量子化を行うと画像サイズが必ず2倍になる",
+      "D. 標本化と量子化はまったく同じ処理の別名である"
+    ],
+    "correctAnswer": "A. 標本化は空間（位置）を離散的なピクセル格子に区切る処理であり、量子化は各画素の明るさ・階調を離散的な数値（0〜255等）に丸める処理である",
+    "explanation": "📖 【基本解説・設問の背景】\n- 画像信号のA/D変換（アナログからデジタルへの変換）の基本ステップです。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 連続的な平面を格子状の画素に分割するのが「標本化（サンプリング）」、各画素の輝度や色を離散的な段階（整数値）に変換するのが「量子化」です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C, D**: 標本化と量子化の役割を誤認・混同しています。",
+    "videoReference": {
+      "title": "【4-3】視覚情報のデータ表現 [第4講:画像データの取り扱い]",
+      "videoId": "RsRkoEyTfas",
+      "url": "https://www.youtube.com/watch?v=RsRkoEyTfas"
+    }
+  },
+  {
+    "id": 47,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 9,
+    "type": "single_choice",
+    "questionText": "解像度が横100ピクセル、縦80ピクセルの標準的なRGBカラー画像データを3次元配列（高さ × 幅 × チャネル数）として表現する場合、保持される数値要素の総数はいくつか？",
+    "options": [
+      "A. 24,000 個",
+      "B. 8,000 個",
+      "C. 800 個",
+      "D. 64,000 個"
+    ],
+    "correctAnswer": "A. 24,000 個",
+    "explanation": "📖 【基本解説・設問の背景】\n- カラー画像のテンソル要素数の計算問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 画像のサイズは 高さ80 × 横幅100 であり、画素数は $80 \\times 100 = 8,000$ ピクセルです。\n- RGBカラー画像は各ピクセルに R, G, B の 3チャネル を持つため、要素数は $8,000 \\times 3 = 24,000$ 個となります（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: チャネル数（3）を掛け忘れたモノクロ画像の画素数です。\n- **C, D**: 計算が一致しません。",
+    "videoReference": {
+      "title": "【4-5】カラー画像の表現 [第4講:画像データの取り扱い]",
+      "videoId": "ea9HuOBfnac",
+      "url": "https://www.youtube.com/watch?v=ea9HuOBfnac"
+    }
+  },
+  {
+    "id": 48,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 10,
+    "type": "single_choice",
+    "questionText": "コンピュータ上で1画素あたり8ビット（1バイト）で表現される一般的なグレースケール画像において、各画素が取りうる値の範囲として正しいものはどれか？",
+    "options": [
+      "A. 0 〜 255 (合計256階調)",
+      "B. 0 〜 100 (合計101階調)",
+      "C. -128 〜 127 (合計256階調)",
+      "D. 1 〜 256 (合計256階調)"
+    ],
+    "correctAnswer": "A. 0 〜 255 (合計256階調)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 8ビット整数（unsigned 8-bit integer: uint8）による輝度値の表現範囲です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- $2^8 = 256$ 通りの階調を表現でき、符号なし整数として最小値 0（黒）から最大値 255（白）までの値をとります（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: パーセンテージ表記ではありません。\n- **C**: 符号付き整数の範囲ですが、一般的な画像フォーマットでは非負整数（0〜255）が用いられます。\n- **D**: 0から始まるため255までです。",
+    "videoReference": {
+      "title": "【4-4】データの表現型と画素の指定 [第4講:画像データの取り扱い]",
+      "videoId": "wweWl_yoz7c",
+      "url": "https://www.youtube.com/watch?v=wweWl_yoz7c"
+    }
+  },
+  {
+    "id": 49,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 11,
+    "type": "single_choice",
+    "questionText": "2012年の大規模画像認識コンペティション「ILSVRC」において、畳み込みニューラルネットワーク（CNN）を用いて圧倒的な大差で優勝し、世界的な第3次AIブーム（ディープラーニング革命）の起点となったモデルはどれか？",
+    "options": [
+      "A. AlexNet",
+      "B. ResNet",
+      "C. LeNet",
+      "D. Transformer"
+    ],
+    "correctAnswer": "A. AlexNet",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【4-6】で解説される、ディープラーニングの歴史において最重要の出来事です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- アレックス・クリジェフスキーらが開発した **AlexNet** は、ILSVRC 2012で従来の機械学習手法（エラー率26%前後）を大きく引き離すエラー率16.4%を叩き出し、ディープラーニング時代の幕開けを告げました（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B (ResNet)**: 2015年に登場し人間の認識率を超えたモデルです。\n- **C (LeNet)**: 1998年にヤン・ルカンが手書き数字認識用に開発した初期のCNNです。\n- **D (Transformer)**: 2017年に自然言語処理向けに登場したアーキテクチャです。",
+    "videoReference": {
+      "title": "【4-6】ILSVRC : ImageNet Large Scale Visual Recognition Challenge [第4講:画像データの取り扱い]",
+      "videoId": "xLoTOd4RkOs",
+      "url": "https://www.youtube.com/watch?v=xLoTOd4RkOs"
+    }
+  },
+  {
+    "id": 50,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 12,
+    "type": "single_choice",
+    "questionText": "ILSVRC 2015で優勝し、152層という前例のない深層ネットワークを実現しながら「残差接続（スキップ接続）」を導入することで勾配消失問題を解決し、人間の誤り率（約5.1%）を下回る約3.5%のエラー率を達成したモデルはどれか？",
+    "options": [
+      "A. ResNet (Residual Network)",
+      "B. VGGNet",
+      "C. AlexNet",
+      "D. GoogLeNet"
+    ],
+    "correctAnswer": "A. ResNet (Residual Network)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【4-6】で解説される、画像認識が人間の能力を超えた歴史的マイルストーンです。\n\n✅ 【正解のポイント・仕様上の根拠】\n- **ResNet** は層を飛び越えるスキップ接続（残差接続）を導入し、超深層ネットワークでも学習が進むようにしてエラー率3.57%を達成しました（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, D**: 2014年に登場した高性能モデルですが、人間超えには至っていませんでした。\n- **C**: 2012年の優勝モデルです。",
+    "videoReference": {
+      "title": "【4-6】ILSVRC : ImageNet Large Scale Visual Recognition Challenge [第4講:画像データの取り扱い]",
+      "videoId": "xLoTOd4RkOs",
+      "url": "https://www.youtube.com/watch?v=xLoTOd4RkOs"
+    }
+  },
+  {
+    "id": 51,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 13,
+    "type": "drag_and_drop_order",
+    "questionText": "画像認識・CNNの歴史的発展を、年代の古い順から新しい順に正しく並べ替えなさい。",
+    "options": [
+      "LeNet（手書き数字認識のための初期CNN）",
+      "AlexNet（ILSVRC 2012で大差をつけて優勝したCNN）",
+      "VGG / GoogLeNet（ILSVRC 2014で競い合った深層モデル）",
+      "ResNet（残差接続により152層を実現し、人間の精度を超えたモデル）"
+    ],
+    "correctAnswer": [
+      "LeNet（手書き数字認識のための初期CNN）",
+      "AlexNet（ILSVRC 2012で大差をつけて優勝したCNN）",
+      "VGG / GoogLeNet（ILSVRC 2014で競い合った深層モデル）",
+      "ResNet（残差接続により152層を実現し、人間の精度を超えたモデル）"
+    ],
+    "explanation": "📖 【基本解説・設問の背景】\n- ディープラーニングおよびコンピュータビジョンにおけるCNNの進化系譜です。\n\n✅ 【正解のポイント・仕様上の根拠】\n1. LeNet (1998年)\n2. AlexNet (2012年)\n3. VGG / GoogLeNet (2014年)\n4. ResNet (2015年)\nこの順序が歴史的な進化順です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 年代とエポックメイキングな出来事をセットで把握しておくことが重要です。",
+    "videoReference": {
+      "title": "【4-6】ILSVRC : ImageNet Large Scale Visual Recognition Challenge [第4講:画像データの取り扱い]",
+      "videoId": "xLoTOd4RkOs",
+      "url": "https://www.youtube.com/watch?v=xLoTOd4RkOs"
+    }
+  },
+  {
+    "id": 52,
+    "topic": "第4講: 画像データの取り扱い",
+    "topicId": 4,
+    "questionNumber": 14,
+    "type": "drag_and_drop_matching",
+    "questionText": "画像処理・ディープラーニングにおける各用語と、その適切な説明のペアを完成させなさい。",
+    "matchingPairs": [
+      {
+        "targetLabel": "画素 (ピクセル / Pixel):",
+        "options": [
+          "デジタル画像を構成する最小単位の点",
+          "RGB画像における赤・緑・青などの各色成分面",
+          "2次元の格子状画像データを1列の長大な数値列に変換する処理"
+        ],
+        "correctAnswer": "デジタル画像を構成する最小単位の点"
+      },
+      {
+        "targetLabel": "チャネル (Channel):",
+        "options": [
+          "デジタル画像を構成する最小単位の点",
+          "RGB画像における赤・緑・青などの各色成分面",
+          "2次元の格子状画像データを1列の長大な数値列に変換する処理"
+        ],
+        "correctAnswer": "RGB画像における赤・緑・青などの各色成分面"
+      },
+      {
+        "targetLabel": "平坦化 (Flatten):",
+        "options": [
+          "デジタル画像を構成する最小単位の点",
+          "RGB画像における赤・緑・青などの各色成分面",
+          "2次元の格子状画像データを1列の長大な数値列に変換する処理"
+        ],
+        "correctAnswer": "2次元の格子状画像データを1列の長大な数値列に変換する処理"
+      }
+    ],
+    "correctAnswer": {
+      "画素 (ピクセル / Pixel):": "デジタル画像を構成する最小単位の点",
+      "チャネル (Channel):": "RGB画像における赤・緑・青などの各色成分面",
+      "平坦化 (Flatten):": "2次元の格子状画像データを1列の長大な数値列に変換する処理"
+    },
+    "explanation": "📖 【基本解説・設問の背景】\n- 画像データの表現と処理における基礎キーワードの整理です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 画素＝最小単位の点、チャネル＝色の深さ方向の面、平坦化＝多次元から1次元への変換です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- それぞれの用語が指す空間的な次元（点、面、変換操作）を区別しましょう。",
+    "videoReference": {
+      "title": "【4-4】データの表現型と画素の指定 [第4講:画像データの取り扱い]",
+      "videoId": "wweWl_yoz7c",
+      "url": "https://www.youtube.com/watch?v=wweWl_yoz7c"
+    }
+  },
+  {
+    "id": 53,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 1,
+    "type": "ox_choice",
+    "questionText": "【第5講 まとめ○×チェック 1/7】\n一般に、2つの行列XとYについて、XYは計算可能だがYXは計算不可能なケースが存在する。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 行列の積の定義と計算可能なサイズ条件に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 行列の積 $XY$ は、$X$ の列数と $Y$ の行数が等しいときにのみ定義されます。例えば $X$ が $(2 \\times 3)$ 行列、$Y$ が $(3 \\times 4)$ 行列の場合、$XY$ は $(2 \\times 4)$ として計算可能ですが、逆の積 $YX$ は $(3 \\times 4)$ と $(2 \\times 3)$ で内側の次元（4と2）が一致しないため計算不可能です。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 行列の積は可換律（交換法則）が成り立たず、サイズによって片方しか計算できないケースが普通に存在します。",
+    "videoReference": {
+      "title": "【5-3】行列・ベクトルによるデータの表現 [第5講:数学的な表現に慣れる]",
+      "videoId": "b3n-9ILapvI",
+      "url": "https://www.youtube.com/watch?v=b3n-9ILapvI"
+    }
+  },
+  {
+    "id": 54,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 2,
+    "type": "ox_choice",
+    "questionText": "【第5講 まとめ○×チェック 2/7】\n6次元列ベクトルは1行6列の行列と見ることもできる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 列ベクトル（Column Vector）と行ベクトル（Row Vector）のサイズ表記の区別です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 「列ベクトル」は縦に並んだベクトルであり、「6行1列」の行列です。「1行6列」は横に並んだ「行ベクトル」です。行と列が逆になっているため、記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 行列のサイズ表記は常に「行（たて）× 列（よこ）」の順序です。",
+    "videoReference": {
+      "title": "【5-3】行列・ベクトルによるデータの表現 [第5講:数学的な表現に慣れる]",
+      "videoId": "b3n-9ILapvI",
+      "url": "https://www.youtube.com/watch?v=b3n-9ILapvI"
+    }
+  },
+  {
+    "id": 55,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 3,
+    "type": "ox_choice",
+    "questionText": "【第5講 まとめ○×チェック 3/7】\n4x2行列と2x8行列の積を計算すると8x4行列が得られる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 行列の積によって得られる新しい行列の形状（行数・列数）に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- $(m \\times k)$ 行列と $(k \\times n)$ 行列の積は $(m \\times n)$ 行列になります。\n- したがって、$(4 \\times 2)$ 行列と $(2 \\times 8)$ 行列の積は $(4 \\times 8)$ 行列が得られます。「8x4行列」ではないため、記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 得られる行列のサイズは左側の行数（4）と右側の列数（8）によって決まります。",
+    "videoReference": {
+      "title": "【5-3】行列・ベクトルによるデータの表現 [第5講:数学的な表現に慣れる]",
+      "videoId": "b3n-9ILapvI",
+      "url": "https://www.youtube.com/watch?v=b3n-9ILapvI"
+    }
+  },
+  {
+    "id": 56,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 4,
+    "type": "ox_choice",
+    "questionText": "【第5講 まとめ○×チェック 4/7】\n6x3行列を転置することで3x6行列が得られる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 転置行列（Transpose）の定義とサイズの変化に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 転置操作 $A^T$ は、行列の行と列を入れ替える操作です。したがって $(6 \\times 3)$ 行列を転置すると $(3 \\times 6)$ 行列が得られます。記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 行数と列数がそのまま入れ替わるため正しいステートメントです。",
+    "videoReference": {
+      "title": "【5-3】行列・ベクトルによるデータの表現 [第5講:数学的な表現に慣れる]",
+      "videoId": "b3n-9ILapvI",
+      "url": "https://www.youtube.com/watch?v=b3n-9ILapvI"
+    }
+  },
+  {
+    "id": 57,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 5,
+    "type": "ox_choice",
+    "questionText": "【第5講 まとめ○×チェック 5/7】\n総和記号（シグマ記号 Σ）を用いればランダムな数列の各項の和をシンプルに曖昧さなく表現できる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 総和記号 $\\sum$ の数学的な適用対象と表現力に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 総和記号 $\\sum_{i=1}^n a_i$ は、添字 $i$ や一般項によって「何らかの規則性・対応関係」が定義されている数列の足し算を簡潔に表現するための記号です。規則性のない完全にランダムな数列の一般項を数式でシンプルに表すことはできません。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 総和記号は規則的な並びを表現するのに適しています。",
+    "videoReference": {
+      "title": "【5-6】総和記号の準備 [第5講:数学的な表現に慣れる]",
+      "videoId": "00-zf_xQwg8",
+      "url": "https://www.youtube.com/watch?v=00-zf_xQwg8"
+    }
+  },
+  {
+    "id": 58,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 6,
+    "type": "ox_choice",
+    "questionText": "【第5講 まとめ○×チェック 6/7】\nデータの特徴を捉えるには平均と分散さえ見ておけばよい。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- データの要約統計量と分布の形状（歪度、尖度、外れ値）の重要性に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 平均と分散がまったく同じであっても、分布の歪み（歪度）や裾の重さ（尖度）、二峰性の分布、外れ値の有無などによってデータの実態は大きく異なります（アンスコムの例など）。平均と分散「さえ見ておけばよい」という記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: データの可視化や高次の統計量、中央値などを併せて確認することが不可欠です。",
+    "videoReference": {
+      "title": "【5-2】テーブルでデータを管理する [第5講:数学的な表現に慣れる]",
+      "videoId": "8vKH4Gq51rI",
+      "url": "https://www.youtube.com/watch?v=8vKH4Gq51rI"
+    }
+  },
+  {
+    "id": 59,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 7,
+    "type": "ox_choice",
+    "questionText": "【第5講 まとめ○×チェック 7/7】\n平均と分散は単位が異なることに注意が必要である。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 平均値と分散の次元（単位）の違いに関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 平均の単位は元のデータと同じ（例: 身長なら cm）ですが、分散は偏差の2乗の平均であるため「単位の2乗（例: cm^2）」になります。元の単位に戻したものが標準偏差（sqrt(分散)）です。したがって「単位が異なる」という記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 分散は2乗された単位を持つため、平均と直接足し引きすることはできません。",
+    "videoReference": {
+      "title": "【5-2】テーブルでデータを管理する [第5講:数学的な表現に慣れる]",
+      "videoId": "8vKH4Gq51rI",
+      "url": "https://www.youtube.com/watch?v=8vKH4Gq51rI"
+    }
+  },
+  {
+    "id": 60,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 8,
+    "type": "single_choice",
+    "questionText": "2つの2次元ベクトル a = [2, 3]^T と b = [4, -1]^T の内積 a・b の計算結果として正しい値はどれか？",
+    "options": [
+      "A. 5",
+      "B. 11",
+      "C. 8",
+      "D. -1"
+    ],
+    "correctAnswer": "A. 5",
+    "explanation": "📖 【基本解説・設問の背景】\n- ベクトルの内積の基本計算です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 内積は対応する成分同士の積の和です：\n  $$a \\cdot b = 2 \\times 4 + 3 \\times (-1) = 8 - 3 = 5$$\n  したがって5が正解です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 8 + 3 = 11 と符号を間違えた計算です。\n- **C**: 2 * 4 = 8 のみ計算した誤りです。\n- **D**: 2 - 3 = -1 と引き算をした誤りです。",
+    "videoReference": {
+      "title": "【5-4】内積 [第5講:数学的な表現に慣れる]",
+      "videoId": "FxT0-domBq4",
+      "url": "https://www.youtube.com/watch?v=FxT0-domBq4"
+    }
+  },
+  {
+    "id": 61,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 9,
+    "type": "single_choice",
+    "questionText": "幾何学的に2つの非ゼロベクトルが互いに「直交（角度が90度）」しているとき、その内積の値はどうなるか？",
+    "options": [
+      "A. 0 になる",
+      "B. 1 になる",
+      "C. 無限大になる",
+      "D. 常に負の大きな値になる"
+    ],
+    "correctAnswer": "A. 0 になる",
+    "explanation": "📖 【基本解説・設問の背景】\n- ベクトルの内積と成す角 theta の幾何学的関係です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 内積の定義 $a \\cdot b = |a| |b| \\cos \\theta$ において、直交するとき $\\theta = 90^\\circ$ なので $\\cos 90^\\circ = 0$ となり、内積は必ず 0 になります（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: ベクトルが同じ向きで大きさが1同士の場合の内積です。\n- **C, D**: 直交条件の定義と一致しません。",
+    "videoReference": {
+      "title": "【5-4】内積 [第5講:数学的な表現に慣れる]",
+      "videoId": "FxT0-domBq4",
+      "url": "https://www.youtube.com/watch?v=FxT0-domBq4"
+    }
+  },
+  {
+    "id": 62,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 10,
+    "type": "single_choice",
+    "questionText": "行列 A が 3 × 4 行列、B が 4 × 2 行列であるとき、行列の積 C = AB の形状（行数 × 列数）として正しいものはどれか？",
+    "options": [
+      "A. 3 × 2 行列",
+      "B. 4 × 4 行列",
+      "C. 2 × 3 行列",
+      "D. 12 × 8 行列"
+    ],
+    "correctAnswer": "A. 3 × 2 行列",
+    "explanation": "📖 【基本解説・設問の背景】\n- 行列積のサイズ決定則に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- (l × m) 行列と (m × n) 行列の積は (l × n) 行列になります。\n- ここでは (3 × 4) と (4 × 2) なので、内側の4が整合し、結果は 3 × 2 行列 となります（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 内側の共通次元をとってしまっています。\n- **C**: 行と列が逆になっています。\n- **D**: 各成分の掛け算と誤認しています。",
+    "videoReference": {
+      "title": "【5-3】行列・ベクトルによるデータの表現 [第5講:数学的な表現に慣れる]",
+      "videoId": "b3n-9ILapvI",
+      "url": "https://www.youtube.com/watch?v=b3n-9ILapvI"
+    }
+  },
+  {
+    "id": 63,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 11,
+    "type": "single_choice",
+    "questionText": "入力特徴量ベクトル x = [x_1, x_2, ..., x_n]^T と重みパラメータベクトル w = [w_1, w_2, ..., w_n]^T、バイアス b を用いた線形モデルの予測式として最も適切なものはどれか？",
+    "options": [
+      "A. y = w^T x + b = Σ(w_i * x_i) + b",
+      "B. y = w * x^2 + b^2",
+      "C. y = (w + x) / b",
+      "D. y = log(w) + exp(x)"
+    ],
+    "correctAnswer": "A. y = w^T x + b = Σ(w_i * x_i) + b",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【5-5】で解説される「線形モデルの内積表現」の数式です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 各特徴量 $x_i$ に重み $w_i$ を掛けて総和し、バイアス $b$ を加算する式は、内積を用いて $y = w^T x + b$ と非常に簡潔に表記されます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C, D**: 線形モデルの基本形式ではありません。",
+    "videoReference": {
+      "title": "【5-5】線形モデルの内積表現 [第5講:数学的な表現に慣れる]",
+      "videoId": "rjpBqSqsomI",
+      "url": "https://www.youtube.com/watch?v=rjpBqSqsomI"
+    }
+  },
+  {
+    "id": 64,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 12,
+    "type": "single_choice",
+    "questionText": "総和記号 Σ_{i=1}^{4} (2i - 1) を計算した値として正しいものはどれか？",
+    "options": [
+      "A. 16",
+      "B. 14",
+      "C. 20",
+      "D. 8"
+    ],
+    "correctAnswer": "A. 16",
+    "explanation": "📖 【基本解説・設問の背景】\n- シグマ記号 Σ の展開と計算の理解を問う問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- i=1 のとき: 2(1) - 1 = 1\n- i=2 のとき: 2(2) - 1 = 3\n- i=3 のとき: 2(3) - 1 = 5\n- i=4 のとき: 2(4) - 1 = 7\n- 合計は 1 + 3 + 5 + 7 = 16 です（奇数の和 $n^2 = 4^2 = 16$）。したがって16が正解です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C, D**: 計算ミスです。",
+    "videoReference": {
+      "title": "【5-6】総和記号の準備 [第5講:数学的な表現に慣れる]",
+      "videoId": "00-zf_xQwg8",
+      "url": "https://www.youtube.com/watch?v=00-zf_xQwg8"
+    }
+  },
+  {
+    "id": 65,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 13,
+    "type": "single_choice",
+    "questionText": "データのばらつき度合いを表す統計量であり、分散の平方根をとることで「元のデータとまったく同じ単位」でばらつきの大きさを解釈できるようにしたものはどれか？",
+    "options": [
+      "A. 標準偏差 (Standard Deviation)",
+      "B. 四分位範囲 (IQR)",
+      "C. 共分散 (Covariance)",
+      "D. 変動係数 (CV)"
+    ],
+    "correctAnswer": "A. 標準偏差 (Standard Deviation)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 分散と標準偏差の関係および単位の整合性についての設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 分散の平方根が 標準偏差 です。2乗された単位が平方根によって元の単位に戻るため、直感的にデータの散らばりを把握できます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 第3四分位数と第1四分位数の差です。\n- **C**: 2つの変数の相関の向きを表す統計量です。\n- **D**: 標準偏差を平均値で割った無次元の比率です。",
+    "videoReference": {
+      "title": "【5-2】テーブルでデータを管理する [第5講:数学的な表現に慣れる]",
+      "videoId": "8vKH4Gq51rI",
+      "url": "https://www.youtube.com/watch?v=8vKH4Gq51rI"
+    }
+  },
+  {
+    "id": 66,
+    "topic": "第5講: 数学的な表現に慣れる",
+    "topicId": 5,
+    "questionNumber": 14,
+    "type": "drag_and_drop_order",
+    "questionText": "2つのベクトル a と b の内積を手計算する手順を正しい順序に並べ替えなさい。",
+    "options": [
+      "2つのベクトルの次元数（要素数）が等しいことを確認する",
+      "同じ位置にある各成分同士の積（掛け算）をそれぞれ計算する",
+      "得られた各成分の積をすべて足し合わせ（総和し）、単一のスカラー値を得る"
+    ],
+    "correctAnswer": [
+      "2つのベクトルの次元数（要素数）が等しいことを確認する",
+      "同じ位置にある各成分同士の積（掛け算）をそれぞれ計算する",
+      "得られた各成分の積をすべて足し合わせ（総和し）、単一のスカラー値を得る"
+    ],
+    "explanation": "📖 【基本解説・設問の背景】\n- 内積の計算法則と手順の確認です。\n\n✅ 【正解のポイント・仕様上の根拠】\n1. まず次元の一致を確認します。\n2. 各成分 a_i * b_i を掛け算します。\n3. それらを総和して1つの数値（スカラー）にします。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 次元が異なれば内積は定義できず、積をとる前に足し算することはできません。",
+    "videoReference": {
+      "title": "【5-4】内積 [第5講:数学的な表現に慣れる]",
+      "videoId": "FxT0-domBq4",
+      "url": "https://www.youtube.com/watch?v=FxT0-domBq4"
+    }
+  },
+  {
+    "id": 67,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 1,
+    "type": "ox_choice",
+    "questionText": "【第6講 まとめ○×チェック 1/3】\n最適解への収束が保証されているアルゴリズムであれば無条件に用いても問題ない。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「解ける」と「使える」の境界（計算時間の現実性）に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 理論上いつか必ず最適解に収束するアルゴリズムであっても、収束までに数百年・数千年かかるような莫大な計算量（指数時間計算量など）を要する場合、現実のシステムでは使えません。計算量オーダーを評価し実用時間内で終了するか見極める必要があるため、記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 理論上の収束性と現実的な計算時間は別問題です。",
+    "videoReference": {
+      "title": "【6-2】「解ける」と「使える」の境界 [第6講:計算量の基礎]",
+      "videoId": "TawvG4UpcKo",
+      "url": "https://www.youtube.com/watch?v=TawvG4UpcKo"
+    }
+  },
+  {
+    "id": 68,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 2,
+    "type": "ox_choice",
+    "questionText": "【第6講 まとめ○×チェック 2/3】\nアルゴリズム実行時に必要となる一時的な記憶容量は時間計算量として見積もられる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「時間計算量」と「空間計算量」の区別に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 処理にかかるステップ数・時間は「時間計算量（Time Complexity）」、消費するメモリ等の記憶容量は「空間計算量（Space Complexity）」として見積もられます。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 時間と空間（メモリ）は明確に区別される2大評価基準です。",
+    "videoReference": {
+      "title": "【6-3】アルゴリズムの評価基準（の一例） [第6講:計算量の基礎]",
+      "videoId": "dV1kUwxgo3E",
+      "url": "https://www.youtube.com/watch?v=dV1kUwxgo3E"
+    }
+  },
+  {
+    "id": 69,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 3,
+    "type": "ox_choice",
+    "questionText": "【第6講 まとめ○×チェック 3/3】\n計算量オーダーは四則演算の回数と一致するように記述されるのが一般的である。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- ランダウの記号（O記法）の本質的な表記ルールに関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- オーダー記法 O(n) は、正確な四則演算の回数をそのまま書くのではなく、入力サイズ n が無限大に近づく際の「漸近的な増加速度（最も次数の高い項の傾向）」を定数係数を無視して表す記法です。演算回数と一致させるものではないため、記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 定数係数や低次の項を削ぎ落として本質的なスケール性を表現するのがオーダー記法です。",
+    "videoReference": {
+      "title": "【6-4】ざっくりオーダー記法その1とその2 [第6講:計算量の基礎]",
+      "videoId": "QIDLt3NPG18",
+      "url": "https://www.youtube.com/watch?v=QIDLt3NPG18"
+    }
+  },
+  {
+    "id": 70,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 4,
+    "type": "single_choice",
+    "questionText": "入力サイズ n の増加に伴い、計算ステップ数が指数関数的（O(2^n) など）に爆発し、問題の規模が少し大きくなっただけで現実的に計算が終わらなくなってしまう現象を表す用語はどれか？",
+    "options": [
+      "A. 組合せ爆発（Combinatorial Explosion）",
+      "B. 勾配消失（Vanishing Gradient）",
+      "C. 次元削減（Dimensionality Reduction）",
+      "D. 過学習（Overfitting）"
+    ],
+    "correctAnswer": "A. 組合せ爆発（Combinatorial Explosion）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【6-2】「解ける」と「使える」の境界で解説される重要概念です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 選択肢の数や組合せが天文学的な数値に膨れ上がる現象を「組合せ爆発」と呼びます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: ニューラルネットワークの深層で勾配がゼロに近づく現象です。\n- **C**: 特徴量の数を減らす前処理手法です。\n- **D**: 訓練データに過剰適合する現象です。",
+    "videoReference": {
+      "title": "【6-2】「解ける」と「使える」の境界 [第6講:計算量の基礎]",
+      "videoId": "TawvG4UpcKo",
+      "url": "https://www.youtube.com/watch?v=TawvG4UpcKo"
+    }
+  },
+  {
+    "id": 71,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 5,
+    "type": "single_choice",
+    "questionText": "あるアルゴリズムの計算ステップ数が式 f(n) = 5n^2 + 100n + 500 で与えられるとき、ランダウのO記法による時間計算量オーダーとして正しいものはどれか？",
+    "options": [
+      "A. O(n^2)",
+      "B. O(5n^2)",
+      "C. O(n)",
+      "D. O(n^3)"
+    ],
+    "correctAnswer": "A. O(n^2)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【6-4】で解説される「ざっくりオーダー記法」のルール適用問題です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- ランダウの記号では、入力 n が十分大きいときの影響度に着目し、①最も次数の高い支配項（5n^2）だけを残し、②定数倍の係数（5）を無視（1とする）します。したがって O(n^2) が正解です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 定数係数の5は表記から落とします。\n- **C**: 低次の項 100n では n が大きいときの増加を過小評価してしまいます。\n- **D**: 存在しない3次のオーダーです。",
+    "videoReference": {
+      "title": "【6-4】ざっくりオーダー記法その1とその2 [第6講:計算量の基礎]",
+      "videoId": "QIDLt3NPG18",
+      "url": "https://www.youtube.com/watch?v=QIDLt3NPG18"
+    }
+  },
+  {
+    "id": 72,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 6,
+    "type": "single_choice",
+    "questionText": "データ数 n のサイズがどれほど大きくなっても、必要な処理時間が常に一定（変化しない）である「定数時間」アルゴリズムの計算量オーダー表記はどれか？",
+    "options": [
+      "A. O(1)",
+      "B. O(n)",
+      "C. O(0)",
+      "D. O(log n)"
+    ],
+    "correctAnswer": "A. O(1)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 定数時間計算量の表記と性質です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 入力サイズ n に依存せず、1回（または決まった一定回数）のステップで完了する操作（配列のインデックス参照など）は O(1) と記述されます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: データ数に比例して時間が増える線形時間です。\n- **C**: O(0) というオーダー表記は通常用いられません。\n- **D**: データが増えると緩やかに対数的に時間が増加するオーダーです。",
+    "videoReference": {
+      "title": "【6-4】ざっくりオーダー記法その1とその2 [第6講:計算量の基礎]",
+      "videoId": "QIDLt3NPG18",
+      "url": "https://www.youtube.com/watch?v=QIDLt3NPG18"
+    }
+  },
+  {
+    "id": 73,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 7,
+    "type": "single_choice",
+    "questionText": "ソート済みの n 個のデータから目的の値を探索する際、探索範囲を毎回半分に絞り込んでいく「二分探索（バイナリサーチ）」の時間計算量オーダーはどれか？",
+    "options": [
+      "A. O(log n)",
+      "B. O(n)",
+      "C. O(n^2)",
+      "D. O(1)"
+    ],
+    "correctAnswer": "A. O(log n)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【6-5】で解説される対数時間オーダー O(log n) の代表例です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 毎回候補が半分になるため、データ数が1000倍になっても探索回数は約10回しか増えません。このアルゴリズムの計算量は O(log n) です（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 先頭から1つずつ探す線形探索の計算量です。\n- **C**: 2重ループの計算量です。\n- **D**: 探索を行わずに直接アクセスできる場合の計算量です。",
+    "videoReference": {
+      "title": "【6-5】ざっくりオーダー記法その3 [第6講:計算量の基礎]",
+      "videoId": "NFhvS3j6ehY",
+      "url": "https://www.youtube.com/watch?v=NFhvS3j6ehY"
+    }
+  },
+  {
+    "id": 74,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 8,
+    "type": "drag_and_drop_order",
+    "questionText": "入力サイズ n が十分に大きいときの処理速度が「速い順（計算量の増加が小さい順）」に正しく並べ替えなさい。",
+    "options": [
+      "O(1) [定数時間]",
+      "O(log n) [対数時間]",
+      "O(n) [線形時間]",
+      "O(n^2) [2乗時間]",
+      "O(2^n) [指数時間]"
+    ],
+    "correctAnswer": [
+      "O(1) [定数時間]",
+      "O(log n) [対数時間]",
+      "O(n) [線形時間]",
+      "O(n^2) [2乗時間]",
+      "O(2^n) [指数時間]"
+    ],
+    "explanation": "📖 【基本解説・設問の背景】\n- 計算量オーダーの大小関係の完全整理です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 増加の緩やかさ（速度が速い順）は：\n  $$O(1) < O(\\log n) < O(n) < O(n^2) < O(2^n)$$\n  となります。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- O(2^n) は入力が数十程度でも天文学的な時間となる最も遅いオーダーです。",
+    "videoReference": {
+      "title": "【6-5】ざっくりオーダー記法その3 [第6講:計算量の基礎]",
+      "videoId": "NFhvS3j6ehY",
+      "url": "https://www.youtube.com/watch?v=NFhvS3j6ehY"
+    }
+  },
+  {
+    "id": 75,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 9,
+    "type": "single_choice",
+    "questionText": "配列の要素数が n 個あるとき、外側で n 回、内側で n 回実行される二重ループ処理の典型的な時間計算量オーダーはどれか？",
+    "options": [
+      "A. O(n^2)",
+      "B. O(2n)",
+      "C. O(n)",
+      "D. O(log n)"
+    ],
+    "correctAnswer": "A. O(n^2)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 多重ループと計算量オーダーの関係です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- n 回のループの中にさらに n 回のループがある場合、実行回数は $n \\times n = n^2$ 回に比例するため、O(n^2) となります（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C**: 連続して2回ループする場合は $n + n = 2n \\rightarrow O(n)$ ですが、入れ子（二重）の場合は積になります。\n- **D**: 分割統治法のオーダーです。",
+    "videoReference": {
+      "title": "【6-4】ざっくりオーダー記法その1とその2 [第6講:計算量の基礎]",
+      "videoId": "QIDLt3NPG18",
+      "url": "https://www.youtube.com/watch?v=QIDLt3NPG18"
+    }
+  },
+  {
+    "id": 76,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 10,
+    "type": "single_choice",
+    "questionText": "長さ n のリストの先頭から末尾まで1要素ずつチェックしていく「線形探索」の時間計算量オーダーとして正しいものはどれか？",
+    "options": [
+      "A. O(n)",
+      "B. O(1)",
+      "C. O(log n)",
+      "D. O(n!)"
+    ],
+    "correctAnswer": "A. O(n)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 最も基本的な探索アルゴリズムの計算量です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 最悪の場合、末尾まで n 回調べる必要があるため、時間計算量は O(n)（線形時間）となります（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C**: より高速なアクセス・探索手法のオーダーです。\n- **D**: 巡回セールスマン問題の全探索などの階乗オーダーです。",
+    "videoReference": {
+      "title": "【6-4】ざっくりオーダー記法その1とその2 [第6講:計算量の基礎]",
+      "videoId": "QIDLt3NPG18",
+      "url": "https://www.youtube.com/watch?v=QIDLt3NPG18"
+    }
+  },
+  {
+    "id": 77,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 11,
+    "type": "drag_and_drop_matching",
+    "questionText": "各計算量オーダーと、その代表的な具体例のペアを完成させなさい。",
+    "matchingPairs": [
+      {
+        "targetLabel": "O(1):",
+        "options": [
+          "配列のインデックス指定による直接アクセス",
+          "ソート済み配列に対する二分探索",
+          "全要素を先頭から順に調べる線形探索"
+        ],
+        "correctAnswer": "配列のインデックス指定による直接アクセス"
+      },
+      {
+        "targetLabel": "O(log n):",
+        "options": [
+          "配列のインデックス指定による直接アクセス",
+          "ソート済み配列に対する二分探索",
+          "全要素を先頭から順に調べる線形探索"
+        ],
+        "correctAnswer": "ソート済み配列に対する二分探索"
+      },
+      {
+        "targetLabel": "O(n):",
+        "options": [
+          "配列のインデックス指定による直接アクセス",
+          "ソート済み配列に対する二分探索",
+          "全要素を先頭から順に調べる線形探索"
+        ],
+        "correctAnswer": "全要素を先頭から順に調べる線形探索"
+      }
+    ],
+    "correctAnswer": {
+      "O(1):": "配列のインデックス指定による直接アクセス",
+      "O(log n):": "ソート済み配列に対する二分探索",
+      "O(n):": "全要素を先頭から順に調べる線形探索"
+    },
+    "explanation": "📖 【基本解説・設問の背景】\n- オーダー記法と身近なプログラミング処理の対応付けです。\n\n✅ 【正解のポイント・仕様上の根拠】\n- O(1) は一発参照、O(log n) は二分探索、O(n) は全走査です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 各アルゴリズムの動作原理と計算量の関係を定着させましょう。",
+    "videoReference": {
+      "title": "【6-5】ざっくりオーダー記法その3 [第6講:計算量の基礎]",
+      "videoId": "NFhvS3j6ehY",
+      "url": "https://www.youtube.com/watch?v=NFhvS3j6ehY"
+    }
+  },
+  {
+    "id": 78,
+    "topic": "第6講: 計算量の基礎",
+    "topicId": 6,
+    "questionNumber": 12,
+    "type": "single_choice",
+    "questionText": "アルゴリズムの計算量を評価する主な目的として、最も適切なものはどれか？",
+    "options": [
+      "A. データの規模が大きくなったときに、実行時間やメモリ使用量がどれくらい増加するかを予測・比較するため",
+      "B. ソースコードの行数をできるだけ短くしてファイルの容量を削減するため",
+      "C. プログラミング言語ごとのコンパイルエラーを自動的に修正するため",
+      "D. サーバーの電気代の請求金額を1円単位で正確に計算するため"
+    ],
+    "correctAnswer": "A. データの規模が大きくなったときに、実行時間やメモリ使用量がどれくらい増加するかを予測・比較するため",
+    "explanation": "📖 【基本解説・設問の背景】\n- 計算量理論を学ぶ本質的な意義についての設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 入力データが増加した際のスケーラビリティ（拡張性・処理の破綻の有無）を事前評価するために計算量を見積もります（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C, D**: 計算量評価の目的ではありません。",
+    "videoReference": {
+      "title": "【6-3】アルゴリズムの評価基準（の一例） [第6講:計算量の基礎]",
+      "videoId": "dV1kUwxgo3E",
+      "url": "https://www.youtube.com/watch?v=dV1kUwxgo3E"
+    }
+  },
+  {
+    "id": 79,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 1,
+    "type": "ox_choice",
+    "questionText": "【第7講 まとめ○×チェック 1/5】\nAWSやGCPはオンプレミスなクラウド環境の代表例である。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- インフラ環境における「オンプレミス」と「パブリッククラウド」の定義に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- AWS (Amazon Web Services) や GCP (Google Cloud Platform) はインターネット経由でリソースを利用する「パブリッククラウド」の代表例です。「オンプレミス」とは自社の建物内に物理サーバーを設置して自前で管理・運用する形態を指すため、両者は正反対の概念です。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 「オンプレミスなクラウド」という言葉自体が矛盾しています。",
+    "videoReference": {
+      "title": "【7-1】開発・運用環境の分類 [第7講:開発と活用に向けて]",
+      "videoId": "ED7sttEp8DY",
+      "url": "https://www.youtube.com/watch?v=ED7sttEp8DY"
+    }
+  },
+  {
+    "id": 80,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 2,
+    "type": "ox_choice",
+    "questionText": "【第7講 まとめ○×チェック 2/5】\nモデルの学習には多大なコストが発生するため、学習済みモデルをそのまま用いるとよい。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 学習済みモデルの活用方法と適応（ドメイン特化）に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 学習済みモデルは汎用的なデータで学習されているため、自社の固有タスクやデータセットにそのまま適用しても十分な精度が出ない場合が多いです。出力層の付け替えや「転移学習」「ファインチューニング」によって自社の目的に適応させることが実務では不可欠です。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: そのまま使えるケースもありますが、一般にはタスクに合わせた微調整が不可欠です。",
+    "videoReference": {
+      "title": "【7-2】学習済みモデルの利用 [第7講:開発と活用に向けて]",
+      "videoId": "cEM_6e0NFqA",
+      "url": "https://www.youtube.com/watch?v=cEM_6e0NFqA"
+    }
+  },
+  {
+    "id": 81,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 3,
+    "type": "ox_choice",
+    "questionText": "【第7講 まとめ○×チェック 3/5】\nファインチューニングでは出力層付近の構造とパラメータのみを更新する。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "✕（誤り）",
+    "explanation": "📖 【基本解説・設問の背景】\n- 「転移学習（特徴抽出器の固定）」と「ファインチューニング」の違いに関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 事前学習済みモデルの重みを固定（フリーズ）し、追加した出力層のみを学習させる手法は「転移学習（特徴抽出）」です。一方、「ファインチューニング」は出力層だけでなく、事前学習済みモデルの中間層も含めた全体（または一部）の重みパラメータを小さな学習率で再調整・更新する手法です。したがって記述は誤り（✕）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「◯（正しい）」: 転移学習とファインチューニングの定義の違いは頻出の論点です。",
+    "videoReference": {
+      "title": "【7-2】学習済みモデルの利用 [第7講:開発と活用に向けて]",
+      "videoId": "cEM_6e0NFqA",
+      "url": "https://www.youtube.com/watch?v=cEM_6e0NFqA"
+    }
+  },
+  {
+    "id": 82,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 4,
+    "type": "ox_choice",
+    "questionText": "【第7講 まとめ○×チェック 4/5】\nエッジ型AIではクラウド上で学習を行い、その後エッジ端末上で予測を行う。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- エッジコンピューティングにおける学習と推論の役割分担に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 膨大な計算資源とGPUを必要とする「学習」は高性能なクラウド環境で一括して行い、完成した軽量化モデルをスマートフォンや車載機器などの「エッジ端末」に配布してリアルタイムに「予測（推論）」を実行するのが、エッジ型AIの最も標準的な運用アーキテクチャです。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: エッジ端末で推論を行う構成は、低遅延やプライバシー保護に直結します。",
+    "videoReference": {
+      "title": "【7-3】エッジコンピューティング [第7講:開発と活用に向けて]",
+      "videoId": "lFlW1fcSRjM",
+      "url": "https://www.youtube.com/watch?v=lFlW1fcSRjM"
+    }
+  },
+  {
+    "id": 83,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 5,
+    "type": "ox_choice",
+    "questionText": "【第7講 まとめ○×チェック 5/5】\n予測のリアルタイム性が求められるAI活用の一例として、自動運転技術への応用が考えられる。",
+    "options": [
+      "◯（正しい）",
+      "✕（誤り）"
+    ],
+    "correctAnswer": "◯（正しい）",
+    "explanation": "📖 【基本解説・設問の背景】\n- リアルタイム推論とエッジコンピューティングの実世界適用例です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 自動運転車ではミリ秒単位での障害物検知やブレーキ制御が命に関わるため、クラウドとの通信遅延（レイテンシ）や通信途絶を許容できず、車載コンピュータ（エッジ）上での極めて高速なリアルタイム予測が必須となります。したがって記述は正しい（◯）です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 「✕（誤り）」: 自動運転はエッジAIの最重要かつ代表的な応用分野です。",
+    "videoReference": {
+      "title": "【7-3】エッジコンピューティング [第7講:開発と活用に向けて]",
+      "videoId": "lFlW1fcSRjM",
+      "url": "https://www.youtube.com/watch?v=lFlW1fcSRjM"
+    }
+  },
+  {
+    "id": 84,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 6,
+    "type": "single_choice",
+    "questionText": "自社施設内に専用のサーバー機器やネットワーク設備を導入・管理し、自社の完全な管理下でAIモデルの開発・運用を行う形態を何と呼ぶか？",
+    "options": [
+      "A. オンプレミス (On-premises)",
+      "B. パブリッククラウド (Public Cloud)",
+      "C. SaaS (Software as a Service)",
+      "D. クラウドファンディング (Crowdfunding)"
+    ],
+    "correctAnswer": "A. オンプレミス (On-premises)",
+    "explanation": "📖 【基本解説・設問の背景】\n- システム導入形態の基礎用語です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 自前の社内設備で運用する形態を オンプレミス と呼びます（Aが正解）。社外へのデータ持ち出しが制限される機密データを扱う際などに選定されます。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: クラウド事業者の設備をネットワーク経由で共用利用する形態です。\n- **C**: ソフトウェアをサービスとして利用する形態です。\n- **D**: 資金調達の仕組みです。",
+    "videoReference": {
+      "title": "【7-1】開発・運用環境の分類 [第7講:開発と活用に向けて]",
+      "videoId": "ED7sttEp8DY",
+      "url": "https://www.youtube.com/watch?v=ED7sttEp8DY"
+    }
+  },
+  {
+    "id": 85,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 7,
+    "type": "single_choice",
+    "questionText": "ディープラーニングのモデル学習において、膨大な行列演算・並列処理を高速に実行するために広く活用されているハードウェアアクセラレータはどれか？",
+    "options": [
+      "A. GPU (Graphics Processing Unit) や TPU",
+      "B. ハードディスクドライブ (HDD)",
+      "C. イーサネットケーブル",
+      "D. CMOSセンサー"
+    ],
+    "correctAnswer": "A. GPU (Graphics Processing Unit) や TPU",
+    "explanation": "📖 【基本解説・設問の背景】\n- ディープラーニングを支える計算資源です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 画像処理用に開発された GPU（およびGoogleのAI専用プロセッサ TPU）は、数千個のコアによる並列計算が得意であり、行列演算の塊であるニューラルネットワークの学習を劇的に高速化します（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 補助記憶装置です。\n- **C**: 通信ケーブルです。\n- **D**: カメラの受光素子です。",
+    "videoReference": {
+      "title": "【7-1】開発・運用環境の分類 [第7講:開発と活用に向けて]",
+      "videoId": "ED7sttEp8DY",
+      "url": "https://www.youtube.com/watch?v=ED7sttEp8DY"
+    }
+  },
+  {
+    "id": 86,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 8,
+    "type": "single_choice",
+    "questionText": "すでに大規模データセットで事前学習されたモデルの知識を活用し、自前の少量のデータセットを用いてモデル全体の重みを微調整・適応させる手法を何と呼ぶか？",
+    "options": [
+      "A. ファインチューニング (Fine-tuning)",
+      "B. スクラッチ学習 (Scratch Learning)",
+      "C. クラスタリング (Clustering)",
+      "D. 主成分分析 (PCA)"
+    ],
+    "correctAnswer": "A. ファインチューニング (Fine-tuning)",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【7-2】で解説される学習済みモデルの実践的活用法です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 事前学習モデル（Pre-trained Model）をベースに、特定の目的タスクに合わせて重みを微調整する手法を ファインチューニング と呼びます（Aが正解）。学習コストと時間を大幅に節約できます。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 初期値からゼロベースで学習することです。\n- **C, D**: 教師なし学習の手法です。",
+    "videoReference": {
+      "title": "【7-2】学習済みモデルの利用 [第7講:開発と活用に向けて]",
+      "videoId": "cEM_6e0NFqA",
+      "url": "https://www.youtube.com/watch?v=cEM_6e0NFqA"
+    }
+  },
+  {
+    "id": 87,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 9,
+    "type": "single_choice",
+    "questionText": "クラウドにデータを送らず、スマートフォン、防犯カメラ、産業用ロボットなどの末端（現場）デバイス自身でAIの推論を実行する形態として最も適切な用語はどれか？",
+    "options": [
+      "A. エッジAI / エッジコンピューティング",
+      "B. メインフレームコンピューティング",
+      "C. ブロックチェーンAI",
+      "D. バッチ処理システム"
+    ],
+    "correctAnswer": "A. エッジAI / エッジコンピューティング",
+    "explanation": "📖 【基本解説・設問の背景】\n- 講義【7-3】で解説されるエッジコンピューティングの定義です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- 現場の末端端末（エッジ）で直接推論を行う技術を エッジAI と呼びます（Aが正解）。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B**: 中央集権型の大型コンピュータです。\n- **C, D**: 異なるアーキテクチャ・処理形態です。",
+    "videoReference": {
+      "title": "【7-3】エッジコンピューティング [第7講:開発と活用に向けて]",
+      "videoId": "lFlW1fcSRjM",
+      "url": "https://www.youtube.com/watch?v=lFlW1fcSRjM"
+    }
+  },
+  {
+    "id": 88,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 10,
+    "type": "single_choice",
+    "questionText": "クラウドAIと比較したときの「エッジAI」のメリットとして【適切でない（誤っている）】ものはどれか？",
+    "options": [
+      "A. デバイスのメモリや電力の制限を気にすることなく、数千億パラメータの超巨大モデルを無制限に稼働できる",
+      "B. インターネット経由のデータ送信が不要なため、通信遅延（レイテンシ）を大幅に削減できる",
+      "C. 機密画像や個人情報を外部サーバーに送信しないため、プライバシー保護性能が高い",
+      "D. 通信環境が不安定または圏外のオフライン環境下でも推論機能を継続して実行できる"
+    ],
+    "correctAnswer": "A. デバイスのメモリや電力の制限を気にすることなく、数千億パラメータの超巨大モデルを無制限に稼働できる",
+    "explanation": "📖 【基本解説・設問の背景】\n- エッジAIのメリットと物理的な制約（トレードオフ）に関する設問です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- エッジデバイスはバッテリーやメモリ、発熱、処理能力に厳しい制約があります。超巨大なモデルを無制限に動かせるのはクラウドの利点であり、エッジではモデルの軽量化（量子化や蒸留）が求められます。したがってAは誤り（不適切な記述）であり、本設問の正解です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- **B, C, D**: いずれもエッジAIが持つ極めて重要な本質的メリットです。",
+    "videoReference": {
+      "title": "【7-3】エッジコンピューティング [第7講:開発と活用に向けて]",
+      "videoId": "lFlW1fcSRjM",
+      "url": "https://www.youtube.com/watch?v=lFlW1fcSRjM"
+    }
+  },
+  {
+    "id": 89,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 11,
+    "type": "drag_and_drop_matching",
+    "questionText": "AIの開発・運用環境に関する各用語と、その特徴の組み合わせを完成させなさい。",
+    "matchingPairs": [
+      {
+        "targetLabel": "パブリッククラウド (AWS, GCP等):",
+        "options": [
+          "従量課金制で柔軟に高性能GPUなどのリソースを拡張・利用できる環境",
+          "自社設備内にサーバーを設置し、完全な管理権限とセキュリティを保持する環境",
+          "ブラウザ上で手軽にPythonやGPU実行環境が使えるGoogleのクラウド対話サービス"
+        ],
+        "correctAnswer": "従量課金制で柔軟に高性能GPUなどのリソースを拡張・利用できる環境"
+      },
+      {
+        "targetLabel": "オンプレミス:",
+        "options": [
+          "従量課金制で柔軟に高性能GPUなどのリソースを拡張・利用できる環境",
+          "自社設備内にサーバーを設置し、完全な管理権限とセキュリティを保持する環境",
+          "ブラウザ上で手軽にPythonやGPU実行環境が使えるGoogleのクラウド対話サービス"
+        ],
+        "correctAnswer": "自社設備内にサーバーを設置し、完全な管理権限とセキュリティを保持する環境"
+      },
+      {
+        "targetLabel": "Google Colaboratory:",
+        "options": [
+          "従量課金制で柔軟に高性能GPUなどのリソースを拡張・利用できる環境",
+          "自社設備内にサーバーを設置し、完全な管理権限とセキュリティを保持する環境",
+          "ブラウザ上で手軽にPythonやGPU実行環境が使えるGoogleのクラウド対話サービス"
+        ],
+        "correctAnswer": "ブラウザ上で手軽にPythonやGPU実行環境が使えるGoogleのクラウド対話サービス"
+      }
+    ],
+    "correctAnswer": {
+      "パブリッククラウド (AWS, GCP等):": "従量課金制で柔軟に高性能GPUなどのリソースを拡張・利用できる環境",
+      "オンプレミス:": "自社設備内にサーバーを設置し、完全な管理権限とセキュリティを保持する環境",
+      "Google Colaboratory:": "ブラウザ上で手軽にPythonやGPU実行環境が使えるGoogleのクラウド対話サービス"
+    },
+    "explanation": "📖 【基本解説・設問の背景】\n- AI開発・運用環境の特性と位置付けの整理です。\n\n✅ 【正解のポイント・仕様上の根拠】\n- クラウド＝柔軟・従量課金、オンプレミス＝自社管理・物理設置、Colab＝初学者・研究に最適な無料/安価なノートブック環境です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 各環境のメリットと用途を把握しておきましょう。",
+    "videoReference": {
+      "title": "【7-1】開発・運用環境の分類 [第7講:開発と活用に向けて]",
+      "videoId": "ED7sttEp8DY",
+      "url": "https://www.youtube.com/watch?v=ED7sttEp8DY"
+    }
+  },
+  {
+    "id": 90,
+    "topic": "第7講: 開発と活用に向けて",
+    "topicId": 7,
+    "questionNumber": 12,
+    "type": "drag_and_drop_order",
+    "questionText": "AI・機械学習システムの導入プロジェクトにおける標準的なフェーズを、最初のステップから順に並べ替えなさい。",
+    "options": [
+      "ビジネス課題の定義と目標設定（KPI決定）",
+      "データの収集・クレンジング・前処理",
+      "AIモデルの選定・学習・ハイパーパラメータ調整",
+      "テストデータを用いた精度・汎化性能の検証",
+      "本番システムへのデプロイ・運用監視・継続的改善"
+    ],
+    "correctAnswer": [
+      "ビジネス課題の定義と目標設定（KPI決定）",
+      "データの収集・クレンジング・前処理",
+      "AIモデルの選定・学習・ハイパーパラメータ調整",
+      "テストデータを用いた精度・汎化性能の検証",
+      "本番システムへのデプロイ・運用監視・継続的改善"
+    ],
+    "explanation": "📖 【基本解説・設問の背景】\n- 【序章】から【第7講】までの全体の総括となる、機械学習プロジェクトの成功ステップです。\n\n✅ 【正解のポイント・仕様上の根拠】\n1. 課題定義とKPI決定\n2. データ準備・前処理\n3. モデル学習\n4. 評価検証\n5. デプロイと運用監視\nこの一連のサイクル（MLOps）を回すことがAI実装の成功に不可欠です。\n\n🚨 【なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）】\n- 課題定義を怠ったAI開発は失敗し、検証のないデプロイは重大な障害を引き起こします。",
+    "videoReference": {
+      "title": "【序章】AIをビジネスへ実装する勘所",
+      "videoId": "mvj8MveRQLk",
+      "url": "https://www.youtube.com/watch?v=mvj8MveRQLk"
+    }
+  }
+];
+
+  </script>
+  <script>
+/**
+ * AI実装検定® B級 過去問・演習道場 - Frontend Application Logic
+ */
+
+// ==========================================
+// 1. State Management
+// ==========================================
+let allQuestions = [];
+let videoCatalog = [];
+let activeQuestions = [];
+let currentQuestionIndex = 0;
+
+let currentMode = 'practice'; // 'practice' | 'exam'
+let currentSet = 'all'; // 'all' | 'exam30' | 'topic1'..'topic7' | 'random10' | 'set1'..'set9'
+let currentFilter = 'all'; // 'all' | 'incorrect' | 'bookmarked' | 'unanswered'
+
+let userAnswers = {}; // { [questionId]: answerData }
+let sessionCheckedQuestions = new Set();
+
+let historyData = {
+  results: {}, // { [questionId]: { isCorrect: boolean, answeredAt: string } }
+  bookmarks: new Set(),
+  dailyActivity: {}, // { "YYYY-MM-DD": { answered: number, correct: number } }
+  lastQuestionId: 1,
+  lastSet: 'all'
+};
+
+let examTimerInterval = null;
+let examTimeRemaining = 40 * 60; // 40 minutes in seconds
+let examQuestionPool = []; // Dedicated pool for active exam questions (BUG-01)
+let examEndTime = null;    // Timestamp for wall-clock timer sync (BUG-02)
+
+// LocalStorage Keys
+const STORAGE_KEY_HISTORY = 'ai_exam_b_history_v1';
+const STORAGE_KEY_BOOKMARKS = 'ai_exam_b_bookmarks_v1';
+
+// ==========================================
+// 2. Initialization
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+  loadHistoryFromStorage();
+  // BUG-12: Restore last active set on startup
+  if (historyData.lastSet && historyData.lastSet !== 'exam30') {
+    currentSet = historyData.lastSet;
+    updateSetButtonsUI();
+  }
+  updateStreakDisplay();
+  setupEventListeners();
+  applyCurrentSetAndFilter();
+});
+
+function loadData() {
+  if (window.QUESTIONS_DATA && Array.isArray(window.QUESTIONS_DATA)) {
+    allQuestions = window.QUESTIONS_DATA;
+  } else {
+    // BUG-13: Replace dead fetch warning with clear error state
+    console.error('CRITICAL: QUESTIONS_DATA is not available on window. Please ensure data/questions.js is loaded.');
+    const qTextEl = document.getElementById('questionText');
+    if (qTextEl) {
+      qTextEl.textContent = '問題データの読み込みに失敗しました。data/questions.js が正常に読み込まれているか確認してください。';
+    }
+  }
+
+  if (window.VIDEO_CATALOG && Array.isArray(window.VIDEO_CATALOG)) {
+    videoCatalog = window.VIDEO_CATALOG;
+  } else {
+    console.warn('VIDEO_CATALOG is not available on window. Running without video catalog.');
+    videoCatalog = [];
+  }
+}
+
+function loadHistoryFromStorage() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY_HISTORY);
+    if (saved) {
+      const parsed = jsonParseSafe(saved);
+      if (parsed) {
+        historyData.results = parsed.results || {};
+        historyData.dailyActivity = parsed.dailyActivity || {};
+        historyData.lastQuestionId = parsed.lastQuestionId || 1;
+        historyData.lastSet = parsed.lastSet || 'all';
+      }
+    }
+
+    const savedBookmarks = localStorage.getItem(STORAGE_KEY_BOOKMARKS);
+    if (savedBookmarks) {
+      const arr = jsonParseSafe(savedBookmarks);
+      if (Array.isArray(arr)) {
+        historyData.bookmarks = new Set(arr);
+      }
+    }
+  } catch (e) {
+    console.error('Error loading history:', e);
+  }
+}
+
+function saveHistoryToStorage() {
+  try {
+    const toSave = {
+      results: historyData.results,
+      dailyActivity: historyData.dailyActivity,
+      lastQuestionId: historyData.lastQuestionId,
+      lastSet: historyData.lastSet
+    };
+    localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(toSave));
+    localStorage.setItem(STORAGE_KEY_BOOKMARKS, JSON.stringify(Array.from(historyData.bookmarks)));
+  } catch (e) {
+    console.error('Error saving history:', e);
+  }
+}
+
+function jsonParseSafe(str) {
+  try { return JSON.parse(str); } catch { return null; }
+}
+
+// ==========================================
+// 3. Streak & Daily Tracking
+// ==========================================
+function getTodayString() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function recordAnswerActivity(isCorrect) {
+  const today = getTodayString();
+  if (!historyData.dailyActivity[today]) {
+    historyData.dailyActivity[today] = { answered: 0, correct: 0 };
+  }
+  historyData.dailyActivity[today].answered += 1;
+  if (isCorrect) {
+    historyData.dailyActivity[today].correct += 1;
+  }
+  saveHistoryToStorage();
+  updateStreakDisplay();
+}
+
+function calculateStreak() {
+  const dates = Object.keys(historyData.dailyActivity)
+    .filter(d => historyData.dailyActivity[d].answered > 0)
+    .sort()
+    .reverse();
+
+  if (dates.length === 0) return 0;
+
+  const today = getTodayString();
+  const yesterdayDate = new Date();
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yYear = yesterdayDate.getFullYear();
+  const yMonth = String(yesterdayDate.getMonth() + 1).padStart(2, '0');
+  const yDay = String(yesterdayDate.getDate()).padStart(2, '0');
+  const yesterday = `${yYear}-${yMonth}-${yDay}`;
+
+  // If didn't study today or yesterday, streak broken
+  if (dates[0] !== today && dates[0] !== yesterday) {
+    return 0;
+  }
+
+  let streak = 1;
+  let curr = new Date(dates[0]);
+
+  for (let i = 1; i < dates.length; i++) {
+    const prevDate = new Date(dates[i]);
+    const diffDays = Math.round((curr - prevDate) / (1000 * 60 * 60 * 24));
+    if (diffDays === 1) {
+      streak++;
+      curr = prevDate;
+    } else {
+      break;
+    }
+  }
+
+  return streak;
+}
+
+function updateStreakDisplay() {
+  const streak = calculateStreak();
+  const streakEl = document.getElementById('streakCount');
+  if (streakEl) streakEl.textContent = streak;
+
+  const today = getTodayString();
+  const todayCount = historyData.dailyActivity[today]?.answered || 0;
+  const todayCountEl = document.getElementById('todayAnsweredCount');
+  if (todayCountEl) todayCountEl.textContent = todayCount;
+}
+
+// ==========================================
+// 4. Set & Filter Management
+// ==========================================
+function applyCurrentSetAndFilter() {
+  let pool = [...allQuestions];
+
+  // 1. Apply Set Filtering
+  if (currentMode === 'exam' || currentSet === 'exam30') {
+    // BUG-01: Protect exam question pool from being overwritten on filter changes
+    if (examQuestionPool.length === 0) {
+      examQuestionPool = getRandomSample(allQuestions, 30);
+    }
+    pool = [...examQuestionPool];
+  } else if (currentSet === 'random10') {
+    pool = getRandomSample(pool, 10);
+  } else if (currentSet.startsWith('topic')) {
+    const tid = parseInt(currentSet.replace('topic', ''), 10);
+    pool = pool.filter(q => q.topicId === tid);
+  } else if (currentSet.startsWith('set')) {
+    const setNum = parseInt(currentSet.replace('set', ''), 10);
+    const start = (setNum - 1) * 10;
+    const end = start + 10;
+    pool = pool.slice(start, end);
+  }
+
+  // 2. Apply Sub-filter
+  if (currentFilter === 'incorrect') {
+    pool = pool.filter(q => historyData.results[q.id] && !historyData.results[q.id].isCorrect);
+  } else if (currentFilter === 'bookmarked') {
+    pool = pool.filter(q => historyData.bookmarks.has(q.id));
+  } else if (currentFilter === 'unanswered') {
+    pool = pool.filter(q => !historyData.results[q.id]);
+  }
+
+  activeQuestions = pool;
+  currentQuestionIndex = 0;
+
+  updateFilterCountBadges();
+  updateSidebarStats();
+  renderQuestionNavGrid();
+  renderCurrentQuestion();
+}
+
+// Fisher-Yates (Knuth) Shuffle Algorithm (BUG-14)
+function shuffleArray(arr) {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = result[i];
+    result[i] = result[j];
+    result[j] = temp;
+  }
+  return result;
+}
+
+function getRandomSample(arr, n) {
+  const shuffled = shuffleArray(arr);
+  return shuffled.slice(0, Math.min(n, arr.length));
+}
+
+function updateFilterCountBadges() {
+  let totalPool = [...allQuestions];
+  if (currentMode === 'exam' || currentSet === 'exam30') {
+    totalPool = examQuestionPool.length > 0 ? [...examQuestionPool] : getRandomSample(allQuestions, 30);
+  } else if (currentSet.startsWith('topic')) {
+    const tid = parseInt(currentSet.replace('topic', ''), 10);
+    totalPool = totalPool.filter(q => q.topicId === tid);
+  } else if (currentSet.startsWith('set')) {
+    const setNum = parseInt(currentSet.replace('set', ''), 10);
+    totalPool = totalPool.slice((setNum - 1) * 10, setNum * 10);
+  }
+
+  const countAll = totalPool.length;
+  const countIncorrect = totalPool.filter(q => historyData.results[q.id] && !historyData.results[q.id].isCorrect).length;
+  const countBookmarked = totalPool.filter(q => historyData.bookmarks.has(q.id)).length;
+  const countUnanswered = totalPool.filter(q => !historyData.results[q.id]).length;
+
+  document.getElementById('countAll').textContent = countAll;
+  document.getElementById('countIncorrect').textContent = countIncorrect;
+  document.getElementById('countBookmarked').textContent = countBookmarked;
+  document.getElementById('countUnanswered').textContent = countUnanswered;
+}
+
+function updateSidebarStats() {
+  const total = activeQuestions.length;
+  if (total === 0) {
+    document.getElementById('statAnswered').textContent = '0/0';
+    document.getElementById('statAccuracy').textContent = '0%';
+    document.getElementById('overallProgressBar').style.width = '0%';
+    return;
+  }
+
+  let answered = 0;
+  let correct = 0;
+
+  activeQuestions.forEach(q => {
+    if (historyData.results[q.id]) {
+      answered++;
+      if (historyData.results[q.id].isCorrect) correct++;
+    }
+  });
+
+  const accuracy = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+  const progressPercent = Math.round((answered / total) * 100);
+
+  document.getElementById('statAnswered').textContent = `${answered}/${total}`;
+  document.getElementById('statAccuracy').textContent = `${accuracy}%`;
+  document.getElementById('overallProgressBar').style.width = `${progressPercent}%`;
+}
+
+function renderQuestionNavGrid() {
+  const grid = document.getElementById('questionNavGrid');
+  grid.innerHTML = '';
+
+  activeQuestions.forEach((q, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-nav-btn';
+    btn.textContent = idx + 1;
+
+    if (idx === currentQuestionIndex) {
+      btn.classList.add('active');
+    }
+
+    if (historyData.results[q.id]) {
+      if (historyData.results[q.id].isCorrect) {
+        btn.classList.add('correct');
+      } else {
+        btn.classList.add('incorrect');
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      currentQuestionIndex = idx;
+      renderCurrentQuestion();
+      renderQuestionNavGrid();
+    });
+
+    grid.appendChild(btn);
+  });
+}
+
+// ==========================================
+// 5. Question Rendering
+// ==========================================
+function renderCurrentQuestion() {
+  if (activeQuestions.length === 0) {
+    document.getElementById('questionText').textContent = '該当する問題がありません。出題範囲またはフィルターを変更してください。';
+    document.getElementById('answerArea').innerHTML = '';
+    document.getElementById('explanationArea').classList.add('hidden');
+    document.getElementById('btnSubmitAnswer').classList.add('hidden');
+    return;
+  }
+
+  document.getElementById('btnSubmitAnswer').classList.remove('hidden');
+  const q = activeQuestions[currentQuestionIndex];
+  historyData.lastQuestionId = q.id;
+  historyData.lastSet = currentSet;
+  saveHistoryToStorage();
+
+  // Toolbar
+  document.getElementById('currentTopicBadge').textContent = q.topic;
+  document.getElementById('currentQuestionNumberDisplay').textContent = `質問 #${currentQuestionIndex + 1} / ${activeQuestions.length}`;
+
+  const typeLabels = {
+    'single_choice': '単一選択',
+    'ox_choice': '○×チェック',
+    'drag_and_drop_order': '順序並べ替え',
+    'drag_and_drop_matching': 'マッチング',
+    'hotspot_radio_table': 'Yes/No 判定'
+  };
+  document.getElementById('currentTypeBadge').textContent = typeLabels[q.type] || '選択問題';
+
+  // Bookmark status
+  const bookmarkBtn = document.getElementById('btnBookmark');
+  if (historyData.bookmarks.has(q.id)) {
+    bookmarkBtn.classList.add('bookmarked');
+    bookmarkBtn.querySelector('span').textContent = 'ブックマーク中 ★';
+  } else {
+    bookmarkBtn.classList.remove('bookmarked');
+    bookmarkBtn.querySelector('span').textContent = 'ブックマーク';
+  }
+
+  // Question Text
+  document.getElementById('questionText').textContent = q.questionText;
+
+  // Answer Area
+  const answerArea = document.getElementById('answerArea');
+  answerArea.innerHTML = '';
+
+  const isChecked = (currentMode === 'practice' && sessionCheckedQuestions.has(q.id)) ||
+                    (currentMode === 'practice' && historyData.results[q.id]);
+
+  if (q.type === 'ox_choice') {
+    renderOxChoice(answerArea, q, isChecked);
+  } else if (q.type === 'single_choice') {
+    renderSingleChoice(answerArea, q, isChecked);
+  } else if (q.type === 'drag_and_drop_order') {
+    renderDndOrder(answerArea, q, isChecked);
+  } else if (q.type === 'drag_and_drop_matching') {
+    renderMatching(answerArea, q, isChecked);
+  } else if (q.type === 'hotspot_radio_table') {
+    renderHotspotTable(answerArea, q, isChecked);
+  }
+
+  // Explanation Area
+  const expArea = document.getElementById('explanationArea');
+  if (isChecked && currentMode === 'practice') {
+    renderExplanation(expArea, q);
+    expArea.classList.remove('hidden');
+    document.getElementById('btnSubmitAnswer').textContent = '回答済み（再採点）';
+  } else {
+    expArea.classList.add('hidden');
+    document.getElementById('btnSubmitAnswer').textContent = '回答を確認する';
+  }
+}
+
+// 5.1 Render OX Choice
+function renderOxChoice(container, q, isChecked) {
+  container.innerHTML = '';
+  const oxDiv = document.createElement('div');
+  oxDiv.className = 'ox-container';
+
+  const options = [
+    { label: '◯（正しい）', symbol: '◯', cls: 'ox-o' },
+    { label: '✕（誤り）', symbol: '✕', cls: 'ox-x' }
+  ];
+
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = `ox-btn ${opt.cls}`;
+    btn.innerHTML = `
+      <div class="ox-symbol">${opt.symbol}</div>
+      <div class="ox-text">${opt.label}</div>
+    `;
+
+    const currentVal = userAnswers[q.id] !== undefined ? userAnswers[q.id] : historyData.results[q.id]?.selectedAnswer;
+    const isSelected = currentVal === opt.label;
+    if (isSelected) btn.classList.add('selected');
+
+    if (isChecked) {
+      if (opt.label === q.correctAnswer) {
+        btn.classList.add('correct');
+      } else if (isSelected && opt.label !== q.correctAnswer) {
+        btn.classList.add('incorrect');
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      userAnswers[q.id] = opt.label;
+      renderOxChoice(container, q, isChecked);
+    });
+
+    oxDiv.appendChild(btn);
+  });
+
+  container.appendChild(oxDiv);
+}
+
+// 5.2 Render Single Choice
+function renderSingleChoice(container, q, isChecked) {
+  container.innerHTML = '';
+  const listDiv = document.createElement('div');
+  listDiv.className = 'options-container';
+
+  q.options.forEach(optText => {
+    const item = document.createElement('div');
+    item.className = 'option-item';
+
+    const currentVal = userAnswers[q.id] !== undefined ? userAnswers[q.id] : historyData.results[q.id]?.selectedAnswer;
+    const isSelected = currentVal === optText;
+    if (isSelected) item.classList.add('selected');
+
+    if (isChecked) {
+      if (optText === q.correctAnswer) {
+        item.classList.add('correct');
+      } else if (isSelected && optText !== q.correctAnswer) {
+        item.classList.add('incorrect');
+      }
+    }
+
+    item.innerHTML = `
+      <input type="radio" class="option-radio" name="opt_${q.id}" ${isSelected ? 'checked' : ''}>
+      <span class="option-label">${optText}</span>
+    `;
+
+    item.addEventListener('click', () => {
+      userAnswers[q.id] = optText;
+      renderSingleChoice(container, q, isChecked);
+    });
+
+    listDiv.appendChild(item);
+  });
+
+  container.appendChild(listDiv);
+}
+
+// 5.3 Render Drag and Drop Order (with Arrow Buttons for mobile friendliness)
+function renderDndOrder(container, q, isChecked) {
+  container.innerHTML = '';
+  if (!userAnswers[q.id] || !Array.isArray(userAnswers[q.id])) {
+    // BUG-10: Restore previous arrangement from selectedAnswer if available
+    if (historyData.results[q.id]?.selectedAnswer && Array.isArray(historyData.results[q.id].selectedAnswer)) {
+      userAnswers[q.id] = [...historyData.results[q.id].selectedAnswer];
+    } else {
+      userAnswers[q.id] = shuffleArray(q.options);
+    }
+  }
+
+  const dndDiv = document.createElement('div');
+  dndDiv.className = 'dnd-container';
+
+  const title = document.createElement('div');
+  title.style.fontSize = '0.9rem';
+  title.style.fontWeight = '600';
+  title.style.color = 'var(--text-secondary)';
+  title.textContent = '【順序を並べ替えてください（「↑」「↓」ボタンで移動できます）】';
+  dndDiv.appendChild(title);
+
+  const list = document.createElement('div');
+  list.className = 'dnd-pool';
+
+  userAnswers[q.id].forEach((itemText, idx) => {
+    const item = document.createElement('div');
+    item.className = 'dnd-item';
+
+    if (isChecked) {
+      const isCorrectSlot = q.correctAnswer[idx] === itemText;
+      item.style.borderColor = isCorrectSlot ? 'var(--success-color)' : 'var(--danger-color)';
+      item.style.background = isCorrectSlot ? 'var(--success-light)' : 'var(--danger-light)';
+    }
+
+    item.innerHTML = `
+      <span style="font-weight: 700; color: var(--primary-color); min-width: 28px;">#${idx + 1}</span>
+      <span style="flex: 1;">${itemText}</span>
+      <div style="display: flex; gap: 4px;">
+        <button class="secondary-btn" style="padding: 4px 8px; font-size: 0.8rem;" ${idx === 0 ? 'disabled' : ''} data-up="${idx}">↑</button>
+        <button class="secondary-btn" style="padding: 4px 8px; font-size: 0.8rem;" ${idx === userAnswers[q.id].length - 1 ? 'disabled' : ''} data-down="${idx}">↓</button>
+      </div>
+    `;
+
+    item.querySelector('[data-up]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const temp = userAnswers[q.id][idx];
+      userAnswers[q.id][idx] = userAnswers[q.id][idx - 1];
+      userAnswers[q.id][idx - 1] = temp;
+      renderDndOrder(container, q, isChecked);
+    });
+
+    item.querySelector('[data-down]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const temp = userAnswers[q.id][idx];
+      userAnswers[q.id][idx] = userAnswers[q.id][idx + 1];
+      userAnswers[q.id][idx + 1] = temp;
+      renderDndOrder(container, q, isChecked);
+    });
+
+    list.appendChild(item);
+  });
+
+  dndDiv.appendChild(list);
+  container.appendChild(dndDiv);
+}
+
+// 5.4 Render Matching
+function renderMatching(container, q, isChecked) {
+  container.innerHTML = '';
+  if (!userAnswers[q.id] || typeof userAnswers[q.id] !== 'object') {
+    userAnswers[q.id] = historyData.results[q.id]?.selectedAnswer ? { ...historyData.results[q.id].selectedAnswer } : {};
+  }
+
+  const matchDiv = document.createElement('div');
+  matchDiv.style.display = 'flex';
+  matchDiv.style.flexDirection = 'column';
+  matchDiv.style.gap = '10px';
+  matchDiv.style.marginBottom = '20px';
+
+  q.matchingPairs.forEach(pair => {
+    const row = document.createElement('div');
+    row.className = 'matching-row';
+
+    const label = document.createElement('div');
+    label.style.fontWeight = '700';
+    label.style.fontSize = '0.95rem';
+    label.textContent = pair.targetLabel;
+
+    const select = document.createElement('select');
+    select.className = 'matching-select';
+
+    const defaultOpt = document.createElement('option');
+    defaultOpt.value = '';
+    defaultOpt.textContent = '-- 選択してください --';
+    select.appendChild(defaultOpt);
+
+    pair.options.forEach(opt => {
+      const o = document.createElement('option');
+      o.value = opt;
+      o.textContent = opt;
+      if (userAnswers[q.id][pair.targetLabel] === opt) {
+        o.selected = true;
+      }
+      select.appendChild(o);
+    });
+
+    if (isChecked) {
+      const isRight = userAnswers[q.id][pair.targetLabel] === pair.correctAnswer;
+      select.style.borderColor = isRight ? 'var(--success-color)' : 'var(--danger-color)';
+      select.style.background = isRight ? 'var(--success-light)' : 'var(--danger-light)';
+    }
+
+    select.addEventListener('change', (e) => {
+      userAnswers[q.id][pair.targetLabel] = e.target.value;
+    });
+
+    row.appendChild(label);
+    row.appendChild(select);
+    matchDiv.appendChild(row);
+  });
+
+  container.appendChild(matchDiv);
+}
+
+// 5.5 Render Hotspot Table
+function renderHotspotTable(container, q, isChecked) {
+  container.innerHTML = '';
+  if (!userAnswers[q.id] || typeof userAnswers[q.id] !== 'object') {
+    userAnswers[q.id] = historyData.results[q.id]?.selectedAnswer ? { ...historyData.results[q.id].selectedAnswer } : {};
+  }
+
+  const table = document.createElement('table');
+  table.style.width = '100%';
+  table.style.borderCollapse = 'collapse';
+  table.style.marginBottom = '20px';
+
+  table.innerHTML = `
+    <thead>
+      <tr style="background: var(--bg-hover); border-bottom: 2px solid var(--border-color);">
+        <th style="padding: 10px; text-align: left; font-size: 0.88rem;">ステートメント</th>
+        <th style="padding: 10px; width: 80px; text-align: center; font-size: 0.88rem;">Yes</th>
+        <th style="padding: 10px; width: 80px; text-align: center; font-size: 0.88rem;">No</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const tbody = table.querySelector('tbody');
+  q.tableStatements.forEach((stmt, idx) => {
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid var(--border-color)';
+
+    const key = `statement_${idx}`;
+    const userVal = userAnswers[q.id][key];
+
+    tr.innerHTML = `
+      <td style="padding: 12px 10px; font-size: 0.92rem;">${stmt.statement}</td>
+      <td style="text-align: center;">
+        <input type="radio" name="hotspot_${q.id}_${idx}" value="Yes" ${userVal === 'Yes' ? 'checked' : ''}>
+      </td>
+      <td style="text-align: center;">
+        <input type="radio" name="hotspot_${q.id}_${idx}" value="No" ${userVal === 'No' ? 'checked' : ''}>
+      </td>
+    `;
+
+    if (isChecked) {
+      const isRight = userVal === stmt.correct;
+      tr.style.backgroundColor = isRight ? 'var(--success-light)' : 'var(--danger-light)';
+    }
+
+    tr.querySelectorAll('input').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        userAnswers[q.id][key] = e.target.value;
+      });
+    });
+
+    tbody.appendChild(tr);
+  });
+
+  container.appendChild(table);
+}
+
+// 5.6 Render 3-Layer Explanation
+function renderExplanation(container, q) {
+  const resultInfo = historyData.results[q.id];
+  const isCorrect = resultInfo ? resultInfo.isCorrect : false;
+
+  const resultBadge = `
+    <div class="result-badge-bar ${isCorrect ? 'correct' : 'incorrect'}">
+      <span>${isCorrect ? '🎉 正解！' : '❌ 不正解'}</span>
+    </div>
+  `;
+
+  // Parse explanation blocks if structured
+  const rawExp = q.explanation || '';
+  
+  // Format sections
+  let basicText = '';
+  let correctText = '';
+  let wrongText = '';
+
+  if (rawExp.includes('📖 【基本解説') || rawExp.includes('✅ 【正解のポイント') || rawExp.includes('🚨 【なぜ')) {
+    const parts = rawExp.split(/(?=📖|✅|🚨)/g);
+    parts.forEach(p => {
+      if (p.includes('📖')) basicText = p.replace(/📖\s*【基本解説.*?】\n?/, '').trim();
+      else if (p.includes('✅')) correctText = p.replace(/✅\s*【正解のポイント.*?】\n?/, '').trim();
+      else if (p.includes('🚨')) wrongText = p.replace(/🚨\s*【なぜ.*?】\n?/, '').trim();
+    });
+  } else {
+    basicText = rawExp;
+  }
+
+  let html = resultBadge;
+
+  if (basicText) {
+    html += `
+      <div class="exp-card card-basic">
+        <div class="exp-card-header">📖 基本解説・設問の背景</div>
+        <div class="exp-card-content">${escapeHtml(basicText)}</div>
+      </div>
+    `;
+  }
+
+  if (correctText) {
+    html += `
+      <div class="exp-card card-correct">
+        <div class="exp-card-header">✅ 正解のポイント・仕様上の根拠</div>
+        <div class="exp-card-content">${escapeHtml(correctText)}</div>
+      </div>
+    `;
+  }
+
+  if (wrongText) {
+    html += `
+      <div class="exp-card card-wrong">
+        <div class="exp-card-header">🚨 なぜ他の選択肢は誤りなのか？（罠ポイント・誤答分析）</div>
+        <div class="exp-card-content">${escapeHtml(wrongText)}</div>
+      </div>
+    `;
+  }
+
+  // Official Video Card
+  if (q.videoReference) {
+    html += `
+      <div class="exp-card card-video">
+        <div class="exp-card-header">🎬 公式教材 YouTube解説動画</div>
+        <div class="exp-card-content">
+          <strong>${escapeHtml(q.videoReference.title)}</strong><br>
+          公式講義動画でこの問題のテーマを復習できます。
+        </div>
+        <a href="${q.videoReference.url}" target="_blank" rel="noopener" class="video-cta-btn">
+          ▶ YouTubeで講義を視聴する
+        </a>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+// ==========================================
+// 6. Answer Submission & Evaluation
+// ==========================================
+function evaluateAnswer(q) {
+  const ans = userAnswers[q.id];
+  if (ans === undefined || ans === null || ans === '') return false;
+
+  if (q.type === 'single_choice' || q.type === 'ox_choice') {
+    return ans === q.correctAnswer;
+  }
+
+  if (q.type === 'drag_and_drop_order') {
+    if (!Array.isArray(ans) || ans.length !== q.correctAnswer.length) return false;
+    for (let i = 0; i < ans.length; i++) {
+      if (ans[i] !== q.correctAnswer[i]) return false;
+    }
+    return true;
+  }
+
+  if (q.type === 'drag_and_drop_matching' || q.type === 'hotspot_radio_table') {
+    if (typeof ans !== 'object' || ans === null || Array.isArray(ans)) return false;
+    const correctKeys = Object.keys(q.correctAnswer);
+    const ansKeys = Object.keys(ans);
+    // BUG-04: Strict key count check to disallow extraneous/incomplete keys
+    if (ansKeys.length !== correctKeys.length) return false;
+    for (let k of correctKeys) {
+      if (ans[k] !== q.correctAnswer[k]) return false;
+    }
+    return true;
+  }
+
+  return false;
+}
+
+function getLocalDateString(isoOrDateStr) {
+  if (!isoOrDateStr) return '';
+  const d = new Date(isoOrDateStr);
+  if (isNaN(d.getTime())) return '';
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function submitCurrentAnswer() {
+  if (activeQuestions.length === 0) return;
+  const q = activeQuestions[currentQuestionIndex];
+
+  const isCorrect = evaluateAnswer(q);
+  const prevResult = historyData.results[q.id];
+  const today = getTodayString();
+  const prevAnsweredDate = prevResult && prevResult.answeredAt ? getLocalDateString(prevResult.answeredAt) : null;
+  const alreadyAnsweredToday = prevAnsweredDate === today;
+
+  // BUG-10: Save selectedAnswer in result
+  historyData.results[q.id] = {
+    isCorrect,
+    selectedAnswer: userAnswers[q.id],
+    answeredAt: new Date().toISOString()
+  };
+
+  sessionCheckedQuestions.add(q.id);
+
+  // BUG-05: Guard against activity inflation on repeated submissions
+  if (!alreadyAnsweredToday) {
+    recordAnswerActivity(isCorrect);
+  } else {
+    // Re-answering today: adjust correct tally if outcome changed, but do not increment answered
+    if (!prevResult.isCorrect && isCorrect) {
+      historyData.dailyActivity[today].correct = (historyData.dailyActivity[today].correct || 0) + 1;
+    } else if (prevResult.isCorrect && !isCorrect) {
+      historyData.dailyActivity[today].correct = Math.max(0, (historyData.dailyActivity[today].correct || 1) - 1);
+    }
+    saveHistoryToStorage();
+    updateStreakDisplay();
+  }
+
+  updateFilterCountBadges();
+  updateSidebarStats();
+  renderQuestionNavGrid();
+  renderCurrentQuestion();
+
+  // Check 10-question set completion
+  checkSetCompletionTrigger();
+}
+
+function checkSetCompletionTrigger() {
+  if (currentSet.startsWith('set') || currentSet === 'random10') {
+    const allAnswered = activeQuestions.every(q => historyData.results[q.id]);
+    if (allAnswered && activeQuestions.length > 0) {
+      showSetSummaryModal();
+    }
+  }
+}
+
+// ==========================================
+// 7. Modals (Weakness, Video, Exam, Set)
+// ==========================================
+// 7.1 Weakness Analysis & Radar Chart
+function openWeaknessModal() {
+  const modal = document.getElementById('weaknessModal');
+  modal.classList.add('open');
+  drawRadarChart();
+  renderTopicStatList();
+}
+
+function drawRadarChart() {
+  const canvas = document.getElementById('radarCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  // BUG-06: High-DPI (Retina) scaling with zero label clipping
+  const dpr = window.devicePixelRatio || 1;
+  const baseSize = 460;
+  canvas.width = baseSize * dpr;
+  canvas.height = baseSize * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const size = baseSize;
+  const center = size / 2;
+  const radius = 120; // 120px gives ample margin for Japanese labels on 460px canvas
+
+  ctx.clearRect(0, 0, size, size);
+
+  const topics = [
+    { id: 1, name: '1. モデル設計' },
+    { id: 2, name: '2. データとタスク' },
+    { id: 3, name: '3. 評価指標' },
+    { id: 4, name: '4. 画像データ' },
+    { id: 5, name: '5. 数学表現' },
+    { id: 6, name: '6. 計算量基礎' },
+    { id: 7, name: '7. 開発と運用' }
+  ];
+
+  const numSides = topics.length;
+  const angleStep = (Math.PI * 2) / numSides;
+
+  // Draw Web Rings
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.lineWidth = 1;
+  for (let r = 1; r <= 4; r++) {
+    const curR = (radius / 4) * r;
+    ctx.beginPath();
+    for (let i = 0; i < numSides; i++) {
+      const a = i * angleStep - Math.PI / 2;
+      const x = center + curR * Math.cos(a);
+      const y = center + curR * Math.sin(a);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+  }
+
+  // Draw Axis Lines
+  for (let i = 0; i < numSides; i++) {
+    const a = i * angleStep - Math.PI / 2;
+    const x = center + radius * Math.cos(a);
+    const y = center + radius * Math.sin(a);
+    ctx.beginPath();
+    ctx.moveTo(center, center);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+
+    // Axis Labels with Dynamic Alignment (BUG-06)
+    const cosA = Math.cos(a);
+    const sinA = Math.sin(a);
+    const labelR = radius + 16;
+    const lx = center + labelR * cosA;
+    const ly = center + labelR * sinA;
+
+    ctx.fillStyle = '#475569';
+    ctx.font = 'bold 11px Inter, -apple-system, sans-serif';
+
+    if (cosA > 0.25) {
+      ctx.textAlign = 'left';
+    } else if (cosA < -0.25) {
+      ctx.textAlign = 'right';
+    } else {
+      ctx.textAlign = 'center';
+    }
+
+    if (sinA < -0.7) {
+      ctx.textBaseline = 'bottom';
+    } else if (sinA > 0.7) {
+      ctx.textBaseline = 'top';
+    } else {
+      ctx.textBaseline = 'middle';
+    }
+
+    ctx.fillText(topics[i].name, lx, ly);
+  }
+
+  // Calculate accuracies for each topic
+  const dataPoints = topics.map(t => {
+    const tQuestions = allQuestions.filter(q => q.topicId === t.id);
+    let correct = 0;
+    let answered = 0;
+    tQuestions.forEach(q => {
+      if (historyData.results[q.id]) {
+        answered++;
+        if (historyData.results[q.id].isCorrect) correct++;
+      }
+    });
+    return answered > 0 ? (correct / answered) : 0;
+  });
+
+  // Draw Data Polygon
+  ctx.beginPath();
+  dataPoints.forEach((val, i) => {
+    const curR = radius * val;
+    const a = i * angleStep - Math.PI / 2;
+    const x = center + curR * Math.cos(a);
+    const y = center + curR * Math.sin(a);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+
+  ctx.fillStyle = 'rgba(37, 99, 235, 0.25)';
+  ctx.fill();
+  ctx.strokeStyle = '#2563eb';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Draw Data Dots
+  dataPoints.forEach((val, i) => {
+    const curR = radius * val;
+    const a = i * angleStep - Math.PI / 2;
+    const x = center + curR * Math.cos(a);
+    const y = center + curR * Math.sin(a);
+    ctx.beginPath();
+    ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#2563eb';
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  });
+}
+
+function renderTopicStatList() {
+  const container = document.getElementById('topicStatList');
+  container.innerHTML = '';
+
+  const topics = [
+    { id: 1, title: '第1講: モデルの設計と活用までの流れ' },
+    { id: 2, title: '第2講: データの入出力とタスク' },
+    { id: 3, title: '第3講: モデルの評価指標' },
+    { id: 4, title: '第4講: 画像データの取り扱い' },
+    { id: 5, title: '第5講: 数学的な表現に慣れる' },
+    { id: 6, title: '第6講: 計算量の基礎' },
+    { id: 7, title: '第7講: 開発と活用に向けて' }
+  ];
+
+  topics.forEach(t => {
+    const tQuestions = allQuestions.filter(q => q.topicId === t.id);
+    let correct = 0;
+    let answered = 0;
+    tQuestions.forEach(q => {
+      if (historyData.results[q.id]) {
+        answered++;
+        if (historyData.results[q.id].isCorrect) correct++;
+      }
+    });
+    const acc = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+
+    const row = document.createElement('div');
+    row.className = 'topic-stat-row';
+    row.innerHTML = `
+      <div style="flex: 1;">
+        <div style="font-weight: 700; font-size: 0.9rem;">${t.title}</div>
+        <div style="font-size: 0.78rem; color: var(--text-muted);">
+          正答率: <strong style="color: ${acc >= 70 ? 'var(--success-color)' : 'var(--danger-color)'}">${acc}%</strong> (${correct}/${answered}問 正解 / 全${tQuestions.length}問)
+        </div>
+      </div>
+      <button class="topic-drill-btn" data-topic="${t.id}">この分野を特訓 🎯</button>
+    `;
+
+    row.querySelector('.topic-drill-btn').addEventListener('click', () => {
+      document.getElementById('weaknessModal').classList.remove('open');
+      setPracticeTopic(t.id);
+    });
+
+    container.appendChild(row);
+  });
+}
+
+function setPracticeTopic(topicId) {
+  currentSet = `topic${topicId}`;
+  currentMode = 'practice';
+  updateSetButtonsUI();
+  updateModeButtonsUI();
+  applyCurrentSetAndFilter();
+}
+
+// 7.2 Video Catalog Modal
+function openVideoModal() {
+  const modal = document.getElementById('videoModal');
+  modal.classList.add('open');
+  renderVideoCatalogGrid('');
+}
+
+function renderVideoCatalogGrid(query) {
+  const grid = document.getElementById('catalogGrid');
+  grid.innerHTML = '';
+
+  const qLower = query.toLowerCase().trim();
+  const filtered = videoCatalog.filter(v => {
+    if (!qLower) return true;
+    return v.title.toLowerCase().includes(qLower) || v.lectureName.toLowerCase().includes(qLower);
+  });
+
+  filtered.forEach(v => {
+    const card = document.createElement('a');
+    card.href = v.url;
+    card.target = '_blank';
+    card.rel = 'noopener';
+    card.className = 'catalog-card';
+
+    card.innerHTML = `
+      <img src="${v.thumbnailUrl}" alt="${v.title}" class="catalog-thumb" loading="lazy">
+      <div class="catalog-info">
+        <span class="catalog-lecture-tag">${v.lectureName}</span>
+        <h4 class="catalog-title">${v.title}</h4>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+// 7.3 Exam Mode & Summary
+function startExamMode() {
+  currentMode = 'exam';
+  currentSet = 'exam30';
+  currentFilter = 'all';
+  updateFilterButtonsUI();
+
+  // BUG-01: Initialize dedicated 30 questions pool
+  examQuestionPool = getRandomSample(allQuestions, 30);
+
+  // BUG-02: Synchronize timer with wall-clock time
+  const totalSeconds = 40 * 60; // 40 minutes
+  examEndTime = Date.now() + totalSeconds * 1000;
+  examTimeRemaining = totalSeconds;
+
+  updateModeButtonsUI();
+  updateSetButtonsUI();
+
+  document.getElementById('examBanner').classList.remove('hidden');
+
+  if (examTimerInterval) clearInterval(examTimerInterval);
+  examTimerInterval = setInterval(() => {
+    // BUG-02: Compute remaining seconds based on Date.now() to prevent tab-throttling drift
+    const remainingMs = examEndTime - Date.now();
+    examTimeRemaining = Math.max(0, Math.round(remainingMs / 1000));
+    updateExamTimerDisplay();
+    if (examTimeRemaining <= 0) {
+      clearInterval(examTimerInterval);
+      examTimerInterval = null;
+      finishExam();
+    }
+  }, 1000);
+
+  updateExamTimerDisplay();
+  applyCurrentSetAndFilter();
+}
+
+function updateExamTimerDisplay() {
+  const m = Math.floor(examTimeRemaining / 60);
+  const s = examTimeRemaining % 60;
+  document.getElementById('examTimer').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function finishExam() {
+  if (examTimerInterval) {
+    clearInterval(examTimerInterval);
+    examTimerInterval = null;
+  }
+  document.getElementById('examBanner').classList.add('hidden');
+
+  // BUG-01: Evaluate all questions from examQuestionPool, regardless of current filter
+  const questionsToGrade = examQuestionPool.length > 0 ? examQuestionPool : activeQuestions;
+  let correctCount = 0;
+  const today = getTodayString();
+  if (!historyData.dailyActivity[today]) {
+    historyData.dailyActivity[today] = { answered: 0, correct: 0 };
+  }
+  let newAnswered = 0;
+  let newCorrect = 0;
+
+  questionsToGrade.forEach(q => {
+    const isCorrect = evaluateAnswer(q);
+    const prevResult = historyData.results[q.id];
+    const alreadyAnsweredToday = prevResult && prevResult.answeredAt && prevResult.answeredAt.startsWith(today);
+
+    // BUG-10: Save selectedAnswer
+    historyData.results[q.id] = {
+      isCorrect,
+      selectedAnswer: userAnswers[q.id],
+      answeredAt: new Date().toISOString()
+    };
+    if (isCorrect) correctCount++;
+
+    // BUG-05: Tally only if not answered today
+    if (!alreadyAnsweredToday) {
+      newAnswered++;
+      if (isCorrect) newCorrect++;
+    } else {
+      if (!prevResult.isCorrect && isCorrect) newCorrect++;
+      else if (prevResult.isCorrect && !isCorrect) newCorrect--;
+    }
+  });
+
+  historyData.dailyActivity[today].answered += newAnswered;
+  historyData.dailyActivity[today].correct = Math.max(0, historyData.dailyActivity[today].correct + newCorrect);
+
+  // BUG-08: Batch save once after loop finishes
+  saveHistoryToStorage();
+  updateStreakDisplay();
+  updateSidebarStats();
+  renderQuestionNavGrid();
+
+  const total = questionsToGrade.length;
+  const scorePercent = Math.round((correctCount / total) * 100);
+  const passed = scorePercent >= 70; // 70% passing threshold
+
+  const modal = document.getElementById('examSummaryModal');
+  const body = document.getElementById('examSummaryBody');
+
+  body.innerHTML = `
+    <div style="font-size: 3rem; margin-bottom: 8px;">${passed ? '🎉' : '📚'}</div>
+    <h3 style="font-size: 1.5rem; font-weight: 800; color: ${passed ? 'var(--success-color)' : 'var(--danger-color)'};">
+      ${passed ? '合格おめでとうございます！' : '不合格（あと少し！）'}
+    </h3>
+    <div style="margin: 16px 0; font-size: 1.2rem; font-weight: 700;">
+      得点: <span style="font-size: 2rem; color: var(--primary-color);">${correctCount} / ${total}</span> 問正解
+      (${scorePercent}点 / 合格基準 70点)
+    </div>
+    <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 24px;">
+      ${passed ? '本番試験でも合格圏内の実力です！この調子を維持しましょう。' : '弱点トピックを復習して、再挑戦しましょう！'}
+    </p>
+    <div style="display: flex; gap: 10px; justify-content: center;">
+      <button class="primary-btn" id="btnReviewExamQuestions">模試の解説を確認する</button>
+      <button class="secondary-btn" id="btnRestartPractice">練習モードに戻る</button>
+    </div>
+  `;
+
+  body.querySelector('#btnReviewExamQuestions').addEventListener('click', () => {
+    modal.classList.remove('open');
+    currentMode = 'practice';
+    // BUG-01: Retain exam questions for review
+    activeQuestions = examQuestionPool.length > 0 ? [...examQuestionPool] : activeQuestions;
+    activeQuestions.forEach(q => sessionCheckedQuestions.add(q.id));
+    updateModeButtonsUI();
+    renderCurrentQuestion();
+    renderQuestionNavGrid();
+  });
+
+  body.querySelector('#btnRestartPractice').addEventListener('click', () => {
+    modal.classList.remove('open');
+    currentMode = 'practice';
+    currentSet = 'all';
+    examQuestionPool = [];
+    updateModeButtonsUI();
+    updateSetButtonsUI();
+    applyCurrentSetAndFilter();
+  });
+
+  modal.classList.add('open');
+}
+
+// 7.4 10-Question Set Summary Modal
+function showSetSummaryModal() {
+  const total = activeQuestions.length;
+  let correct = 0;
+  activeQuestions.forEach(q => {
+    if (historyData.results[q.id]?.isCorrect) correct++;
+  });
+
+  const percent = Math.round((correct / total) * 100);
+  const modal = document.getElementById('setSummaryModal');
+  const body = document.getElementById('setSummaryBody');
+
+  body.innerHTML = `
+    <div style="font-size: 2.5rem; margin-bottom: 8px;">✨</div>
+    <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">セット演習 完了！</h3>
+    <div style="margin: 14px 0; font-size: 1.1rem; font-weight: 700;">
+      結果: <span style="font-size: 1.8rem; color: var(--primary-color);">${correct} / ${total}</span> 問正解
+      (${percent}%)
+    </div>
+    <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 18px;">
+      <button class="primary-btn" id="btnNextSet">次のセットへ進む</button>
+      <button class="secondary-btn" id="btnRetryIncorrectInSet">間違えた問題を再挑戦</button>
+      <button class="secondary-btn" data-close="setSummaryModal">閉じる</button>
+    </div>
+  `;
+
+  body.querySelector('#btnNextSet')?.addEventListener('click', () => {
+    modal.classList.remove('open');
+    if (currentSet.startsWith('set')) {
+      const curNum = parseInt(currentSet.replace('set', ''), 10);
+      if (curNum < 9) {
+        currentSet = `set${curNum + 1}`;
+      } else {
+        currentSet = 'all';
+      }
+    } else {
+      currentSet = 'random10';
+    }
+    updateSetButtonsUI();
+    applyCurrentSetAndFilter();
+  });
+
+  body.querySelector('#btnRetryIncorrectInSet')?.addEventListener('click', () => {
+    modal.classList.remove('open');
+    currentFilter = 'incorrect';
+    updateFilterButtonsUI();
+    applyCurrentSetAndFilter();
+  });
+
+  modal.classList.add('open');
+}
+
+// ==========================================
+// 8. Event Listeners & UI Binding
+// ==========================================
+function setupEventListeners() {
+  // Navigation
+  document.getElementById('btnPrevQuestion').addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+      currentQuestionIndex--;
+      renderCurrentQuestion();
+      renderQuestionNavGrid();
+    }
+  });
+
+  document.getElementById('btnNextQuestion').addEventListener('click', () => {
+    if (currentQuestionIndex < activeQuestions.length - 1) {
+      currentQuestionIndex++;
+      renderCurrentQuestion();
+      renderQuestionNavGrid();
+    }
+  });
+
+  document.getElementById('btnSubmitAnswer').addEventListener('click', submitCurrentAnswer);
+
+  // Resume last
+  document.getElementById('btnResumeLast').addEventListener('click', () => {
+    if (historyData.lastQuestionId) {
+      const idx = activeQuestions.findIndex(q => q.id === historyData.lastQuestionId);
+      if (idx !== -1) {
+        currentQuestionIndex = idx;
+        renderCurrentQuestion();
+        renderQuestionNavGrid();
+      }
+    }
+  });
+
+  // Bookmark Toggle
+  document.getElementById('btnBookmark').addEventListener('click', () => {
+    if (activeQuestions.length === 0) return;
+    const q = activeQuestions[currentQuestionIndex];
+    if (historyData.bookmarks.has(q.id)) {
+      historyData.bookmarks.delete(q.id);
+    } else {
+      historyData.bookmarks.add(q.id);
+    }
+    saveHistoryToStorage();
+    renderCurrentQuestion();
+    updateFilterCountBadges();
+  });
+
+  // Video Direct Link
+  document.getElementById('btnWatchVideoDirect').addEventListener('click', () => {
+    if (activeQuestions.length === 0) return;
+    const q = activeQuestions[currentQuestionIndex];
+    if (q.videoReference && q.videoReference.url) {
+      window.open(q.videoReference.url, '_blank');
+    }
+  });
+
+  // Mode Buttons
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      if (mode === 'exam') {
+        startExamMode();
+      } else {
+        if (currentMode === 'exam') {
+          if (!confirm('本番模試を中断して練習モードに戻りますか？')) {
+            return;
+          }
+        }
+        currentMode = 'practice';
+        if (examTimerInterval) {
+          clearInterval(examTimerInterval);
+          examTimerInterval = null;
+        }
+        document.getElementById('examBanner').classList.add('hidden');
+        if (currentSet === 'exam30') {
+          currentSet = 'all';
+          updateSetButtonsUI();
+        }
+        updateModeButtonsUI();
+        applyCurrentSetAndFilter();
+      }
+    });
+  });
+
+  // Set Buttons
+  document.querySelectorAll('.set-pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const set = btn.dataset.set;
+      if (set === 'exam30') {
+        startExamMode();
+      } else {
+        // BUG-03: Safely stop exam mode if currently active
+        if (currentMode === 'exam') {
+          if (!confirm('本番模試を中断して練習モードに戻りますか？')) {
+            return;
+          }
+          if (examTimerInterval) {
+            clearInterval(examTimerInterval);
+            examTimerInterval = null;
+          }
+          document.getElementById('examBanner').classList.add('hidden');
+          currentMode = 'practice';
+          updateModeButtonsUI();
+        }
+        currentSet = set;
+        updateSetButtonsUI();
+        applyCurrentSetAndFilter();
+      }
+    });
+  });
+
+  // Filter Buttons
+  document.querySelectorAll('.filter-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentFilter = btn.dataset.filter;
+      updateFilterButtonsUI();
+      applyCurrentSetAndFilter();
+    });
+  });
+
+  // Modals Open/Close
+  document.getElementById('btnWeaknessAnalysis').addEventListener('click', openWeaknessModal);
+  document.getElementById('btnVideoCatalog').addEventListener('click', openVideoModal);
+
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modalId = btn.dataset.close;
+      document.getElementById(modalId)?.classList.remove('open');
+    });
+  });
+
+  document.querySelectorAll('.modal-overlay').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('open');
+    });
+  });
+
+  // Video Catalog Search
+  document.getElementById('catalogSearchInput')?.addEventListener('input', (e) => {
+    renderVideoCatalogGrid(e.target.value);
+  });
+
+  // Exam Finish Button in Banner
+  document.getElementById('btnFinishExam').addEventListener('click', finishExam);
+
+  // Reset History Button
+  document.getElementById('btnResetHistory').addEventListener('click', () => {
+    if (confirm('学習履歴、回答記録、ブックマークをすべて初期化しますか？')) {
+      historyData.results = {};
+      historyData.bookmarks.clear();
+      historyData.dailyActivity = {};
+      sessionCheckedQuestions.clear();
+      userAnswers = {};
+      saveHistoryToStorage();
+      updateStreakDisplay();
+      applyCurrentSetAndFilter();
+      alert('学習履歴をリセットしました。');
+    }
+  });
+
+  // Keyboard Navigation (Left/Right Arrows & Escape) (BUG-11)
+  window.addEventListener('keydown', (e) => {
+    // Handle Escape to close any active modal
+    if (e.key === 'Escape') {
+      const openModal = document.querySelector('.modal-overlay.open');
+      if (openModal) {
+        openModal.classList.remove('open');
+        return;
+      }
+    }
+
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+    // BUG-11: Suppress question navigation while any modal is open
+    if (document.querySelector('.modal-overlay.open')) return;
+
+    if (e.key === 'ArrowLeft') {
+      document.getElementById('btnPrevQuestion').click();
+    } else if (e.key === 'ArrowRight') {
+      document.getElementById('btnNextQuestion').click();
+    }
+  });
+
+  // Mobile Sidebar Collapsible Toggle (BUG-07)
+  const toggleBtn = document.getElementById('btnToggleSidebar');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const group = document.getElementById('sidebarCollapsibleGroup');
+      if (group) {
+        const isOpen = group.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        const textSpan = toggleBtn.querySelector('span:first-child');
+        if (textSpan) {
+          textSpan.textContent = isOpen ? '✕ 出題設定・問題リストを閉じる' : '📋 出題設定・問題リスト (90問) を表示';
+        }
+        const iconSpan = document.getElementById('sidebarToggleIcon');
+        if (iconSpan) {
+          iconSpan.textContent = isOpen ? '▲' : '▼';
+        }
+      }
+    });
+  }
+}
+
+function updateModeButtonsUI() {
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === currentMode);
+  });
+}
+
+function updateSetButtonsUI() {
+  document.querySelectorAll('.set-pill-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.set === currentSet);
+  });
+}
+
+function updateFilterButtonsUI() {
+  document.querySelectorAll('.filter-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === currentFilter);
+  });
+}
+
+  </script>
+
+</body>
+</html>

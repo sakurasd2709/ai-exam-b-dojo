@@ -1,0 +1,18 @@
+# Intermediate extraction data
+slides_*
+playlist_data.json
+all_video_transcripts.json
+extracted_playlist_videos.json
+videos_list.json
+scripts/t*.json
+
+# Scratch & test artifacts
+scratch/
+.system_generated/
+.tempmediaStorage/
+.user_uploaded/
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
