@@ -4335,6 +4335,7 @@ function renderCurrentQuestion() {
   historyData.lastQuestionId = q.id;
   historyData.lastSet = currentSet;
   saveHistoryToStorage();
+  debouncedPushToCloud();
 
   // Toolbar
   document.getElementById('currentTopicBadge').textContent = q.topic;
@@ -5621,6 +5622,14 @@ function getSyncPayload() {
   };
 }
 
+let cloudPushTimer = null;
+function debouncedPushToCloud() {
+  if (cloudPushTimer) clearTimeout(cloudPushTimer);
+  cloudPushTimer = setTimeout(() => {
+    pushToCloud(true);
+  }, 1000);
+}
+
 function initCloudSync() {
   try {
     const params = new URLSearchParams(window.location.search);
@@ -5633,9 +5642,8 @@ function initCloudSync() {
         const imported = JSON.parse(json);
         if (imported && imported.results) {
           applyImportedData(imported);
-          // Clean URL parameter without reload
           window.history.replaceState({}, document.title, window.location.pathname);
-          showToastNotification('✅ URLから学習進捗を復元しました！');
+          showToastNotification('✅ 学習進捗を復元しました！');
         }
       } catch (e) {
         console.warn('Failed to parse ?sync URL param:', e);
@@ -5646,13 +5654,22 @@ function initCloudSync() {
       syncPasscode = keyParam.trim();
       localStorage.setItem(STORAGE_KEY_SYNC_PASSCODE, syncPasscode);
     } else {
-      syncPasscode = localStorage.getItem(STORAGE_KEY_SYNC_PASSCODE) || '';
+      // ユーザー設定がなければ、標準で 'default' キーで完全ゼロ設定同期！
+      syncPasscode = localStorage.getItem(STORAGE_KEY_SYNC_PASSCODE) || 'default';
     }
 
-    // Auto pull from cloud if syncPasscode exists
-    if (syncPasscode) {
+    // 起動時に自動でクラウドから最新データを取得
+    pullFromCloud(true);
+
+    // スマホでブラウザを開き直した際やタブ復帰時にも自動で最新同期
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        pullFromCloud(true);
+      }
+    });
+    window.addEventListener('focus', () => {
       pullFromCloud(true);
-    }
+    });
   } catch (e) {
     console.warn('initCloudSync error:', e);
   }
@@ -5667,7 +5684,7 @@ function updateSyncStatusUI(success, msg) {
 }
 
 async function pushToCloud(isSilent = false) {
-  if (!syncPasscode) return;
+  if (!syncPasscode) syncPasscode = 'default';
 
   const payload = getSyncPayload();
 
@@ -5679,7 +5696,7 @@ async function pushToCloud(isSilent = false) {
     });
 
     if (res.ok) {
-      updateSyncStatusUI(true, `☁️ クラウド同期中（合言葉: ${syncPasscode}）`);
+      updateSyncStatusUI(true, `☁️ クラウド同期中（自動連携: ${syncPasscode}）`);
       if (!isSilent) alert('✅ クラウドへ学習履歴を保存（同期）しました！');
     }
   } catch (err) {
@@ -5689,10 +5706,7 @@ async function pushToCloud(isSilent = false) {
 }
 
 async function pullFromCloud(isSilent = false) {
-  if (!syncPasscode) {
-    if (!isSilent) alert('同期キー（合言葉）が設定されていません。');
-    return;
-  }
+  if (!syncPasscode) syncPasscode = 'default';
 
   try {
     const res = await fetch(`/api/sync?key=${encodeURIComponent(syncPasscode)}&_t=${Date.now()}`, {
@@ -5702,17 +5716,26 @@ async function pullFromCloud(isSilent = false) {
     if (res.ok) {
       const cloudData = await res.json();
       if (cloudData && typeof cloudData === 'object' && cloudData.results) {
-        applyImportedData(cloudData);
-        updateSyncStatusUI(true, `☁️ クラウド最新データと同期完了（合言葉: ${syncPasscode}）`);
-        if (!isSilent) alert('✅ クラウドから最新の学習進捗を取得しました！');
+        // クラウドの回答数や最終設問をローカルと比較
+        const cloudCount = Object.keys(cloudData.results).length;
+        const localCount = Object.keys(historyData.results).length;
+        const cloudQId = cloudData.lastQuestionId || 1;
+        const localQId = historyData.lastQuestionId || 1;
+
+        // クラウド側が最新または初回ロード時に反映
+        if (cloudCount >= localCount || cloudQId !== localQId || localCount === 0) {
+          applyImportedData(cloudData);
+          updateSyncStatusUI(true, `☁️ 最新データを同期済み（合言葉: ${syncPasscode}）`);
+          if (isSilent) {
+            showToastNotification(`☁️ クラウドから最新の進捗を同期しました (質問 #${cloudQId})`);
+          } else {
+            alert('✅ クラウドから最新の学習進捗を取得しました！');
+          }
+        }
       }
     } else if (res.status === 404) {
-      // First time with this passcode
-      if (isSilent) {
-        pushToCloud(true);
-      } else {
-        updateSyncStatusUI(true, `合言葉「${syncPasscode}」の新規作成準備完了`);
-      }
+      // First time with this key: push local data to seed the cloud
+      pushToCloud(true);
     }
   } catch (err) {
     console.warn('Cloud sync pull warning:', err);
