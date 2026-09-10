@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   updateStreakDisplay();
   setupEventListeners();
-  applyCurrentSetAndFilter();
+  applyCurrentSetAndFilter(true); // 自動的に前回の到達設問から再開
 });
 
 function loadData() {
@@ -190,7 +190,7 @@ function updateStreakDisplay() {
 // ==========================================
 // 4. Set & Filter Management
 // ==========================================
-function applyCurrentSetAndFilter() {
+function applyCurrentSetAndFilter(restoreLastQuestion = false) {
   let pool = [...allQuestions];
 
   // 1. Apply Set Filtering
@@ -222,7 +222,14 @@ function applyCurrentSetAndFilter() {
   }
 
   activeQuestions = pool;
-  currentQuestionIndex = 0;
+
+  // 再度開き直した際に前回の設問から再開
+  if (restoreLastQuestion && historyData.lastQuestionId) {
+    const foundIdx = activeQuestions.findIndex(q => q.id === historyData.lastQuestionId);
+    currentQuestionIndex = foundIdx !== -1 ? foundIdx : 0;
+  } else {
+    currentQuestionIndex = 0;
+  }
 
   updateFilterCountBadges();
   updateSidebarStats();
@@ -308,6 +315,9 @@ function renderQuestionNavGrid() {
 
     if (idx === currentQuestionIndex) {
       btn.classList.add('active');
+      setTimeout(() => {
+        btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }, 50);
     }
 
     if (historyData.results[q.id]) {
