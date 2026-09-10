@@ -1227,7 +1227,11 @@ body {
         <h1>過去問・演習道場</h1>
       </div>
     </div>
-    <div class="header-right">
+      <button id="btnCloudSync" class="header-btn" title="端末間での進捗同期（PC・スマホ連携）">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        <span>☁️ クラウド同期</span>
+      </button>
+
       <button id="btnWeaknessAnalysis" class="header-btn" title="7大分野の弱点分析 & レーダーチャート">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
         <span>📊 弱点分析</span>
@@ -1355,6 +1359,10 @@ body {
 
         <!-- Sidebar Footer -->
         <div class="sidebar-footer-area">
+          <button id="btnCloudSyncSidebar" class="sidebar-reset-btn" style="color: var(--primary-color); border-color: var(--primary-border); margin-bottom: 6px;" title="スマホとPCの学習進捗を同期">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            <span>☁️ クラウド同期設定</span>
+          </button>
           <button id="btnResetHistory" class="sidebar-reset-btn" title="学習履歴をリセット">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
             <span>学習履歴のリセット</span>
@@ -1487,6 +1495,77 @@ body {
       </div>
       <div class="modal-body" id="setSummaryBody" style="text-align: center; padding: 24px;">
         <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Cloud Sync Settings -->
+  <div id="cloudSyncModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 560px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>☁️ クラウド学習履歴 同期設定</span>
+        </div>
+        <button class="modal-close-btn" data-close="cloudSyncModal">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px 24px;">
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+          スマホとPCで同じ<strong>「同期キー（あなたの合言葉）」</strong>を入力すると、回答履歴や前回の問題が端末間で自動同期されます。
+        </p>
+
+        <!-- Section 1: Auto Cloud Sync -->
+        <div style="background: var(--bg-hover); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>① クラウド自動同期 (推奨)</span>
+            <span style="font-size: 0.72rem; background: var(--success-light); color: var(--success-color); padding: 2px 6px; border-radius: 4px; font-weight: 700;">リアルタイム</span>
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 10px;">
+            英数字で自由に決めてください（例: <code>sakura-ai</code>）
+          </div>
+          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+            <input type="text" id="syncPasscode" style="flex: 1; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.9rem;" placeholder="例: sakura-b">
+            <button id="btnSaveSyncKey" class="primary-btn" style="padding: 8px 16px; font-size: 0.88rem; white-space: nowrap;">保存して同期</button>
+          </div>
+          <div id="syncKeyStatusText" style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">
+            同期キーが未設定です。キーを入力して保存してください。
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button id="btnPullCloud" class="secondary-btn" style="flex: 1; padding: 8px 10px; font-size: 0.82rem;">☁️ クラウドから取得</button>
+            <button id="btnPushCloud" class="secondary-btn" style="flex: 1; padding: 8px 10px; font-size: 0.82rem;">☁️ クラウドへ保存</button>
+          </div>
+        </div>
+
+        <!-- Section 2: One-click URL / Code -->
+        <div style="background: var(--bg-hover); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>② 進捗コード / 同期URL (即時共有)</span>
+            <span style="font-size: 0.72rem; background: var(--primary-light); color: var(--primary-color); padding: 2px 6px; border-radius: 4px; font-weight: 700;">かんたん</span>
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 10px;">
+            PCの学習進捗URLをLINEやメールでスマホに送るだけで、開いた瞬間に続きから再開できます。
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button id="btnCopySyncUrl" class="primary-btn" style="padding: 9px 12px; font-size: 0.88rem; width: 100%;">
+              🔗 スマホで開く同期URLをコピー
+            </button>
+            <div style="display: flex; gap: 8px;">
+              <button id="btnCopySyncCode" class="secondary-btn" style="flex: 1; padding: 7px 10px; font-size: 0.82rem;">📋 進捗コードをコピー</button>
+              <button id="btnPasteSyncCode" class="secondary-btn" style="flex: 1; padding: 7px 10px; font-size: 0.82rem;">📥 コードを貼り付けて適用</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Backup / Offline -->
+        <div style="font-size: 0.82rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+          <span>バックアップ用:</span>
+          <div style="display: flex; gap: 8px;">
+            <button id="btnExportJson" class="secondary-btn" style="padding: 4px 8px; font-size: 0.75rem;">JSON保存</button>
+            <label class="secondary-btn" style="padding: 4px 8px; font-size: 0.75rem; cursor: pointer; margin: 0;">
+              <span>JSON復元</span>
+              <input type="file" id="importJsonInput" accept=".json" style="display: none;">
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -3930,6 +4009,8 @@ let examEndTime = null;    // Timestamp for wall-clock timer sync (BUG-02)
 // LocalStorage Keys
 const STORAGE_KEY_HISTORY = 'ai_exam_b_history_v1';
 const STORAGE_KEY_BOOKMARKS = 'ai_exam_b_bookmarks_v1';
+const STORAGE_KEY_SYNC_PASSCODE = 'ai_exam_b_sync_passcode_v1';
+let syncPasscode = '';
 
 // ==========================================
 // 2. Initialization
@@ -3937,6 +4018,8 @@ const STORAGE_KEY_BOOKMARKS = 'ai_exam_b_bookmarks_v1';
 document.addEventListener('DOMContentLoaded', () => {
   loadData();
   loadHistoryFromStorage();
+  initCloudSync(); // クラウド同期の初期化（URLパラメータ検出 & 自動Pull）
+
   // BUG-12: Restore last active set on startup
   if (historyData.lastSet && historyData.lastSet !== 'exam30') {
     currentSet = historyData.lastSet;
@@ -4740,6 +4823,9 @@ function submitCurrentAnswer() {
   renderQuestionNavGrid();
   renderCurrentQuestion();
 
+  // クラウド自動同期（設定されている場合）
+  pushToCloud(true);
+
   // Check 10-question set completion
   checkSetCompletionTrigger();
 }
@@ -5229,6 +5315,7 @@ function setupEventListeners() {
     saveHistoryToStorage();
     renderCurrentQuestion();
     updateFilterCountBadges();
+    pushToCloud(true);
   });
 
   // Video Direct Link
@@ -5386,6 +5473,120 @@ function setupEventListeners() {
       }
     });
   }
+
+  // Cloud Sync Modal Listeners
+  const openSyncModal = () => {
+    const modal = document.getElementById('cloudSyncModal');
+    if (modal) {
+      const input = document.getElementById('syncPasscode');
+      if (input) input.value = syncPasscode;
+      updateSyncStatusUI(!!syncPasscode, syncPasscode ? `☁️ 現在の合言葉: ${syncPasscode}` : '同期キーが未設定です。キーを入力して保存してください。');
+      modal.classList.add('open');
+    }
+  };
+
+  document.getElementById('btnCloudSync')?.addEventListener('click', openSyncModal);
+  document.getElementById('btnCloudSyncSidebar')?.addEventListener('click', openSyncModal);
+
+  document.getElementById('btnSaveSyncKey')?.addEventListener('click', () => {
+    const input = document.getElementById('syncPasscode');
+    const val = input ? input.value.trim() : '';
+    if (!val) {
+      alert('同期キー（合言葉）を入力してください（例: sakura-b）');
+      return;
+    }
+    syncPasscode = val;
+    localStorage.setItem(STORAGE_KEY_SYNC_PASSCODE, syncPasscode);
+    updateSyncStatusUI(true, `合言葉「${syncPasscode}」を保存しました`);
+    pullFromCloud(false);
+  });
+
+  document.getElementById('btnPullCloud')?.addEventListener('click', () => pullFromCloud(false));
+  document.getElementById('btnPushCloud')?.addEventListener('click', () => pushToCloud(false));
+
+  // Copy sync URL for mobile
+  document.getElementById('btnCopySyncUrl')?.addEventListener('click', async () => {
+    const baseUrl = window.location.origin + window.location.pathname;
+    let shareUrl = baseUrl;
+    if (syncPasscode) {
+      shareUrl = `${baseUrl}?key=${encodeURIComponent(syncPasscode)}`;
+    } else {
+      const payload = getSyncPayload();
+      const b64 = btoa(encodeURIComponent(JSON.stringify(payload)));
+      shareUrl = `${baseUrl}?sync=${b64}`;
+    }
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      alert('📋 スマホで開く同期URLをコピーしました！\nLINEやメールでスマホに送り、スマホのブラウザで開くだけで続きから開けます。');
+    } catch (e) {
+      prompt('以下のURLをコピーしてスマホで開いてください：', shareUrl);
+    }
+  });
+
+  // Copy sync code
+  document.getElementById('btnCopySyncCode')?.addEventListener('click', async () => {
+    const payload = getSyncPayload();
+    const b64 = btoa(encodeURIComponent(JSON.stringify(payload)));
+    const syncCode = `AI_B:${b64}`;
+    try {
+      await navigator.clipboard.writeText(syncCode);
+      alert('📋 進捗コードをコピーしました！\nスマホ側で「コードを貼り付けて適用」を押してください。');
+    } catch (e) {
+      prompt('以下の進捗コードをコピーしてスマホ側で適用してください：', syncCode);
+    }
+  });
+
+  // Paste sync code
+  document.getElementById('btnPasteSyncCode')?.addEventListener('click', () => {
+    const code = prompt('コピーした進捗コード（AI_B:...）を貼り付けてください：');
+    if (!code) return;
+    try {
+      const raw = code.replace(/^AI_B:/, '').trim();
+      const json = decodeURIComponent(atob(raw));
+      const imported = JSON.parse(json);
+      if (imported && imported.results) {
+        applyImportedData(imported);
+        alert('✅ 進捗データを正常に反映しました！続きから学習を再開できます。');
+      } else {
+        alert('無効な進捗コードです。');
+      }
+    } catch (e) {
+      alert('進捗コードの解析に失敗しました。正しいコードかご確認ください。');
+    }
+  });
+
+  // Export / Import JSON
+  document.getElementById('btnExportJson')?.addEventListener('click', () => {
+    const payload = getSyncPayload();
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai_exam_b_progress_${getTodayString()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('importJsonInput')?.addEventListener('change', (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const imported = JSON.parse(evt.target.result);
+        if (imported && imported.results) {
+          applyImportedData(imported);
+          alert('✅ JSONファイルから学習進捗を復元しました！');
+        } else {
+          alert('無効な学習履歴JSONファイルです。');
+        }
+      } catch (err) {
+        alert('ファイルの読み込みに失敗しました。');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
 }
 
 function updateModeButtonsUI() {
@@ -5404,6 +5605,172 @@ function updateFilterButtonsUI() {
   document.querySelectorAll('.filter-pill').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.filter === currentFilter);
   });
+}
+
+// ==========================================
+// 8. Cloud & Multi-Device Sync (Vercel API & Sync Code)
+// ==========================================
+function getSyncPayload() {
+  return {
+    results: historyData.results || {},
+    bookmarks: Array.from(historyData.bookmarks || []),
+    dailyActivity: historyData.dailyActivity || {},
+    lastQuestionId: historyData.lastQuestionId || 1,
+    lastSet: historyData.lastSet || currentSet || 'all',
+    updatedAt: Date.now()
+  };
+}
+
+function initCloudSync() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const keyParam = params.get('key');
+    const syncParam = params.get('sync');
+
+    if (syncParam) {
+      try {
+        const json = decodeURIComponent(atob(syncParam));
+        const imported = JSON.parse(json);
+        if (imported && imported.results) {
+          applyImportedData(imported);
+          // Clean URL parameter without reload
+          window.history.replaceState({}, document.title, window.location.pathname);
+          showToastNotification('✅ URLから学習進捗を復元しました！');
+        }
+      } catch (e) {
+        console.warn('Failed to parse ?sync URL param:', e);
+      }
+    }
+
+    if (keyParam) {
+      syncPasscode = keyParam.trim();
+      localStorage.setItem(STORAGE_KEY_SYNC_PASSCODE, syncPasscode);
+    } else {
+      syncPasscode = localStorage.getItem(STORAGE_KEY_SYNC_PASSCODE) || '';
+    }
+
+    // Auto pull from cloud if syncPasscode exists
+    if (syncPasscode) {
+      pullFromCloud(true);
+    }
+  } catch (e) {
+    console.warn('initCloudSync error:', e);
+  }
+}
+
+function updateSyncStatusUI(success, msg) {
+  const statusEl = document.getElementById('syncKeyStatusText');
+  if (statusEl) {
+    statusEl.textContent = msg;
+    statusEl.style.color = success ? 'var(--success-color)' : 'var(--danger-color)';
+  }
+}
+
+async function pushToCloud(isSilent = false) {
+  if (!syncPasscode) return;
+
+  const payload = getSyncPayload();
+
+  try {
+    const res = await fetch(`/api/sync?key=${encodeURIComponent(syncPasscode)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      updateSyncStatusUI(true, `☁️ クラウド同期中（合言葉: ${syncPasscode}）`);
+      if (!isSilent) alert('✅ クラウドへ学習履歴を保存（同期）しました！');
+    }
+  } catch (err) {
+    console.warn('Cloud sync push warning:', err);
+    if (!isSilent) alert('クラウド保存に失敗しました。通信環境をご確認ください。');
+  }
+}
+
+async function pullFromCloud(isSilent = false) {
+  if (!syncPasscode) {
+    if (!isSilent) alert('同期キー（合言葉）が設定されていません。');
+    return;
+  }
+
+  try {
+    const res = await fetch(`/api/sync?key=${encodeURIComponent(syncPasscode)}&_t=${Date.now()}`, {
+      cache: 'no-store'
+    });
+
+    if (res.ok) {
+      const cloudData = await res.json();
+      if (cloudData && typeof cloudData === 'object' && cloudData.results) {
+        applyImportedData(cloudData);
+        updateSyncStatusUI(true, `☁️ クラウド最新データと同期完了（合言葉: ${syncPasscode}）`);
+        if (!isSilent) alert('✅ クラウドから最新の学習進捗を取得しました！');
+      }
+    } else if (res.status === 404) {
+      // First time with this passcode
+      if (isSilent) {
+        pushToCloud(true);
+      } else {
+        updateSyncStatusUI(true, `合言葉「${syncPasscode}」の新規作成準備完了`);
+      }
+    }
+  } catch (err) {
+    console.warn('Cloud sync pull warning:', err);
+    if (!isSilent) alert('クラウドからの取得に失敗しました。通信環境をご確認ください。');
+  }
+}
+
+function applyImportedData(data) {
+  if (!data || typeof data !== 'object') return;
+
+  historyData.results = { ...historyData.results, ...(data.results || {}) };
+  if (Array.isArray(data.bookmarks)) {
+    historyData.bookmarks = new Set([...historyData.bookmarks, ...data.bookmarks]);
+  }
+  if (data.dailyActivity) {
+    historyData.dailyActivity = { ...historyData.dailyActivity, ...data.dailyActivity };
+  }
+  if (data.lastQuestionId) {
+    historyData.lastQuestionId = data.lastQuestionId;
+  }
+  if (data.lastSet && data.lastSet !== 'exam30') {
+    historyData.lastSet = data.lastSet;
+    currentSet = data.lastSet;
+    updateSetButtonsUI();
+  }
+
+  saveHistoryToStorage();
+  updateStreakDisplay();
+  applyCurrentSetAndFilter(true);
+}
+
+function showToastNotification(msg) {
+  let toast = document.getElementById('syncToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'syncToast';
+    toast.style.position = 'fixed';
+    toast.style.bottom = '24px';
+    toast.style.right = '24px';
+    toast.style.background = '#1e293b';
+    toast.style.color = '#ffffff';
+    toast.style.padding = '12px 20px';
+    toast.style.borderRadius = 'var(--radius-md)';
+    toast.style.boxShadow = 'var(--shadow-lg)';
+    toast.style.fontSize = '0.9rem';
+    toast.style.fontWeight = '600';
+    toast.style.zIndex = '9999';
+    toast.style.transition = 'opacity 0.3s ease';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.display = 'block';
+  toast.style.opacity = '1';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => { toast.style.display = 'none'; }, 300);
+  }, 3000);
 }
 
   </script>

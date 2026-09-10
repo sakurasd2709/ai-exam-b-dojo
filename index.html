@@ -22,7 +22,11 @@
         <h1>過去問・演習道場</h1>
       </div>
     </div>
-    <div class="header-right">
+      <button id="btnCloudSync" class="header-btn" title="端末間での進捗同期（PC・スマホ連携）">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        <span>☁️ クラウド同期</span>
+      </button>
+
       <button id="btnWeaknessAnalysis" class="header-btn" title="7大分野の弱点分析 & レーダーチャート">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
         <span>📊 弱点分析</span>
@@ -150,6 +154,10 @@
 
         <!-- Sidebar Footer -->
         <div class="sidebar-footer-area">
+          <button id="btnCloudSyncSidebar" class="sidebar-reset-btn" style="color: var(--primary-color); border-color: var(--primary-border); margin-bottom: 6px;" title="スマホとPCの学習進捗を同期">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            <span>☁️ クラウド同期設定</span>
+          </button>
           <button id="btnResetHistory" class="sidebar-reset-btn" title="学習履歴をリセット">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
             <span>学習履歴のリセット</span>
@@ -282,6 +290,77 @@
       </div>
       <div class="modal-body" id="setSummaryBody" style="text-align: center; padding: 24px;">
         <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Cloud Sync Settings -->
+  <div id="cloudSyncModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 560px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>☁️ クラウド学習履歴 同期設定</span>
+        </div>
+        <button class="modal-close-btn" data-close="cloudSyncModal">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px 24px;">
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+          スマホとPCで同じ<strong>「同期キー（あなたの合言葉）」</strong>を入力すると、回答履歴や前回の問題が端末間で自動同期されます。
+        </p>
+
+        <!-- Section 1: Auto Cloud Sync -->
+        <div style="background: var(--bg-hover); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>① クラウド自動同期 (推奨)</span>
+            <span style="font-size: 0.72rem; background: var(--success-light); color: var(--success-color); padding: 2px 6px; border-radius: 4px; font-weight: 700;">リアルタイム</span>
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 10px;">
+            英数字で自由に決めてください（例: <code>sakura-ai</code>）
+          </div>
+          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+            <input type="text" id="syncPasscode" style="flex: 1; padding: 8px 12px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.9rem;" placeholder="例: sakura-b">
+            <button id="btnSaveSyncKey" class="primary-btn" style="padding: 8px 16px; font-size: 0.88rem; white-space: nowrap;">保存して同期</button>
+          </div>
+          <div id="syncKeyStatusText" style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">
+            同期キーが未設定です。キーを入力して保存してください。
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button id="btnPullCloud" class="secondary-btn" style="flex: 1; padding: 8px 10px; font-size: 0.82rem;">☁️ クラウドから取得</button>
+            <button id="btnPushCloud" class="secondary-btn" style="flex: 1; padding: 8px 10px; font-size: 0.82rem;">☁️ クラウドへ保存</button>
+          </div>
+        </div>
+
+        <!-- Section 2: One-click URL / Code -->
+        <div style="background: var(--bg-hover); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>② 進捗コード / 同期URL (即時共有)</span>
+            <span style="font-size: 0.72rem; background: var(--primary-light); color: var(--primary-color); padding: 2px 6px; border-radius: 4px; font-weight: 700;">かんたん</span>
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 10px;">
+            PCの学習進捗URLをLINEやメールでスマホに送るだけで、開いた瞬間に続きから再開できます。
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button id="btnCopySyncUrl" class="primary-btn" style="padding: 9px 12px; font-size: 0.88rem; width: 100%;">
+              🔗 スマホで開く同期URLをコピー
+            </button>
+            <div style="display: flex; gap: 8px;">
+              <button id="btnCopySyncCode" class="secondary-btn" style="flex: 1; padding: 7px 10px; font-size: 0.82rem;">📋 進捗コードをコピー</button>
+              <button id="btnPasteSyncCode" class="secondary-btn" style="flex: 1; padding: 7px 10px; font-size: 0.82rem;">📥 コードを貼り付けて適用</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Backup / Offline -->
+        <div style="font-size: 0.82rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+          <span>バックアップ用:</span>
+          <div style="display: flex; gap: 8px;">
+            <button id="btnExportJson" class="secondary-btn" style="padding: 4px 8px; font-size: 0.75rem;">JSON保存</button>
+            <label class="secondary-btn" style="padding: 4px 8px; font-size: 0.75rem; cursor: pointer; margin: 0;">
+              <span>JSON復元</span>
+              <input type="file" id="importJsonInput" accept=".json" style="display: none;">
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
