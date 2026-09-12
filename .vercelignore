@@ -1,0 +1,11 @@
+# Files not needed on Vercel hosting
+scripts/
+*.md
+requirements.txt
+.env.example
+AI*.html
+slides_*
+*.json
+!data/*.json
+!vercel.json
+!package.json
