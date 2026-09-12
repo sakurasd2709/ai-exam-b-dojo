@@ -1,6 +1,18 @@
 # scripts/qa_test_suite.py
 import json
 import sys
+import os
+from pathlib import Path
+
+# Safe UTF-8 console output for Windows (cp932) / macOS / Linux
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
+# Project root directory anchor
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 def run_qa_suite():
     print("=" * 60)
@@ -8,7 +20,8 @@ def run_qa_suite():
     print("=" * 60)
 
     # 1. Load Questions Data
-    with open("data/questions.json", "r", encoding="utf-8") as f:
+    questions_file = PROJECT_ROOT / "data" / "questions.json"
+    with open(questions_file, "r", encoding="utf-8") as f:
         questions = json.load(f)
 
     print(f"\n[Test 1] 設問総数検証: 全 {len(questions)} 問")
@@ -80,7 +93,8 @@ def run_qa_suite():
 
     # 5. Video Catalog Check
     print("\n[Test 5] 公式動画カタログ (全41講) 完全性検証")
-    with open("data/video_catalog.json", "r", encoding="utf-8") as f:
+    catalog_file = PROJECT_ROOT / "data" / "video_catalog.json"
+    with open(catalog_file, "r", encoding="utf-8") as f:
         catalog = json.load(f)
     assert len(catalog) == 41, f"Expected 41 videos, got {len(catalog)}"
     print(f"  -> PASS: 全41講義のメタデータが正常に登録されています。")
