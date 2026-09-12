@@ -134,9 +134,9 @@ python scripts/qa_test_suite.py
 
 ※npm 経由でも実行可能です：
 ```bash
-npm run assemble  # 設問データ統合
-npm run build     # 単一HTML生成
-npm test          # QAテスト実行
+npm run assemble      # 設問データ統合
+npm run build:single  # 単一HTML生成
+npm test              # QAテスト実行
 ```
 
 ---

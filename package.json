@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "python -m http.server 8080",
-    "build": "python scripts/build_single_file.py",
+    "build": "node -e \"console.log('Static site ready for Vercel')\"",
+    "build:single": "python scripts/build_single_file.py",
     "assemble": "python scripts/assemble_questions.py",
     "test": "python scripts/qa_test_suite.py"
   },
