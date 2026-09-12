@@ -16,6 +16,7 @@ let currentFilter = 'all'; // 'all' | 'incorrect' | 'bookmarked' | 'unanswered'
 
 let userAnswers = {}; // { [questionId]: answerData }
 let sessionCheckedQuestions = new Set();
+let retryingQuestions = new Set(); // Set of question IDs currently being re-solved from scratch
 
 let historyData = {
   results: {}, // { [questionId]: { isCorrect: boolean, answeredAt: string } }
@@ -391,35 +392,43 @@ function renderCurrentQuestion() {
   const answerArea = document.getElementById('answerArea');
   answerArea.innerHTML = '';
 
-  const isChecked = (currentMode === 'practice' && sessionCheckedQuestions.has(q.id)) ||
-                    (currentMode === 'practice' && historyData.results[q.id]);
+  // 間違えた問題の解き直し時、または「解き直す」ボタン押下時は、過去の正解・解説を隠して未回答状態からスタート
+  const isRetrying = (currentFilter === 'incorrect') || retryingQuestions.has(q.id);
+  const isChecked = currentMode === 'practice' && 
+                    (sessionCheckedQuestions.has(q.id) || (!isRetrying && historyData.results[q.id])) &&
+                    !retryingQuestions.has(q.id);
 
   if (q.type === 'ox_choice') {
-    renderOxChoice(answerArea, q, isChecked);
+    renderOxChoice(answerArea, q, isChecked, isRetrying);
   } else if (q.type === 'single_choice') {
-    renderSingleChoice(answerArea, q, isChecked);
+    renderSingleChoice(answerArea, q, isChecked, isRetrying);
   } else if (q.type === 'drag_and_drop_order') {
-    renderDndOrder(answerArea, q, isChecked);
+    renderDndOrder(answerArea, q, isChecked, isRetrying);
   } else if (q.type === 'drag_and_drop_matching') {
-    renderMatching(answerArea, q, isChecked);
+    renderMatching(answerArea, q, isChecked, isRetrying);
   } else if (q.type === 'hotspot_radio_table') {
-    renderHotspotTable(answerArea, q, isChecked);
+    renderHotspotTable(answerArea, q, isChecked, isRetrying);
   }
 
-  // Explanation Area
+  // Explanation Area & Action Controls
   const expArea = document.getElementById('explanationArea');
+  const btnSubmit = document.getElementById('btnSubmitAnswer');
+  const btnRetry = document.getElementById('btnRetryQuestion');
+
   if (isChecked && currentMode === 'practice') {
     renderExplanation(expArea, q);
     expArea.classList.remove('hidden');
-    document.getElementById('btnSubmitAnswer').textContent = '回答済み（再採点）';
+    btnSubmit.textContent = '回答済み（再採点）';
+    if (btnRetry) btnRetry.classList.remove('hidden');
   } else {
     expArea.classList.add('hidden');
-    document.getElementById('btnSubmitAnswer').textContent = '回答を確認する';
+    btnSubmit.textContent = '回答を確認する';
+    if (btnRetry) btnRetry.classList.add('hidden');
   }
 }
 
 // 5.1 Render OX Choice
-function renderOxChoice(container, q, isChecked) {
+function renderOxChoice(container, q, isChecked, isRetrying = false) {
   container.innerHTML = '';
   const oxDiv = document.createElement('div');
   oxDiv.className = 'ox-container';
@@ -437,7 +446,10 @@ function renderOxChoice(container, q, isChecked) {
       <div class="ox-text">${opt.label}</div>
     `;
 
-    const currentVal = userAnswers[q.id] !== undefined ? userAnswers[q.id] : historyData.results[q.id]?.selectedAnswer;
+    // 解き直し時（isRetryingかつまだ回答確定していない場合）は過去の選択肢を復元しない
+    const currentVal = (isRetrying && !isChecked)
+      ? userAnswers[q.id]
+      : (userAnswers[q.id] !== undefined ? userAnswers[q.id] : historyData.results[q.id]?.selectedAnswer);
     const isSelected = currentVal === opt.label;
     if (isSelected) btn.classList.add('selected');
 
@@ -451,7 +463,7 @@ function renderOxChoice(container, q, isChecked) {
 
     btn.addEventListener('click', () => {
       userAnswers[q.id] = opt.label;
-      renderOxChoice(container, q, isChecked);
+      renderOxChoice(container, q, isChecked, isRetrying);
     });
 
     oxDiv.appendChild(btn);
@@ -461,7 +473,7 @@ function renderOxChoice(container, q, isChecked) {
 }
 
 // 5.2 Render Single Choice
-function renderSingleChoice(container, q, isChecked) {
+function renderSingleChoice(container, q, isChecked, isRetrying = false) {
   container.innerHTML = '';
   const listDiv = document.createElement('div');
   listDiv.className = 'options-container';
@@ -470,7 +482,10 @@ function renderSingleChoice(container, q, isChecked) {
     const item = document.createElement('div');
     item.className = 'option-item';
 
-    const currentVal = userAnswers[q.id] !== undefined ? userAnswers[q.id] : historyData.results[q.id]?.selectedAnswer;
+    // 解き直し時（isRetryingかつまだ回答確定していない場合）は過去の選択肢を復元しない
+    const currentVal = (isRetrying && !isChecked)
+      ? userAnswers[q.id]
+      : (userAnswers[q.id] !== undefined ? userAnswers[q.id] : historyData.results[q.id]?.selectedAnswer);
     const isSelected = currentVal === optText;
     if (isSelected) item.classList.add('selected');
 
@@ -489,7 +504,7 @@ function renderSingleChoice(container, q, isChecked) {
 
     item.addEventListener('click', () => {
       userAnswers[q.id] = optText;
-      renderSingleChoice(container, q, isChecked);
+      renderSingleChoice(container, q, isChecked, isRetrying);
     });
 
     listDiv.appendChild(item);
@@ -499,11 +514,11 @@ function renderSingleChoice(container, q, isChecked) {
 }
 
 // 5.3 Render Drag and Drop Order (with Arrow Buttons for mobile friendliness)
-function renderDndOrder(container, q, isChecked) {
+function renderDndOrder(container, q, isChecked, isRetrying = false) {
   container.innerHTML = '';
   if (!userAnswers[q.id] || !Array.isArray(userAnswers[q.id])) {
-    // BUG-10: Restore previous arrangement from selectedAnswer if available
-    if (historyData.results[q.id]?.selectedAnswer && Array.isArray(historyData.results[q.id].selectedAnswer)) {
+    // 解き直し時は過去の並び順を復元せずシャッフル初期化
+    if (!isRetrying && historyData.results[q.id]?.selectedAnswer && Array.isArray(historyData.results[q.id].selectedAnswer)) {
       userAnswers[q.id] = [...historyData.results[q.id].selectedAnswer];
     } else {
       userAnswers[q.id] = shuffleArray(q.options);
@@ -547,7 +562,7 @@ function renderDndOrder(container, q, isChecked) {
       const temp = userAnswers[q.id][idx];
       userAnswers[q.id][idx] = userAnswers[q.id][idx - 1];
       userAnswers[q.id][idx - 1] = temp;
-      renderDndOrder(container, q, isChecked);
+      renderDndOrder(container, q, isChecked, isRetrying);
     });
 
     item.querySelector('[data-down]')?.addEventListener('click', (e) => {
@@ -555,7 +570,7 @@ function renderDndOrder(container, q, isChecked) {
       const temp = userAnswers[q.id][idx];
       userAnswers[q.id][idx] = userAnswers[q.id][idx + 1];
       userAnswers[q.id][idx + 1] = temp;
-      renderDndOrder(container, q, isChecked);
+      renderDndOrder(container, q, isChecked, isRetrying);
     });
 
     list.appendChild(item);
@@ -566,10 +581,12 @@ function renderDndOrder(container, q, isChecked) {
 }
 
 // 5.4 Render Matching
-function renderMatching(container, q, isChecked) {
+function renderMatching(container, q, isChecked, isRetrying = false) {
   container.innerHTML = '';
   if (!userAnswers[q.id] || typeof userAnswers[q.id] !== 'object') {
-    userAnswers[q.id] = historyData.results[q.id]?.selectedAnswer ? { ...historyData.results[q.id].selectedAnswer } : {};
+    userAnswers[q.id] = (!isRetrying && historyData.results[q.id]?.selectedAnswer) 
+      ? { ...historyData.results[q.id].selectedAnswer } 
+      : {};
   }
 
   const matchDiv = document.createElement('div');
@@ -624,10 +641,12 @@ function renderMatching(container, q, isChecked) {
 }
 
 // 5.5 Render Hotspot Table
-function renderHotspotTable(container, q, isChecked) {
+function renderHotspotTable(container, q, isChecked, isRetrying = false) {
   container.innerHTML = '';
   if (!userAnswers[q.id] || typeof userAnswers[q.id] !== 'object') {
-    userAnswers[q.id] = historyData.results[q.id]?.selectedAnswer ? { ...historyData.results[q.id].selectedAnswer } : {};
+    userAnswers[q.id] = (!isRetrying && historyData.results[q.id]?.selectedAnswer) 
+      ? { ...historyData.results[q.id].selectedAnswer } 
+      : {};
   }
 
   const table = document.createElement('table');
@@ -828,6 +847,7 @@ function submitCurrentAnswer() {
   };
 
   sessionCheckedQuestions.add(q.id);
+  retryingQuestions.delete(q.id);
 
   // BUG-05: Guard against activity inflation on repeated submissions
   if (!alreadyAnsweredToday) {
@@ -1286,6 +1306,9 @@ function showSetSummaryModal() {
   body.querySelector('#btnRetryIncorrectInSet')?.addEventListener('click', () => {
     modal.classList.remove('open');
     currentFilter = 'incorrect';
+    sessionCheckedQuestions.clear();
+    retryingQuestions.clear();
+    userAnswers = {};
     updateFilterButtonsUI();
     applyCurrentSetAndFilter();
   });
@@ -1315,6 +1338,16 @@ function setupEventListeners() {
   });
 
   document.getElementById('btnSubmitAnswer').addEventListener('click', submitCurrentAnswer);
+
+  // 最初から解き直すボタン
+  document.getElementById('btnRetryQuestion')?.addEventListener('click', () => {
+    if (activeQuestions.length === 0) return;
+    const q = activeQuestions[currentQuestionIndex];
+    retryingQuestions.add(q.id);
+    sessionCheckedQuestions.delete(q.id);
+    delete userAnswers[q.id];
+    renderCurrentQuestion();
+  });
 
   // Resume last
   document.getElementById('btnResumeLast').addEventListener('click', () => {
@@ -1411,6 +1444,11 @@ function setupEventListeners() {
   document.querySelectorAll('.filter-pill').forEach(btn => {
     btn.addEventListener('click', () => {
       currentFilter = btn.dataset.filter;
+      if (currentFilter === 'incorrect') {
+        sessionCheckedQuestions.clear();
+        retryingQuestions.clear();
+        userAnswers = {};
+      }
       updateFilterButtonsUI();
       applyCurrentSetAndFilter();
     });
@@ -1448,6 +1486,7 @@ function setupEventListeners() {
       historyData.bookmarks.clear();
       historyData.dailyActivity = {};
       sessionCheckedQuestions.clear();
+      retryingQuestions.clear();
       userAnswers = {};
       saveHistoryToStorage();
       updateStreakDisplay();

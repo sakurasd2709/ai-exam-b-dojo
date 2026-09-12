@@ -211,7 +211,10 @@
 
         <!-- Action Bar -->
         <div class="action-bar">
-          <button id="btnSubmitAnswer" class="primary-btn">回答を確認する</button>
+          <div class="submit-controls" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <button id="btnSubmitAnswer" class="primary-btn">回答を確認する</button>
+            <button id="btnRetryQuestion" class="secondary-btn hidden" title="この問題を最初から解き直す">🔄 解き直す</button>
+          </div>
           <div class="nav-controls">
             <button id="btnPrevQuestion" class="secondary-btn">← 前へ</button>
             <button id="btnNextQuestion" class="secondary-btn">次へ →</button>
